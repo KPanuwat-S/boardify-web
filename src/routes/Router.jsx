@@ -7,7 +7,9 @@ import SidebarRouter from "./SidebarRouter";
 import BoardDetail from "../pages/BoardDetail";
 import Boards from "../pages/Boards";
 import WorkspaceDetail from "../pages/WorkspaceDetail";
-
+import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthenticated";
+import RegisterPage from "../pages/RegisterPage";
+import LoginPage from "../pages/LoginPage";
 function Router() {
   const router = createBrowserRouter([
     {
@@ -24,7 +26,24 @@ function Router() {
         { path: "/boards", element: <Boards /> },
         { path: "/boardDetail/:id", element: <BoardDetail /> },
         { path: "/workspaceDetail/:id", element: <WorkspaceDetail /> },
+        { path: "/login", element: <LoginPage /> },
       ],
+    },
+    {
+      path: "/login",
+      element: (
+        <RedirectIfAuthenticated>
+          <LoginPage />
+        </RedirectIfAuthenticated>
+      ),
+    },
+    {
+      path: "/register",
+      element: (
+        <RedirectIfAuthenticated>
+          <RegisterPage />
+        </RedirectIfAuthenticated>
+      ),
     },
     // {
     //   path: "/workspace",
