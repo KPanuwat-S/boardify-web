@@ -11,7 +11,7 @@ import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthe
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import MemberPage from "../pages/MemberPage";
-import Task from "../components/Task";
+import Task from "../components/Tasks/Task";
 
 function Router() {
   const router = createBrowserRouter([
