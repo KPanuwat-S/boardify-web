@@ -1,11 +1,21 @@
+import { useState } from "react";
 import { MeatballsIcon } from "../../icons";
+import Avatar from "../../assets/Avatar.jpg";
 
 export default function SideBar() {
+  const [hover, setHover] = useState(false);
+
+  const handleMouseOver = () => {
+    setHover(true);
+  };
+  const handleMouseOut = () => {
+    setHover(false);
+  };
   return (
     <>
-      <div className="">
+      <div className="bg-yellow-300">
         {/* BOARDS BOX */}
-        <div>Boards</div>
+        <div className="px-4">Boards</div>
         {/* MEMBER BOX */}
         <div tabIndex={0} className="collapse collapse-plus  ">
           <div className="collapse-title ">Members</div>
@@ -21,7 +31,6 @@ export default function SideBar() {
           </div>
         </div>
         {/* YOUR BOARD BOX */}
-
         <div>
           <div tabIndex={0} className="collapse collapse-plus ">
             <div className="collapse-title ">Your boards</div>
@@ -31,17 +40,28 @@ export default function SideBar() {
               </p>
             </div>
           </div>
-          <div className="bg-red-400 flex justify-between">
-            <div>My board 1</div>
-            <MeatballsIcon className="w-3" />
-          </div>
-          <div className="bg-red-400 flex justify-between">
-            <div>My board 2</div>
-            <MeatballsIcon className="w-3" />
-          </div>
-          <div className="bg-red-400 flex justify-between">
-            <div>My board 3</div>
-            <MeatballsIcon className="w-3" />
+
+          {/* MY BOARD */}
+
+          <div
+            className="px-4 flex justify-between bg-lime-400"
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            <div className="flex gap-2 items-end">
+              <div className="avatar">
+                <div className="w-8 rounded-xl">
+                  <img src={Avatar} />
+                </div>
+              </div>
+
+              <div>My board 1</div>
+            </div>
+            {hover && (
+              <div>
+                <MeatballsIcon />
+              </div>
+            )}
           </div>
         </div>
       </div>
