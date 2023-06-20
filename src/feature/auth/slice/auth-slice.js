@@ -14,12 +14,12 @@ const initialState = {
 export const registerAsync = createAsyncThunk(
   "auth/registerAsync",
   async (input, thunkApi) => {
-    console.log(input);
     try {
       const res = await authService.register(input);
-      setAccessToken(res.data.accessToken);
-      const fetchMe = await authService.fetchProfile();
-      return fetchMe.data.user;
+      // setAccessToken(res.data.accessToken);
+      // const fetchMe = await authService.fetchProfile();
+      console.log(res);
+      // return fetchMe.data.user;
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data.message);
     }

@@ -1,9 +1,10 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import validateRegister from "../../../validator/validate-register";
 import useForm from "../../../hooks/useForm";
-import { useDispatch } from "react-redux";
-import { registerAsync } from "../slice/auth-slice";
+
 import RegisterInput from "./RegisterInput";
+import { registerAsync } from "../slice/auth-slice";
 const initialInput = {
   firstName: "",
   lastName: "",
@@ -16,12 +17,13 @@ export default function () {
     initialInput,
     validateRegister
   );
-  console.log(error);
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const onSubmit = async () => {
     try {
-      console.log(input);
       await dispatch(registerAsync(input)).unwrap();
+      // navigate("/");
     } catch (error) {
       console.log(error);
     }

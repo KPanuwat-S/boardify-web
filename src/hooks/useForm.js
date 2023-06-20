@@ -5,7 +5,6 @@ export default function useForm(initialState, validate) {
   const [error, setError] = useState({});
 
   const handleChangeInput = (e) => {
-    console.log({ ...input, [e.target.name]: e.target.value });
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   const handleSubmitForm = (onSubmit) => async (e) => {
