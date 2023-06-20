@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import * as authService from "../../../api/auth-api";
+// import { setAccessToken } from "../../../utils/localstorage";
 import { setAccessToken } from "../../../utils/localstorage";
+
 // import { removeAccessToken } from "../../../utils/localstorage";
 
 const initialState = {
