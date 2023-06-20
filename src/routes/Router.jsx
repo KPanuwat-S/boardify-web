@@ -10,6 +10,9 @@ import WorkspaceDetail from "../pages/WorkspaceDetail";
 import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthenticated";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
+import MemberPage from "../pages/MemberPage";
+import Task from "../components/Task";
+
 function Router() {
   const router = createBrowserRouter([
     {
@@ -27,6 +30,8 @@ function Router() {
         { path: "/boardDetail/:id", element: <BoardDetail /> },
         { path: "/workspaceDetail/:id", element: <WorkspaceDetail /> },
         { path: "/login", element: <LoginPage /> },
+        { path: "/member/:id", element: <MemberPage /> },
+        { path: "/task", element: <Task /> },
       ],
     },
     {
