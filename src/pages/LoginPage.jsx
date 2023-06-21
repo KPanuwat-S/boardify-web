@@ -1,7 +1,40 @@
 import LoginForm from "../features/auth/components/LoginForm";
 import RegisterContainer from "../features/auth/components/RegisterContainer";
-
+import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { gapi } from "gapi-script";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { googleLogin } from "../features/auth/Slice/auth-slice";
 export default function LoginPage() {
+  const dispatch = useDispatch();
+  const clientId =
+    "454033013538-3m4ro3a88tgldk3p2pof8ema4j2aghu0.apps.googleusercontent.com";
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "",
+      });
+    };
+    gapi.load("client:auth2", initClient);
+  }, []);
+
+  const onSuccess = (res) => {
+    setProfile(res.profileObj);
+    dispatch(googleLogin(res));
+    console.log("onSuccessFn working", res);
+  };
+
+  const onFailure = (res) => {
+    console.log("fail", res);
+  };
+
+  const logOut = () => {
+    setProfile(null);
+  };
+
   return (
     <div>
       <div className=" flex justify-center gap-5">
@@ -23,15 +56,34 @@ export default function LoginPage() {
           <div>
             <p className="font-thin text-gray-600 ">OR</p>
           </div>
+
           {/* GOOGLE lOGIN */}
-          <div className="flex google-btn items-center gap-3 ">
-            <div className="google-icon-wrapper">
-              <img
-                className="google-icon w-8"
-                src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-              />
-            </div>
-            <b>Sign in with google</b>
+          <div className="">
+            {profile ? (
+              <div>
+                <h3>User Logged in</h3>
+                <p>Name: {profile.name}</p>
+                <p>Email: {profile.email}</p>
+                <br />
+                <br />
+                <GoogleLogout
+                  clientId={clientId}
+                  buttonText="Log Out"
+                  onLogoutSuccess={logOut}
+                />
+              </div>
+            ) : (
+              <div>
+                <GoogleLogin
+                  clientId={clientId}
+                  buttonText="Sign in with Google"
+                  onSuccess={onSuccess}
+                  onFailure={onFailure}
+                  cookiePolicy={"single_host_origin"}
+                  isSignedIn={true}
+                />
+              </div>
+            )}
           </div>
           {/* <RegisterContainer /> */}
           <div>
