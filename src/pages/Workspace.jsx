@@ -18,7 +18,7 @@ function Workspace() {
           </div>
         </Link>
 
-        <Link>
+        <Link to={`/member/${id}`}>
           <div className="flex items-center justify-center gap-1 p-2 bg-gray-100 hover:bg-gray-200 rounded-[4px] duration-200">
             <i class="fa-regular fa-user text-gray-500 w-5"></i>
             <p className="text-gray-500">Member (6)</p>

@@ -25,7 +25,9 @@ function Header() {
         </div>
       </div>
       <div className="flex items-center justify-center w-10">
-        <i class="fa-regular fa-user text-gray-800 mr-5"></i>
+        <Link to="/login">
+          <i class="fa-regular fa-user text-gray-800 mr-5"></i>
+        </Link>
       </div>
     </div>
   );
