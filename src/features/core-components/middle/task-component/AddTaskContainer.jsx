@@ -26,7 +26,7 @@ export default function AddTaskContainer() {
           <Modal
             title="Invite to Workspace"
             width="27"
-            closeModal={setOpenModal}
+            onClose={() => setOpenModal(false)}
           >
             <div>PUT MODAL EDIT TASK HERE</div>
           </Modal>

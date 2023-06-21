@@ -24,7 +24,7 @@ export default function AddMemberContainer() {
           className="bg-lime-800"
           title="Invite to Workspace"
           width="27"
-          closeModal={setOpenModal}
+          onClose={() => setOpenModal(false)}
         >
           <div className="bg-lime-800">
             Invite someone to this Workspace with a link
