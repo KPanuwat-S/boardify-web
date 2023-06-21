@@ -6,4 +6,5 @@ html {
   background-color: #f9fafc;
   font-family: "Poppins", sans-serif;
   color: #253858;
+  overflow: hidden;
 }
