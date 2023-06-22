@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import DropDownEL from "../components/DropDownEl";
+import CreateButton from "../components/CreateButton";
+
 function Header() {
   const [open, setOpen] = useState(false);
   return (
@@ -19,9 +21,9 @@ function Header() {
               data={["Work Space 1", "Work Space 2"]}
             />
           </div>
-          <button className=" bg-blue-600 hover:bg-blue-700 duration-200 text-white py-1 px-2 rounded-[4px] focus:outline-none focus:ring focus:ring-gray-300">
-            Create
-          </button>
+          <div>
+            <CreateButton />
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-center w-10">

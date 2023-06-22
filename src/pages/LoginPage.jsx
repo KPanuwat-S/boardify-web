@@ -1,6 +1,8 @@
 import LoginForm from "../features/auth/components/LoginForm";
 import RegisterContainer from "../features/auth/components/RegisterContainer";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
+// LoginSocial react-js-social
+// reactjs-social-login
 import { gapi } from "gapi-script";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
