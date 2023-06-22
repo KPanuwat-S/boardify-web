@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { PenIcon } from "../../../../icons";
+import Modal from "../../../../components/Modal";
 export default function TaskForm() {
+  const [openModal, setOpenModal] = useState(false);
   const [hover, setHover] = useState(false);
 
   const handleMouseOver = () => {
@@ -18,7 +20,12 @@ export default function TaskForm() {
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
       >
-        <div className="flex justify-between bg-white p-4 w-full mx-5 my-2 h-fit">
+        <div
+          className="flex justify-between bg-white hover:bg-[#e9e9e98e]  p-4 w-full mx-5 my-2 h-fit"
+          onClick={() => {
+            setOpenModal(true);
+          }}
+        >
           <div>Task</div>
           {hover && (
             <div>
@@ -27,6 +34,12 @@ export default function TaskForm() {
           )}
         </div>
       </div>
+      {openModal && (
+        <Modal
+          title="Invite to Workspace"
+          onClose={() => setOpenModal(false)}
+        ></Modal>
+      )}
     </>
   );
 }

@@ -6,7 +6,7 @@ export default function AddCardContainer() {
   return (
     <>
       <div
-        className="cursor-pointer bg-[#F1F2F4] hover:bg-[#7f7f7f8e] rounded-2xl h-fit w-[320px] p-3  flex items-end gap-2"
+        className="cursor-pointer bg-[#F1F2F4] hover:bg-[#cacaca8e] rounded-2xl h-fit w-[320px] p-3  flex items-end gap-2"
         onClick={() => {
           setOpenModal(true);
         }}

@@ -17,6 +17,25 @@ export function MeatballsIcon() {
     </svg>
   );
 }
+export function MeatballsIcon2() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      height="1.75rem"
+      width="1.75rem"
+    >
+      <g>
+        <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
+          <path d="M0 0H24V24H0z"></path>
+          <path fill="#030819" d="M5 14a2 2 0 100-4 2 2 0 000 4z"></path>
+          <path fill="#030819" d="M12 14a2 2 0 100-4 2 2 0 000 4z"></path>
+          <path fill="#030819" d="M19 14a2 2 0 100-4 2 2 0 000 4z"></path>
+        </g>
+      </g>
+    </svg>
+  );
+}
 
 export function AddIcon() {
   return (
@@ -90,6 +109,75 @@ export function MenuIcon() {
     >
       <g>
         <path d="M54.82 18.73H42.14a2 2 0 010-4h12.68a2 2 0 010 4zM29.13 18.73H9.18a2 2 0 010-4h20a2 2 0 010 4zM54.82 34H9.18a2 2 0 010-4h45.64a2 2 0 010 4zM33.93 49.27H9.18a2 2 0 010-4h24.75a2 2 0 010 4z"></path>
+      </g>
+    </svg>
+  );
+}
+export function TimeIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      height="1.75rem"
+      width="1.75rem"
+    >
+      <g stroke="#000" strokeWidth="2">
+        <path strokeLinecap="round" d="M12 8v4l3 3"></path>
+        <circle cx="12" cy="12" r="9"></circle>
+      </g>
+    </svg>
+  );
+}
+export function AddCircleIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <g
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      >
+        <g opacity="0.4">
+          <path d="M8 12h8M12 16V8"></path>
+        </g>
+        <path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7z"></path>
+      </g>
+    </svg>
+  );
+}
+export function AddWhiteIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <g>
+        <g>
+          <g
+            fill="none"
+            stroke="#fff"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            data-name="add"
+          >
+            <path d="M12 19L12 5"></path>
+            <path d="M5 12L19 12"></path>
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+}
+export function SettingIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <g
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeMiterlimit="10"
+        strokeWidth="1.5"
+      >
+        <path d="M22 6.5h-6M6 6.5H2M10 10a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM22 17.5h-4M8 17.5H2M14 21a3.5 3.5 0 100-7 3.5 3.5 0 000 7z"></path>
       </g>
     </svg>
   );
