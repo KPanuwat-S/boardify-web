@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
+import MemberItem from "./Member/MemberItem";
 
 function CreateButton() {
   const [open, setOpen] = useState(false);
@@ -38,9 +39,21 @@ function CreateButton() {
   };
   const submitInput = (e) => {
     e.preventDefault();
+
+    const members = memberList;
+    console.log("memedsa", members);
+    setCreateWorkspaceData((prev) => {
+      const data = { ...prev };
+      console.log("testmembers", { ...data, members });
+      return { ...data, members };
+    });
   };
   const memberHandler = (e) => {
     setMember(e.target.value);
+  };
+  const deleteMemberHandler = (id) => {
+    const filterdMeber = memberList.filter((el, idx) => idx !== id);
+    setMemberList(filterdMeber);
   };
 
   const elementIfIndexIsOne = (
@@ -97,14 +110,16 @@ function CreateButton() {
     <>
       {" "}
       <form action={() => {}}>
-        <div className="flex flex-col  gap-2">
-          <h1 className="text-gray-800 text-center font-light mb-10">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-gray-800 text-center font-light ">
             Invite your memberList to increase the productivity!
           </h1>
-          <img
-            src="https://img.freepik.com/free-vector/hand-drawn-colorful-innovation-concept_52683-76158.jpg?w=2000&t=st=1687356042~exp=1687356642~hmac=4fa0f2a4438406de8ea2ed3d701ff645d6b6ce69cdd23c19309d8fa829eb56de"
-            alt=""
-          />
+          <div className="flex items-center justify-center w-[250px] mx-auto">
+            <img
+              src="https://img.freepik.com/free-vector/hand-drawn-colorful-innovation-concept_52683-76158.jpg?w=2000&t=st=1687356042~exp=1687356642~hmac=4fa0f2a4438406de8ea2ed3d701ff645d6b6ce69cdd23c19309d8fa829eb56de"
+              alt=""
+            />
+          </div>
           <div className="flex items-center justify-center gap-5 mb-5">
             <label htmlFor="workspaceName">Member</label>
             <input
@@ -123,12 +138,21 @@ function CreateButton() {
             </button>
           </div>
 
-          <div className="h-[100px] overflow-scroll">
+          <div className="flex flex-col gap-2 h-[250px] overflow-scroll">
             {memberList.length > 0 && <hr className="mb-5" />}
-            {memberList.map((el) => (
+            {memberList.map((el, idx) => (
               <div className="flex justify-between">
-                <p>{el}</p>
-                <button onClick={(params) => {}}>
+                <MemberItem
+                  firstName={el}
+                  lastName="Kummaboot"
+                  email="panuwatbood@gmail.com"
+                />
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteMemberHandler(idx);
+                  }}
+                >
                   <i class="fa-regular fa-trash-can text-gray-400"></i>
                 </button>
               </div>
@@ -144,10 +168,7 @@ function CreateButton() {
             </button>
             <button
               className="w-[120px] bg-blue-600 rounded-[4px] p-2 text-white"
-              onClick={(e) => {
-                setInput(e);
-                setOpen(false);
-              }}
+              onClick={submitInput}
 
               //
             >
