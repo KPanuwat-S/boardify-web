@@ -12,6 +12,9 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import MemberPage from "../pages/MemberPage";
 import Task from "../components/Tasks/Task";
+import WelcomingPage from "../pages/WelcomingPage";
+import MyProfile from "../pages/MyProfile";
+import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 
 function Router() {
   const router = createBrowserRouter([
@@ -29,26 +32,31 @@ function Router() {
         { path: "/boards", element: <Boards /> },
         { path: "/boardDetail/:id", element: <BoardDetail /> },
         { path: "/workspaceDetail/:id", element: <WorkspaceDetail /> },
-        { path: "/login", element: <LoginPage /> },
+        // { path: "/login", element: <LoginPage /> },
         { path: "/member/:id", element: <MemberPage /> },
         { path: "/task", element: <Task /> },
         { path: "/register", element: <RegisterPage /> },
+        { path: "/welcoming", element: <WelcomingPage /> },
+        // { path: "/myProfile", element: <MyProfile /> },
       ],
     },
+
     {
       path: "/login",
       element: (
         <RedirectIfAuthenticated>
+          <Header />
           <LoginPage />
         </RedirectIfAuthenticated>
       ),
     },
     {
-      path: "/register",
+      path: "/myProfile",
       element: (
-        <RedirectIfAuthenticated>
-          <RegisterPage />
-        </RedirectIfAuthenticated>
+        <ProtectedRoute>
+          <Header />
+          <MyProfile></MyProfile>
+        </ProtectedRoute>
       ),
     },
     // {

@@ -1,28 +1,27 @@
 import LoginForm from "../features/auth/components/LoginForm";
-import RegisterContainer from "../features/auth/components/RegisterContainer";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
-// LoginSocial react-js-social
-// reactjs-social-login
 import { gapi } from "gapi-script";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { googleLogin } from "../features/auth/Slice/authSlice";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 export default function LoginPage() {
   const dispatch = useDispatch();
   const clientId =
     "454033013538-3m4ro3a88tgldk3p2pof8ema4j2aghu0.apps.googleusercontent.com";
   const [profile, setProfile] = useState(null);
 
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientId: clientId,
-        scope: "",
-      });
-    };
-    gapi.load("client:auth2", initClient);
-  }, []);
+  // useEffect(() => {
+  //   const initClient = () => {
+  //     gapi.client.init({
+  //       clientId: clientId,
+  //       scope: "",
+  //     });
+  //   };
+  //   gapi.load("client:auth2", initClient);
+  // }, []);
 
   const onSuccess = (res) => {
     setProfile(res.profileObj);
@@ -65,9 +64,9 @@ export default function LoginPage() {
           <div className="">
             {profile ? (
               <div>
-                <h3>User Logged in</h3>
+                {/* <h3>User Logged in</h3>
                 <p>Name: {profile.name}</p>
-                <p>Email: {profile.email}</p>
+                <p>Email: {profile.email}</p> */}
                 <br />
                 <br />
                 <GoogleLogout

@@ -4,6 +4,7 @@ import InputErrorMessage from "./InputErrorMessage";
 import useForm from "../../../hooks/useForm";
 import { useDispatch } from "react-redux";
 import { login } from "../Slice/authSlice";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
   const { input, handleChangeInput, error, handleSubmitForm } = useForm(
@@ -19,9 +20,15 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       await dispatch(login(data)).unwrap();
+      toast.success(`Welcome !`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      console.log("test on submit");
     } catch (err) {
       console.log(err);
-      
+      toast.error(`Wrong Account`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 

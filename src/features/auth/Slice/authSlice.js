@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import * as authService from "../../../api/auth-api";
 // import { setAccessToken } from "../../../utils/localstorage";
-import { setAccessToken } from "../../../utils/localstorage";
+import { setAccessToken, removeAccessToken } from "../../../utils/localstorage";
 
 // import { removeAccessToken } from "../../../utils/localstorage";
 
@@ -57,6 +57,10 @@ export const googleLogin = createAsyncThunk(
   }
 );
 
+export const logout = createAsyncThunk("auth/logout", async () => {
+  removeAccessToken();
+});
+
 // export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
 //   try {
 //     const res = await authService.fetchMe();
@@ -102,7 +106,6 @@ const authSlice = createSlice({
       .addCase(login.pending, (state, action) => {
         state.isAuthenticated = false;
         state.loading = true;
-        state.user = action.payload;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isAuthenticated = true;
@@ -126,6 +129,10 @@ const authSlice = createSlice({
       .addCase(googleLogin.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.user = action.payload;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.isAuthenticated = false;
+        state.user = null;
       }),
   //   .addCase(fetchMe.fulfilled, (state, action) => {
   //     state.isAuthenticated = true;
