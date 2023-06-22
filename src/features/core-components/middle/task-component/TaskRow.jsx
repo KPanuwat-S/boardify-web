@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PenIcon } from "../../../../icons";
 import Modal from "../../../../components/Modal";
-export default function TaskForm() {
+export default function TaskRow() {
   const [openModal, setOpenModal] = useState(false);
   const [hover, setHover] = useState(false);
 
