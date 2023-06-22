@@ -21,6 +21,7 @@ export default function LoginForm() {
       await dispatch(login(data)).unwrap();
     } catch (err) {
       console.log(err);
+      
     }
   };
 
@@ -50,7 +51,7 @@ export default function LoginForm() {
         <InputErrorMessage message={error.password} />
       </div>
       <div>
-        <button className="bg-[#61bd4f] text-white w-full leading-[2.5rem] rounded-md text-lg font-bold ">
+        <button className="bg-blue-600 hover:bg-blue-700 text-white w-full leading-[2.5rem] rounded-md text-l font-semibold ">
           Continue
         </button>
       </div>

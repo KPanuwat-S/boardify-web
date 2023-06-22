@@ -32,6 +32,7 @@ function Router() {
         { path: "/login", element: <LoginPage /> },
         { path: "/member/:id", element: <MemberPage /> },
         { path: "/task", element: <Task /> },
+        { path: "/register", element: <RegisterPage /> },
       ],
     },
     {
