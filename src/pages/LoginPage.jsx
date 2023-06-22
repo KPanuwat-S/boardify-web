@@ -6,7 +6,7 @@ import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { googleLogin } from "../features/auth/Slice/auth-slice";
+import { googleLogin } from "../features/auth/Slice/authSlice";
 export default function LoginPage() {
   const dispatch = useDispatch();
   const clientId =
@@ -87,11 +87,9 @@ export default function LoginPage() {
               </div>
             )}
           </div>
-          {/* <RegisterContainer /> */}
           <div>
             <hr className="absolute px-[140px] font-medium  -translate-x-1/2 left-1/2 pt-[2px]" />
             <br />
-            <RegisterContainer />
           </div>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import LoginInput from "./LoginInput";
-import validateLogin from "../validators/validate-login";
+import validateLogin from "../validators/validateLogin";
 import InputErrorMessage from "./InputErrorMessage";
 import useForm from "../../../hooks/useForm";
 import { useDispatch } from "react-redux";
-import { login } from "../Slice/auth-slice";
+import { login } from "../Slice/authSlice";
 
 export default function LoginForm() {
   const { input, handleChangeInput, error, handleSubmitForm } = useForm(
