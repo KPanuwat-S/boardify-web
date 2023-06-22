@@ -18,5 +18,5 @@ export default function useForm(initialState, validate) {
     setInput(initialState);
   };
 
-  return { input, handleChangeInput, error, handleSubmitForm };
+  return { input, error, handleChangeInput, handleSubmitForm };
 }

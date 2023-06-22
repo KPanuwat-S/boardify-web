@@ -1,7 +1,10 @@
+import React from "react";
+import RegisterForm from "./RegisterForm";
+
 export default function RegisterContainer() {
   return (
-    <>
-      <h1>Already have an account? Log In</h1>
-    </>
+    <div>
+      <RegisterForm />
+    </div>
   );
 }

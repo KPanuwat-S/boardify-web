@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import * as authService from "../../../api/auth-api";
+// import { setAccessToken } from "../../../utils/localstorage";
 import { setAccessToken } from "../../../utils/localstorage";
+
 // import { removeAccessToken } from "../../../utils/localstorage";
 
 const initialState = {
@@ -12,19 +14,20 @@ const initialState = {
   initialLoading: false,
 };
 
-// // export const registerAsync = createAsyncThunk(
-// //   "auth/registerAsync",
-// //   async (input, thunkApi) => {
-// //     try {
-// //       const res = await authService.register(input);
-// //       setAccessToken(res.data.accessToken);
-// //       const resFetchMe = await authService.fetchMe();
-// //       return resFetchMe.data.user;
-// //     } catch (err) {
-// //       return thunkApi.rejectWithValue(err.response.data.message);
-// //     }
-// //   }
-// // );
+export const registerAsync = createAsyncThunk(
+  "auth/registerAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await authService.register(input);
+      setAccessToken(res.data.accessToken);
+      const fetchMe = await authService.fetchProfile();
+
+      return fetchMe.data.user;
+    } catch (error) {
+      thunkApi.rejectWithValue(error.response.data.message);
+    }
+  }
+);
 
 export const login = createAsyncThunk("auth/login", async (input, thunkApi) => {
   console.log(input);
