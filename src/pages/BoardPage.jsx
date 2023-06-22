@@ -28,7 +28,7 @@ export default function BoardPage() {
         <div className="w-[20%]  h-screen bg-[#123da0] text-white">
           <SideBar />
         </div>
-        <div className="bg-[#f9fafc] w-[80%] p-16 overflow-x-auto ">
+        <div className="flex bg-[#f9fafc] w-[80%] p-16 overflow-x-auto ">
           <Card />
         </div>
       </div>

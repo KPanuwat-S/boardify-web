@@ -6,9 +6,8 @@ import CardList from "./CardList";
 export default function Card() {
   return (
     <>
-      <div className="flex gap-3">
-        <div className="flex gap-3">
-          <CardList />
+      <div className="flex gap-3 font-semibold text-blue-950">
+        <div>
           <CardList />
         </div>
         <div>

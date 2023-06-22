@@ -36,7 +36,7 @@ export default function TaskRow() {
       </div>
       {openModal && (
         <Modal
-          title="Invite to Workspace"
+          // title="Invite to Workspace"
           onClose={() => setOpenModal(false)}
         ></Modal>
       )}

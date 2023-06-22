@@ -32,7 +32,7 @@ export default function AddMemberContainer() {
       </div>
       {openModal && (
         <Modal
-          title="Invite to Workspace"
+          // title="Invite to Workspace"
           width="27"
           onClose={() => setOpenModal(false)}
         >

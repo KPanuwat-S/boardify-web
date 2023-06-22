@@ -22,7 +22,7 @@ export default function AddTaskContainer() {
         </div>
         {openModal && (
           <Modal
-            title="`TASK NAME`"
+            // title="`TASK NAME`"
             width="34"
             onClose={() => setOpenModal(false)}
           >
