@@ -13,15 +13,15 @@ export default function LoginPage() {
     "454033013538-3m4ro3a88tgldk3p2pof8ema4j2aghu0.apps.googleusercontent.com";
   const [profile, setProfile] = useState(null);
 
-  // useEffect(() => {
-  //   const initClient = () => {
-  //     gapi.client.init({
-  //       clientId: clientId,
-  //       scope: "",
-  //     });
-  //   };
-  //   gapi.load("client:auth2", initClient);
-  // }, []);
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "",
+      });
+    };
+    gapi.load("client:auth2", initClient);
+  }, []);
 
   const onSuccess = (res) => {
     setProfile(res.profileObj);
@@ -62,31 +62,31 @@ export default function LoginPage() {
 
           {/* GOOGLE lOGIN */}
           <div className="">
-            {profile ? (
-              <div>
-                {/* <h3>User Logged in</h3>
+            {/* {profile ? ( */}
+            {/* <div> */}
+            {/* <h3>User Logged in</h3>
                 <p>Name: {profile.name}</p>
                 <p>Email: {profile.email}</p> */}
-                <br />
-                <br />
-                <GoogleLogout
-                  clientId={clientId}
-                  buttonText="Log Out"
-                  onLogoutSuccess={logOut}
-                />
-              </div>
-            ) : (
-              <div>
-                <GoogleLogin
-                  clientId={clientId}
-                  buttonText="Sign in with Google"
-                  onSuccess={onSuccess}
-                  onFailure={onFailure}
-                  cookiePolicy={"single_host_origin"}
-                  isSignedIn={true}
-                />
-              </div>
-            )}
+            {/* <br />
+              <br /> */}
+            {/* <GoogleLogout
+                clientId={clientId}
+                buttonText="Log Out"
+                onLogoutSuccess={logOut}
+              /> */}
+            {/* </div> */}
+            {/* ) : ( */}
+            <div>
+              {/* <GoogleLogin
+                clientId={clientId}
+                buttonText="Sign in with Google"
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy={"single_host_origin"}
+                isSignedIn={true}
+              /> */}
+            </div>
+            {/* )} */}
           </div>
           <div>
             <hr className="absolute px-[140px] font-medium  -translate-x-1/2 left-1/2 pt-[2px]" />

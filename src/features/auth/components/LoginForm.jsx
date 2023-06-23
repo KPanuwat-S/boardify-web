@@ -39,6 +39,7 @@ export default function LoginForm() {
     >
       <div>
         <LoginInput
+          type="text"
           placeholder="Enter email"
           name="email"
           value={input.email}
@@ -49,6 +50,7 @@ export default function LoginForm() {
       </div>
       <div>
         <LoginInput
+          type="password"
           placeholder="Enter password"
           name="password"
           value={input.password}

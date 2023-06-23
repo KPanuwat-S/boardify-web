@@ -28,7 +28,7 @@ function Router() {
       ),
       children: [
         { path: "/homepage", element: <Homepage /> },
-        { path: "/workspace", element: <Workspace /> },
+        // { path: "/workspace", element: <Workspace /> },
         { path: "/boards", element: <Boards /> },
         { path: "/boardDetail/:id", element: <BoardDetail /> },
         { path: "/workspaceDetail/:id", element: <WorkspaceDetail /> },
@@ -56,6 +56,15 @@ function Router() {
         <ProtectedRoute>
           <Header />
           <MyProfile></MyProfile>
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/workspace",
+      element: (
+        <ProtectedRoute>
+          <Header />
+          <Workspace />
         </ProtectedRoute>
       ),
     },
