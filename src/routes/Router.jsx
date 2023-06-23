@@ -11,7 +11,7 @@ import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthe
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import MemberPage from "../pages/MemberPage";
-import Task from "../components/Tasks/Task";
+import Task from "../components/Tasks/TaskEditContent";
 import WelcomingPage from "../pages/WelcomingPage";
 import MyProfile from "../pages/MyProfile";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute";
@@ -37,6 +37,8 @@ function Router() {
         { path: "/task", element: <Task /> },
         { path: "/register", element: <RegisterPage /> },
         { path: "/welcoming", element: <WelcomingPage /> },
+        { path: "/board", element: <Boards /> },
+
         // { path: "/myProfile", element: <MyProfile /> },
       ],
     },
@@ -64,9 +66,10 @@ function Router() {
       element: (
         <ProtectedRoute>
           <Header />
-          <Workspace />
+          <Outlet />
         </ProtectedRoute>
       ),
+      children: [{ path: "/workspace", element: <Workspace /> }],
     },
     // {
     //   path: "/workspace",

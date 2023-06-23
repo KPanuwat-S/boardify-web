@@ -7,7 +7,7 @@ import ProfileIcon from "../components/ProfileIcon";
 function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex mx-auto py-3 border-b mb-5">
+    <div className="flex mx-auto py-3 border-b">
       <div className="flex-1">
         <div className="flex items-center gap-5 justify-start">
           <Link to="/homepage">

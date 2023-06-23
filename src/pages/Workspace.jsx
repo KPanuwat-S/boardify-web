@@ -6,7 +6,7 @@ const id = 1;
 
 function Workspace() {
   return (
-    <div className="w-[1280px] mx-auto">
+    <div className="w-[1280px] mx-auto mt-5">
       <h1 className="font-bold text-gray-400 text-2xl mb-5">Your Workspace</h1>
       <div className="flex items-center justify-between">
         <Link to={`/workspaceDetail/${id}`}>

@@ -61,14 +61,14 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   removeAccessToken();
 });
 
-// export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
-//   try {
-//     const res = await authService.fetchMe();
-//     return res.data.user;
-//   } catch (err) {
-//     return thunkApi.rejectWithValue(err.response.data.message);
-//   }
-// });
+export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
+  try {
+    const res = await authService.fetchMe();
+    return res.data.user;
+  } catch (err) {
+    return thunkApi.rejectWithValue(err.response.data.message);
+  }
+});
 
 // export const logout = createAsyncThunk("auth/logout", async () => {
 //   removeAccessToken();
@@ -133,6 +133,18 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.isAuthenticated = false;
         state.user = null;
+      })
+      .addCase(fetchMe.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.initialLoading = false;
+      })
+      .addCase(fetchMe.rejected, (state, action) => {
+        state.error = action.payload;
+        state.initialLoading = false;
+      })
+      .addCase(fetchMe.pending, (state) => {
+        state.initialLoading = true;
       }),
   //   .addCase(fetchMe.fulfilled, (state, action) => {
   //     state.isAuthenticated = true;
