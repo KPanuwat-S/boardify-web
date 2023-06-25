@@ -11,10 +11,11 @@ import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthe
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import MemberPage from "../pages/MemberPage";
-import Task from "../components/Tasks/TaskEditContent";
+// import Task from "../components/Tasks/TaskEditContent";
 import WelcomingPage from "../pages/WelcomingPage";
 import MyProfile from "../pages/MyProfile";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute";
+import TaskEditContent from "../components/Tasks/TaskEditContent";
 
 function Router() {
   const router = createBrowserRouter([
@@ -34,7 +35,7 @@ function Router() {
         { path: "/workspaceDetail/:id", element: <WorkspaceDetail /> },
         // { path: "/login", element: <LoginPage /> },
         { path: "/member/:id", element: <MemberPage /> },
-        { path: "/task", element: <Task /> },
+        { path: "/task", element: <TaskEditContent /> },
         { path: "/register", element: <RegisterPage /> },
         { path: "/welcoming", element: <WelcomingPage /> },
         { path: "/board", element: <Boards /> },

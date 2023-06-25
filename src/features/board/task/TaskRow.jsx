@@ -28,7 +28,7 @@ export default function TaskRow() {
             setOpenModal(true);
           }}
         >
-          <div className="font-light">Task</div>
+          <div className="font-light">task</div>
           {hover && (
             <div>
               <PenIcon />
