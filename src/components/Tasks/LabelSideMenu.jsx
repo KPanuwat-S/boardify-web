@@ -7,12 +7,14 @@ function LabelSideMenu() {
     { id: 3, description: "Medium", color: "#e1b205" },
     { id: 4, description: "Low", color: "#4cce97" },
   ];
+
   return (
     <div className="flex flex-col gap-2">
       <h1 className="text-center mt-1 ">Select Label</h1>
       <hr className="mb-1" />
       <div className="rounded-[4px] m-2 p-2">
         {mockLabelsData.map((el) => {
+          // const color = `bg-[${el.color}]`;
           const color = `bg-[${el.color}]`;
           const labelStyle = [`w-[120px] h-4 rounded-[4px]`, color].join(" ");
           return (

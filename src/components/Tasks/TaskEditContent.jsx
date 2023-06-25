@@ -100,7 +100,14 @@ function TaskEditContent() {
         </div>
       </div>
 
-      <div className="flex w-[150px] flex-col gap-2 mt-10">
+      <div className="flex w-[150px] flex-col gap-2">
+        <DropdownTask
+          width="w-[420px]"
+          label="Dates"
+          icon={<i class="fa-regular fa-clock ml-2"></i>}
+        >
+          <DateSideMenu />
+        </DropdownTask>
         <DropdownTask
           label="Join Task"
           icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
@@ -126,12 +133,6 @@ function TaskEditContent() {
           <CheckListSideMenu open={open} setOpen={setOpen} />
         </DropdownTask>
 
-        <DropdownTask
-          label="Dates"
-          icon={<i class="fa-regular fa-clock ml-2"></i>}
-        >
-          <DateSideMenu />
-        </DropdownTask>
         <DropdownTask
           label="Attachment"
           icon={<i class="fa-solid fa-paperclip ml-2"></i>}

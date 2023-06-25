@@ -13,15 +13,14 @@ function Header() {
           <Link to="/homepage">
             <h1 className="font-bold text-3xl text-gray-800 ml-5">Boardify.</h1>
           </Link>
-          <div
-            className="flex mx-5 items-center gap-1"
-            onClick={(params) => {}}
-          >
-            <DropDownEL
-              label="Workspace"
-              data={["Work Space 1", "Work Space 2"]}
-            />
-          </div>
+          <Link to="/workspace">
+            <div
+              className="flex mx-5 items-center gap-1"
+              onClick={(params) => {}}
+            >
+              My Workspace
+            </div>
+          </Link>
           <div>
             <CreateButton />
           </div>

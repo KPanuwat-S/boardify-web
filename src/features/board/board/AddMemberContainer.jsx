@@ -28,6 +28,7 @@ export default function AddMemberContainer() {
           </div>
         </div>
       </div>
+
       {openModal && (
         <Modal
           // title="Invite to Workspace"

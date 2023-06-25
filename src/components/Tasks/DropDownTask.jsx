@@ -4,7 +4,12 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function DropdownTask({ label, icon, children = null }) {
+export default function DropdownTask({
+  label,
+  icon,
+  children = null,
+  width = "w-[300px]",
+}) {
   const [open, setOpen] = useState(false);
   const dropdownEl = useRef(); //return obj {current: value}
   useEffect(() => {
@@ -18,6 +23,7 @@ export default function DropdownTask({ label, icon, children = null }) {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+  const modalStyle = `z-50 absolute bg-white ${width} right-0 top-0 translate-y-1 border rounded-[4px] shadow-lg p-2`;
   return (
     <div className="relative " ref={dropdownEl}>
       {/* ref = {current: document.querySelector('.relative')} */}
@@ -33,11 +39,7 @@ export default function DropdownTask({ label, icon, children = null }) {
           <p className="text-sm ">{label}</p>
         </div>
 
-        {open && (
-          <div className="z-50 absolute bg-white w-[300px] right-0 translate-y-1 border rounded-[4px] shadow-lg p-2">
-            {children}
-          </div>
-        )}
+        {open && <div className={modalStyle}>{children}</div>}
       </div>
     </div>
   );
