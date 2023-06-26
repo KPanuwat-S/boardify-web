@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getWorkspaceMembersAsync,
   getAllWorkSpacesAsync,
-
 } from "../features/workspace/Slice/workspaceSlice";
 import WorkspaceComponent from "./WorkspaceComponent";
 
@@ -23,15 +22,54 @@ function Workspace() {
   const workspaces = useSelector((state) => state.workspace.workspaces);
 
   console.log("workspaces", workspaces);
+
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    if (workspaces?.length > 0) {
+      setData([...workspaces]);
+    }
+  }, [workspaces]);
+  function onSelectionChange(e) {
+    const sortDirection = e.target.value;
+    const copyArray = structuredClone(data); // create a new array & not mutate state
+    const newArray = copyArray[0].Workspace.Boards.sort((a, b) => {
+      let result = 0;
+      if (sortDirection === "0") {
+        result =
+          a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1;
+      } else {
+        result =
+          b.name.toLocaleLowerCase() > a.name.toLocaleLowerCase() ? 1 : -1;
+      }
+
+      return result;
+    });
+    setData(copyArray); //re-render
+    console.log("data", data, "copyArray", copyArray, "newArray", newArray);
+  }
+
   return (
-    <div className="w-[1280px] mx-auto mt-5">
-      <h1 className="font-bold text-gray-400 text-2xl mb-5">Your Workspace</h1>
-      {workspaces.map((el) => {
+    <div className="w-[1280px] mx-6 mt-5">
+      <label>
+        <h1 className="font-semibold">Sort by</h1>
+        <select
+          className="border-4 border-gray-300"
+          defaultValue={"0"}
+          onChange={onSelectionChange}
+        >
+          <option value={"0"}>Alphabetically A-Z</option>
+          <option value={"1"}>Alphabetically Z-A</option>
+        </select>
+      </label>
+
+      {data.map((el) => {
         return (
-          <WorkspaceComponent
-            workspace={el.Workspace}
-            boards={el.Workspace.Boards}
-          />
+          <div key={workspaces}>
+            <WorkspaceComponent
+              workspace={el.Workspace}
+              boards={el.Workspace.Boards}
+            />
+          </div>
         );
       })}
     </div>
