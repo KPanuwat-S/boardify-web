@@ -14,9 +14,9 @@ const initialState = {
 export const createBoardAsync = createAsyncThunk(
   "board/createBoardAsync",
   async (input, thunkApi) => {
-    const res = await boardService.createBoard(input);
-    return res.data;
     try {
+      const res = await boardService.createBoard(input);
+      return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
