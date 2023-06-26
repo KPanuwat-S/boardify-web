@@ -21,6 +21,7 @@ function MemberPage() {
   // const workspace = useSelector((state) => state.workspace.workspaces);
 
   const workspace = useSelector((state) => state.workspace.oneWorkspace);
+  console.log("one workspace", workspace);
   console.log("workspace in mem", workspace);
   return (
     <div className="w-[1280px] mx-auto">
@@ -58,7 +59,7 @@ function MemberPage() {
       </div>
 
       {/* Member Component */}
-      
+
       <div className="flex flex-col  mt-10">
         <div className="flex flex-1 gap-5 justify-between">
           <div className="flex gap-5">
