@@ -34,15 +34,29 @@ function Workspace() {
     const copyArray = structuredClone(data); // create a new array & not mutate state
     const newArray = copyArray[0].Workspace.Boards.sort((a, b) => {
       let result = 0;
-      if (sortDirection === "0") {
-        result =
-          a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1;
-      } else {
-        result =
-          b.name.toLocaleLowerCase() > a.name.toLocaleLowerCase() ? 1 : -1;
-      }
+      //   if (sortDirection === "0") {
+      //     result =
+      //       a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1;
+      //   } else {
+      //     result =
+      //       b.name.toLocaleLowerCase() > a.name.toLocaleLowerCase() ? 1 : -1;
+      //   }
 
-      return result;
+      //   return result;
+      // }
+      switch (sortDirection) {
+        case "0":
+          result =
+            a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1;
+          console.log("0");
+          return result;
+
+        case "1":
+          result =
+            b.name.toLocaleLowerCase() > a.name.toLocaleLowerCase() ? 1 : -1;
+          console.log("1");
+          return result;
+      }
     });
     setData(copyArray); //re-render
     console.log("data", data, "copyArray", copyArray, "newArray", newArray);
@@ -54,9 +68,10 @@ function Workspace() {
         <h1 className="font-semibold">Sort by</h1>
         <select
           className="border-4 border-gray-300"
-          defaultValue={"0"}
+          defaultValue={"9"}
           onChange={onSelectionChange}
         >
+          <option value={"9"}>sort </option>
           <option value={"0"}>Alphabetically A-Z</option>
           <option value={"1"}>Alphabetically Z-A</option>
         </select>
