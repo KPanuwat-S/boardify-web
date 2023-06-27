@@ -34,16 +34,6 @@ function Workspace() {
     const copyArray = structuredClone(data); // create a new array & not mutate state
     const newArray = copyArray[0].Workspace.Boards.sort((a, b) => {
       let result = 0;
-      //   if (sortDirection === "0") {
-      //     result =
-      //       a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1;
-      //   } else {
-      //     result =
-      //       b.name.toLocaleLowerCase() > a.name.toLocaleLowerCase() ? 1 : -1;
-      //   }
-
-      //   return result;
-      // }
       switch (sortDirection) {
         case "0":
           result =
