@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 import MemberCard from "../features/member/components/MemberCard";
+import MemberInvitation from "../features/member/components/MemberInvitation";
 
 function MemberPage() {
   const { id } = useParams();
+
   const [open, setOpen] = useState(false);
+
   return (
     <div className="w-[1280px] mx-auto">
       <div className="">
@@ -35,7 +38,9 @@ function MemberPage() {
               console.log("onclose");
             }}
           >
-            Hi
+            <div className="px-10 h-[600px]">
+              <MemberInvitation workspaceId={id} />
+            </div>
           </Modal>
         </div>
         <hr className="mt-2" />
