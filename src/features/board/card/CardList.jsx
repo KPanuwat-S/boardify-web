@@ -1,18 +1,26 @@
 import { useSelector } from "react-redux";
-import TaskItem from "../../../components/Tasks/TaskItem";
+import CardColumn from "../../../components/Tasks/CardColumn";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getAllCardsInOneBoardAsync } from "../../../features/board/card/Slice/cardSlice";
 
-function CardList() {
-  const taskItem = useSelector((state) => state.card.cardItems);
-  console.log(taskItem);
+function CardList({ boardId }) {
+  console.log("boardid", boardId);
+  const dispatch = useDispatch();
 
-  const sortedTodoList = [...taskItem];
-  sortedTodoList.sort((a, b) => new Date(b.time) - new Date(a.time));
+  const cardItems = useSelector((state) => state.card.cardItems);
+  useEffect(() => {
+    dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
+  }, []);
 
+  console.log("cardItem", cardItems);
   return (
     <>
       <div className="flex flex-row-reverse gap-3 ">
-        {sortedTodoList && sortedTodoList.length > 0
-          ? sortedTodoList.map((todo) => <TaskItem key={todo.id} todo={todo} />)
+        {cardItems && cardItems.length > 0
+          ? cardItems.map((cardItem, index) => (
+              <CardColumn key={index} cardItem={cardItem} />
+            ))
           : "no todo found"}
       </div>
     </>

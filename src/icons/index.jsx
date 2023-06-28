@@ -66,7 +66,7 @@ export function PenIcon() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      stroke="#000"
+      stroke="#999"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="1.5"

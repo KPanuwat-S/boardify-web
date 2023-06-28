@@ -4,7 +4,7 @@ import { MeatballsIcon } from "../../../icons";
 import AddMemberContainer from "./AddMemberContainer";
 import AddBoardContainer from "./AddBoardContainer";
 
-export default function SideBar() {
+export default function SideBar({ boardId }) {
   const [hover, setHover] = useState(false);
 
   const handleMouseOver = () => {

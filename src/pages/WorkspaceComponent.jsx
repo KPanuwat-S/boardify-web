@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getWorkspaceMembersAsync } from "../features/workspace/Slice/workspaceSlice";
 function WorkspaceComponent({ workspace, boards }) {
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getWorkspaceMembersAsync(workspace.id));
   }, []);
-  const dispatch = useDispatch();
+
   // dispatch(getWorkspaceMembersAsync(workspace.id));
   const members = useSelector((state) => state.workspace.members);
-
+  
   return (
     <>
       <div className="flex items-center justify-between">
@@ -31,10 +32,10 @@ function WorkspaceComponent({ workspace, boards }) {
         </Link>
       </div>
       <hr className="mt-2" />
-      <div className="mt-5 flex gap-5">
+      <div className="mt-5 grid grid-cols-5 gap-5">
         {boards.map((el) => {
           return (
-            <Link to={`/boardDetail/:${el.id}`}>
+            <Link to={`/boardDetail/${el.id}`}>
               <div className="flex  items-center w-[240px] h-[120px] bg-gray-100 rounded-[4px] hover:bg-gray-200 duration-300">
                 <div className="mx-5">
                   <i class="fa-solid fa-table-columns text-gray-800"></i>

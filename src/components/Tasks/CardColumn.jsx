@@ -3,23 +3,29 @@ import AddTaskContainer from "../../features/board/task/AddTaskContainer";
 import TaskRow from "../../features/board/task/TaskRow";
 import { MeatballsIcon2 } from "../../icons";
 
-function TaskItem({ todo }) {
+function CardColumn({ cardItem }) {
+  const tasks = ["name", "name2"];
+// tasks ตรงนี้ สามารถดเอา cardItem.id ไปหา task ได้
+  console.log("carditem", cardItem); 
+  // cardItem = card id
   return (
     <>
       <div className=" bg-white  shadow-[0_0_4px_rgb(0_0_0_/0.2)] rounded-xl w-[320px] h-fit p-2">
         <div className="flex justify-between p-5">
-          <div className="text-gray-600">{todo.title}</div>
+          <div className="text-gray-600">{cardItem.name}</div>
           <div>
             <MeatballsIcon2 />
           </div>
         </div>
         <div>
-          <TaskRow />
+          {tasks.map((task) => (
+            <TaskRow task={task} cardItem={cardItem} />
+          ))}
         </div>
-        <AddTaskContainer />
+        <AddTaskContainer cardItem={cardItem} />
       </div>
     </>
   );
 }
 
-export default TaskItem;
+export default CardColumn;

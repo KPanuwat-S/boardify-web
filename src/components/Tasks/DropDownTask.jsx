@@ -36,9 +36,9 @@ export default function DropdownTask({
         {/* UI */}
         <div className="z-0 flex gap-2 items-start bg-gray-100 hover:bg-gray-200 p-1 py-2 rounded-[4px] text-gray-600">
           {icon}
-          <p className="text-sm ">{label}</p>
+          <p className="text-xs ">{label}</p>
         </div>
-
+        
         {open && <div className={modalStyle}>{children}</div>}
       </div>
     </div>
