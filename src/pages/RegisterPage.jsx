@@ -9,7 +9,7 @@ export default function RegisterPage() {
         <i class="fa-solid fa-border-top-left fa-2xl"></i>
         <div className="text-[40px] ">Boardify</div>
       </div> */}
-      <div className=" flex justify-center items-center gap-5">
+      <div className=" flex justify-center items-center gap-5 mt-5">
         {/* <img
           className="w-[60px]"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Antu_trello.svg/256px-Antu_trello.svg.png"

@@ -9,6 +9,10 @@ export default function DropdownTask({
   icon,
   children = null,
   width = "w-[300px]",
+  Component,
+  cardItem,
+  task,
+  setTaskItem,
 }) {
   const [open, setOpen] = useState(false);
   const dropdownEl = useRef(); //return obj {current: value}
@@ -23,13 +27,13 @@ export default function DropdownTask({
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-  const modalStyle = `z-50 absolute bg-white ${width} right-0 top-0 translate-y-1 border rounded-[4px] shadow-lg p-2`;
+  const modalStyle = ` absolute bg-white ${width} right-0 top-0 translate-y-1 `;
   return (
     <div className="relative " ref={dropdownEl}>
       {/* ref = {current: document.querySelector('.relative')} */}
       <div
         role="button"
-        onClick={() => {
+        onClick={(e) => {
           setOpen(true);
         }}
       >
@@ -38,8 +42,13 @@ export default function DropdownTask({
           {icon}
           <p className="text-xs ">{label}</p>
         </div>
-        
-        {open && <div className={modalStyle}>{children}</div>}
+        <Component
+          task={task}
+          open={open}
+          setOpen={setOpen}
+          cardItem={cardItem}
+          setTaskItem={setTaskItem}
+        />
       </div>
     </div>
   );

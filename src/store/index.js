@@ -4,6 +4,7 @@ import cardReducer from "../features/board/card/Slice/cardSlice";
 import workspaceReducer from "../features/workspace/Slice/workspaceSlice";
 import boardReducer from "../features/board/board/Slice/boardSlice";
 import stripeReducer from "../features/stripe/Slice/purchaseSlice";
+import taskReducer from "../features/board/task/Slice/taskSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     workspace: workspaceReducer,
     board: boardReducer,
     stripe: stripeReducer,
+    task: taskReducer,
   },
 });
 
