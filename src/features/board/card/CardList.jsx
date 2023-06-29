@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import CardColumn from "../../../components/Tasks/CardColumn";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getAllCardsInOneBoardAsync } from "../../../features/board/card/Slice/cardSlice";
 
@@ -9,17 +9,19 @@ function CardList({ boardId }) {
   const dispatch = useDispatch();
 
   const cardItems = useSelector((state) => state.card.cardItems);
+  const [fetch, setFetch] = useState(false);
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
-  }, []);
+    console.log("runing fetch");
+    console.log("fetch", fetch);
+  }, [fetch]);
 
-  console.log("cardItem", cardItems);
   return (
     <>
       <div className="flex flex-row-reverse gap-3 ">
         {cardItems && cardItems.length > 0
           ? cardItems.map((cardItem, index) => (
-              <CardColumn key={index} cardItem={cardItem} />
+              <CardColumn key={index} cardItem={cardItem} setFetch={setFetch} />
             ))
           : "no todo found"}
       </div>

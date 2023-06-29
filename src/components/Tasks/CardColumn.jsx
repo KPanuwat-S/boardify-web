@@ -2,11 +2,15 @@
 import AddTaskContainer from "../../features/board/task/AddTaskContainer";
 import TaskRow from "../../features/board/task/TaskRow";
 import { MeatballsIcon2 } from "../../icons";
+import { useSelector } from "react-redux";
 
-function CardColumn({ cardItem }) {
+function CardColumn({ cardItem, setFetch }) {
   const tasks = ["name", "name2"];
-// tasks ตรงนี้ สามารถดเอา cardItem.id ไปหา task ได้
-  console.log("carditem", cardItem); 
+  // tasks ตรงนี้ สามารถดเอา cardItem.id ไปหา task ได้
+
+  const cards = useSelector((state) => state.card.cardItems);
+  const tasksOfCards = cards.find((card) => card.id == cardItem.id).tasks;
+
   // cardItem = card id
   return (
     <>
@@ -18,8 +22,8 @@ function CardColumn({ cardItem }) {
           </div>
         </div>
         <div>
-          {tasks.map((task) => (
-            <TaskRow task={task} cardItem={cardItem} />
+          {tasksOfCards.map((task) => (
+            <TaskRow task={task} cardItem={cardItem} setFetch={setFetch} />
           ))}
         </div>
         <AddTaskContainer cardItem={cardItem} />
