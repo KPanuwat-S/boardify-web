@@ -26,7 +26,7 @@ function DateSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
   const submitDate = (date) => {
     const editTaskItem = { ...taskItem, dueDate: date };
 
-    console.log("editTaskItem", editTaskItem);
+    // console.log("editTaskItem", editTaskItem);
     const input = {
       id: taskItem.id,
       data: editTaskItem,

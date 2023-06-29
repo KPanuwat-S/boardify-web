@@ -25,7 +25,7 @@ export default function Modal({ title, children, width = 27, open, onClose }) {
                     &#10005;
                   </div>
                 </div>
-                <div className="p-4">{children}</div>
+                <div className="px-4">{children}</div>
               </div>
             </div>
           </div>

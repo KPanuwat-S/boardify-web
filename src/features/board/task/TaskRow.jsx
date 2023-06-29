@@ -5,7 +5,7 @@ import { PenIcon } from "../../../icons";
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneTaskAsync } from "./Slice/taskSlice";
-export default function TaskRow({ task, cardItem, setFetch }) {
+export default function TaskRow({ fetch, task, cardItem, setFetch }) {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const mockData = {
@@ -79,7 +79,7 @@ export default function TaskRow({ task, cardItem, setFetch }) {
             width={50}
             onClose={() => {
               setOpen(false);
-              setFetch(true);
+              setFetch(!fetch);
             }}
           >
             <TaskEditContent

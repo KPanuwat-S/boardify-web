@@ -8,6 +8,7 @@ import {
   getChecklist,
   getOneTaskAsync,
   editChecklistAsync,
+  deleteChecklistAsync,
 } from "../../features/board/task/Slice/taskSlice";
 import cn from "../../utils/cn";
 function ChecklistListItems({ open, setOpen, cardItem, task, setTaskItem }) {
@@ -29,6 +30,7 @@ function ChecklistListItems({ open, setOpen, cardItem, task, setTaskItem }) {
 
   const submitChecklistItem = (e) => {
     e.preventDefault();
+    if (listItem === "") return;
     const checklistObject = {
       description: listItem,
       isChecked: false,
@@ -71,6 +73,12 @@ function ChecklistListItems({ open, setOpen, cardItem, task, setTaskItem }) {
     });
   };
 
+  const deleteChecklistItem = (id) => {
+    const filteredItems = list.filter((el) => el.id !== id);
+    dispatch(deleteChecklistAsync(id));
+    setList(filteredItems);
+  };
+
   // useEffect(() => {
   //   const isCheckIsTrue = list.filter((el) => el.isChecked == true);
   //   const progressPercentage = (isCheckIsTrue.length / list.length) * 100;
@@ -79,16 +87,21 @@ function ChecklistListItems({ open, setOpen, cardItem, task, setTaskItem }) {
   return (
     <div>
       <div className="flex gap-5 items-center mt-5">
-        <div className="flex gap-5 items-center mb-2">
-          <i class="fa-solid fa-list-check"></i>
-          <button
-            className="bg-gray-100 p-1 px-2 rounded-[4px]"
-            onClick={() => {
-              setAddCheckList(!addChecklist);
-            }}
-          >
-            Add List
-          </button>
+        <div className="flex flex-1 justify-between items-center mb-2">
+          <div className="flex gap-5 items-center justify-center">
+            <i class="fa-solid fa-list-check"></i>
+            <div>Checklist</div>
+          </div>
+          <div className="">
+            <button
+              className="font-light text-xs bg-gray-100 p-1 px-2 rounded-[4px] hover:bg-gray-200"
+              onClick={() => {
+                setAddCheckList(!addChecklist);
+              }}
+            >
+              + Add List
+            </button>
+          </div>
         </div>
       </div>
 
@@ -143,10 +156,10 @@ function ChecklistListItems({ open, setOpen, cardItem, task, setTaskItem }) {
                   <div
                     className="absolute right-5"
                     onClick={() => {
-                      console.log("delete");
+                      deleteChecklistItem(el.id);
                     }}
                   >
-                    <i class="fa-regular fa-trash-can text-gray-300"></i>
+                    <i class="fa-regular fa-trash-can text-gray-300 hover:text-blue-600"></i>
                   </div>
                 </div>
               );
@@ -159,13 +172,13 @@ function ChecklistListItems({ open, setOpen, cardItem, task, setTaskItem }) {
                 type="text"
                 placeholer="Add checklist"
                 name="checklist"
-                className=" mt-5 border border-gray-400 rounded-[4px] px-2"
+                className=" mt-5 py-1 border border-gray-400 rounded-[4px] px-2"
                 value={listItem}
                 onChange={checklistHandler}
               />
               <div className="flex gap-5 mt-2">
                 <button
-                  className="bg-blue-600 px-2 py-1 text-white rounded-[4px]"
+                  className="bg-blue-600 hover:bg-blue-700 px-2 py-1 text-white rounded-[4px]"
                   onClick={submitChecklistItem}
                 >
                   Add

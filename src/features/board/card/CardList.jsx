@@ -21,7 +21,12 @@ function CardList({ boardId }) {
       <div className="flex flex-row-reverse gap-3 ">
         {cardItems && cardItems.length > 0
           ? cardItems.map((cardItem, index) => (
-              <CardColumn key={index} cardItem={cardItem} setFetch={setFetch} />
+              <CardColumn
+                key={index}
+                cardItem={cardItem}
+                fetch={fetch}
+                setFetch={setFetch}
+              />
             ))
           : "no todo found"}
       </div>

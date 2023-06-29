@@ -4,7 +4,7 @@ import TaskRow from "../../features/board/task/TaskRow";
 import { MeatballsIcon2 } from "../../icons";
 import { useSelector } from "react-redux";
 
-function CardColumn({ cardItem, setFetch }) {
+function CardColumn({ cardItem, fetch, setFetch }) {
   const tasks = ["name", "name2"];
   // tasks ตรงนี้ สามารถดเอา cardItem.id ไปหา task ได้
 
@@ -23,7 +23,12 @@ function CardColumn({ cardItem, setFetch }) {
         </div>
         <div>
           {tasksOfCards.map((task) => (
-            <TaskRow task={task} cardItem={cardItem} setFetch={setFetch} />
+            <TaskRow
+              task={task}
+              cardItem={cardItem}
+              fetch={fetch}
+              setFetch={setFetch}
+            />
           ))}
         </div>
         <AddTaskContainer cardItem={cardItem} />
