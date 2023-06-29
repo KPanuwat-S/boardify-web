@@ -1,9 +1,7 @@
 import { useState } from "react";
-
 import Modal from "../../../components/Modal";
 import { PenIcon } from "../../../icons";
-
-export default function TaskRow() {
+export default function TaskRow({ text }) {
   const [openModal, setOpenModal] = useState(false);
   const [hover, setHover] = useState(false);
 
@@ -28,7 +26,8 @@ export default function TaskRow() {
             setOpenModal(true);
           }}
         >
-          <div className="font-light">task</div>
+          <div className="font-light">{text}</div>
+
           {hover && (
             <div>
               <PenIcon />

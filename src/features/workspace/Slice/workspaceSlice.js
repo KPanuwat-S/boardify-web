@@ -14,8 +14,9 @@ export const getAllWorkSpacesAsync = createAsyncThunk(
   "workspace/getAllWorkSpacesAsync",
   async (input, thunkApi) => {
     try {
+      console.log(input);
       const res = await workspaceService.getWorkspace(input);
-      console.log("get all workspaces", res.data);
+      console.log(res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);

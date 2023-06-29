@@ -7,7 +7,7 @@ function WorkspaceComponent({ workspace, boards }) {
     dispatch(getWorkspaceMembersAsync(workspace.id));
   }, []);
   const dispatch = useDispatch();
-  // dispatch(getWorkspaceMembersAsync(workspace.id));
+  dispatch(getWorkspaceMembersAsync(workspace.id));
   const members = useSelector((state) => state.workspace.members);
 
   return (
