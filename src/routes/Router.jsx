@@ -16,6 +16,8 @@ import WelcomingPage from "../pages/WelcomingPage";
 import MyProfile from "../pages/MyProfile";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 import TaskEditContent from "../components/Tasks/TaskEditContent";
+import PurchasePage from "../pages/PurchasePage";
+import SuccessPage from "../pages/SuccessPage";
 
 function Router() {
   const router = createBrowserRouter([
@@ -39,6 +41,8 @@ function Router() {
         { path: "/register", element: <RegisterPage /> },
         { path: "/welcoming", element: <WelcomingPage /> },
         { path: "/board", element: <Boards /> },
+        { path: "/purchase", element: <PurchasePage /> },
+        { path: "/success", element: <SuccessPage /> },
 
         // { path: "/myProfile", element: <MyProfile /> },
       ],
