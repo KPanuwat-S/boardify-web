@@ -9,15 +9,21 @@ function MyProfile() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchMyproject(items));
-  }, []);
+    dispatch(fetchMyproject());
+  }, [dispatch]); // adding dispatch to the dependencies
 
   const items = useSelector((state) => state.projects);
   console.log("items", items);
 
   function onSelectionChange(e) {
     const sortDirection = e.target.value;
-    dispatch(fetchMyproject(`?sortBy=${sortDirection}`));
+    if (sortDirection === "0") {
+      dispatch(fetchMyproject("board"));
+    } else if (sortDirection === "1") {
+      dispatch(fetchMyproject("task"));
+    } else if (sortDirection === "9") {
+      dispatch(fetchMyproject(""));
+    }
   }
 
   return (
@@ -29,13 +35,13 @@ function MyProfile() {
           defaultValue={"9"}
           onChange={onSelectionChange}
         >
-          <option value={"9"}>sort </option>
+          <option value={"9"}>sort</option>
           <option value={"0"}>Sorting by board</option>
           <option value={"1"}>Sorting by due date</option>
         </select>
       </label>
 
-      {items.projects.length &&
+      {items.projects.length > 0 &&
         items.projects.map((item, index) => {
           return (
             <div key={index}>
