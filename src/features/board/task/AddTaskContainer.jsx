@@ -26,7 +26,8 @@ export default function AddTaskContainer({ cardItem }) {
             width={50}
             onClose={() => setOpenModal(false)}
           >
-            <TaskEditContent cardItem={cardItem}></TaskEditContent>
+            {/* <TaskEditContent cardItem={cardItem}></TaskEditContent> */}
+            Hi
           </Modal>
         )}
       </div>
