@@ -39,7 +39,6 @@ function LabelSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
           {mockLabelsData.map((el) => {
             // const color = `bg-[${el.color}]`;
             const color = `bg-[${el.color}]`;
-            const labelStyle = [`w-[120px] h-4 rounded-[4px]`, color].join(" ");
             return (
               <div
                 onClick={() => {

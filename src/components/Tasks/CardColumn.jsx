@@ -22,7 +22,7 @@ function CardColumn({ cardItem, fetch, setFetch }) {
           </div>
         </div>
         <div>
-          {tasksOfCards.map((task) => (
+          {tasksOfCards?.map((task) => (
             <TaskRow
               task={task}
               cardItem={cardItem}
@@ -31,7 +31,7 @@ function CardColumn({ cardItem, fetch, setFetch }) {
             />
           ))}
         </div>
-        <AddTaskContainer cardItem={cardItem} />
+        <AddTaskContainer cardItem={cardItem} tasksOfCards={tasksOfCards} />
       </div>
     </>
   );

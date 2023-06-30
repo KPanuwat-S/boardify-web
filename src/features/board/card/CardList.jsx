@@ -9,6 +9,7 @@ function CardList({ boardId }) {
   const dispatch = useDispatch();
 
   const cardItems = useSelector((state) => state.card.cardItems);
+  console.log("cardItems", cardItems);
   const [fetch, setFetch] = useState(false);
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
