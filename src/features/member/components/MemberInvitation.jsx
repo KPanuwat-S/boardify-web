@@ -17,7 +17,6 @@ export default function MemberInvitation({ workspaceId }) {
 
   const users = useSelector((state) => state.member.userdata);
   const members = useSelector((state) => state.member.memberdata);
-  console.log(members);
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -29,7 +28,7 @@ export default function MemberInvitation({ workspaceId }) {
       clearTimeout(id);
     };
   }, [searchValue]);
-
+  // searchValue
   const clickSelect = (el) => {
     setMember(el.email);
     // console.log("test", el.email);
@@ -53,7 +52,6 @@ export default function MemberInvitation({ workspaceId }) {
       console.log(error);
     }
   };
-  console.log(memberList);
 
   const memberHandler = (e) => {
     setMember(e.target.value);
@@ -68,11 +66,7 @@ export default function MemberInvitation({ workspaceId }) {
       console.log("memedsa", memberAll);
       const data = { workspaceId: workspaceId, memberAll };
       console.log("ddd", data);
-      // setCreateWorkspaceData((prev) => {
-      //   const data = { ...prev };
-      //   console.log("testmembers", { ...data, memberAll });
-      //   return { ...data, memberAll };
-      // });
+
       await dispatch(addMemberAsnyc(data)).unwrap();
     } catch (error) {
       console.log(error);

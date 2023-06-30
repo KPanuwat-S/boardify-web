@@ -59,20 +59,24 @@ const memberSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(searchUser.pending, (state) => {
-        (state.error = null), (state.loading = true);
+        state.error = null;
+        state.loading = true;
       })
       .addCase(searchUser.fulfilled, (state, action) => {
-        (state.userdata = action.payload), (state.loading = false);
+        state.userdata = action.payload;
+        state.loading = false;
       })
       .addCase(searchUser.rejected, (state, action) => {
         state.error = action.error;
         state.loading = false;
       })
       .addCase(searchAddMember.pending, (state) => {
-        (state.error = null), (state.loading = true);
+        state.error = null;
+        state.loading = true;
       })
       .addCase(searchAddMember.fulfilled, (state, action) => {
-        (state.memberdata = action.payload), (state.loading = false);
+        state.memberdata = action.payload;
+        state.loading = false;
       })
       .addCase(searchAddMember.rejected, (state, action) => {
         state.error = action.error;
