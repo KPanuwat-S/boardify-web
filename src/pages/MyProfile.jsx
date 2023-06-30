@@ -1,67 +1,27 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getWorkspaceMembersAsync,
-  getAllWorkSpacesAsync,
-} from "../features/workspace/Slice/workspaceSlice";
-import WorkspaceComponent from "./WorkspaceComponent";
+import { fetchMyproject } from "../features/myproject/Slice/myprojectSlice";
+import MyprofileComponent from "./MyprofileComponent";
 
 // Mock Data
 
 function MyProfile() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-  const userId = user.id;
 
-  // Fetch workspace by user id
   useEffect(() => {
-    dispatch(getAllWorkSpacesAsync(userId));
+    dispatch(fetchMyproject(items));
   }, []);
 
-  const workspaces = useSelector((state) => state.workspace.workspaces);
-
-  console.log("workspaces", workspaces);
-
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    if (workspaces?.length > 0) {
-      setData([...workspaces]);
-    }
-  }, [workspaces]);
+  const items = useSelector((state) => state.projects);
+  console.log("items", items);
 
   function onSelectionChange(e) {
     const sortDirection = e.target.value;
-    const copyArray = [...data]; // สร้างอาร์เรย์ใหม่
-
-    const updatedWorkspace = {
-      ...copyArray[0].Workspace,
-      Boards: copyArray[0].Workspace.Boards.slice().sort((a, b) => {
-        let result = 0;
-        switch (sortDirection) {
-          case "0":
-            result = a.name.localeCompare(b.name);
-            break;
-          case "1":
-            result = new Date(a.dueDate) - new Date(b.dueDate);
-            break;
-          default:
-            break;
-        }
-        return result;
-      }),
-    };
-
-    copyArray[0] = {
-      ...copyArray[0],
-      Workspace: updatedWorkspace,
-    };
-
-    setData(copyArray); // อัปเดตค่าใน state ของ data
+    dispatch(fetchMyproject(`?sortBy=${sortDirection}`));
   }
 
   return (
-    <div className="w-[1280px] mx-6 mt-5">
+    <div className="w-full mt-5">
       <label>
         <h1 className="font-semibold">Sort by</h1>
         <select
@@ -75,16 +35,14 @@ function MyProfile() {
         </select>
       </label>
 
-      {data.map((el) => {
-        return (
-          <div key={workspaces}>
-            <WorkspaceComponent
-              workspace={el.Workspace}
-              boards={el.Workspace.Boards}
-            />
-          </div>
-        );
-      })}
+      {items.projects.length &&
+        items.projects.map((item, index) => {
+          return (
+            <div key={index}>
+              <MyprofileComponent data={item} />
+            </div>
+          );
+        })}
     </div>
   );
 }
