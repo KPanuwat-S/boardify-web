@@ -6,6 +6,8 @@ import {
   getWorkspaceMembersAsync,
   getWorkspaceByIdAsync,
 } from "../features/workspace/Slice/workspaceSlice";
+import MemberCard from "../features/member/components/MemberCard";
+import MemberInvitation from "../features/member/components/MemberInvitation";
 
 function MemberPage() {
   const { id } = useParams();
@@ -52,7 +54,9 @@ function MemberPage() {
               console.log("onclose");
             }}
           >
-            Hi
+            <div className="px-10 h-[600px]">
+              <MemberInvitation workspaceId={id} />
+            </div>
           </Modal>
         </div>
         <hr className="mt-2" />
@@ -61,24 +65,8 @@ function MemberPage() {
       {/* Member Component */}
 
       <div className="flex flex-col  mt-10">
-        <div className="flex flex-1 gap-5 justify-between">
-          <div className="flex gap-5">
-            <div className="flex items-center justify-center w-[40px] h-[40px] bg-blue-400 text-white rounded-full"></div>
-            <div>
-              <h2 className="font-bold">Sadana Doe</h2>
-              <h3>sadananDoe@gmail.com</h3>
-            </div>
-          </div>
-          <div className="flex items-center gap-5 ">
-            <div>
-              <h2 className="text-blue-600">On 2 Boards</h2>
-            </div>
-            <div>Admin</div>
-            <button className="flex items-center px-2 py-1 bg-gray-100 rounded-[4px] hover:bg-gray-200 duration-200">
-              <h2 className="text-gray-500">Remove</h2>
-            </button>
-          </div>
-        </div>
+        {/* Member Card */}
+        <MemberCard />
       </div>
     </div>
   );

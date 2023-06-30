@@ -7,6 +7,7 @@ import taskReducer from "../features/board/task/Slice/taskSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    member: memberReducer,
     card: cardReducer,
     workspace: workspaceReducer,
     board: boardReducer,
