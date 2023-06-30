@@ -1,13 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import * as boardService from "../../../../api/boardApi";
 
 const initialState = {
   board: null,
-  // one baord that shows how many cards and how many task in one card
+  boards: [],
   isLoading: false,
   error: null,
-  members: [],
-  cards: [],
-  oneTask: null,
 };
 
 // Create
@@ -16,6 +14,7 @@ export const createBoardAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await boardService.createBoard(input);
+      console.log("createboard async");
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -24,6 +23,18 @@ export const createBoardAsync = createAsyncThunk(
 );
 
 // Read
+export const getAllBoardsInWorkspaceAsync = createAsyncThunk(
+  "board/getAllBoardsInWorkspaceAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await boardService.getAllBoardsById(input);
+      console.log("res", res);
+      return res.data.payload;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 export const getBoardByIdAsync = createAsyncThunk(
   //get board by id async
   "board/getBoardAsync",
@@ -63,11 +74,32 @@ export const getTaskByIdAsync = createAsyncThunk(
   }
 );
 
-const cardSlice = createSlice({
+const boardSlice = createSlice({
   name: "board",
   initialState: initialState,
   extraReducers: (builder) =>
     builder
+      .addCase(createBoardAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(createBoardAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.boards.unshift(action.payload);
+      })
+      .addCase(createBoardAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getAllBoardsInWorkspaceAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllBoardsInWorkspaceAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.boards = action.payload;
+      })
+      .addCase(getAllBoardsInWorkspaceAsync.rejected, (state, action) => {
+        state.error = action.payload;
+      })
       .addCase(getBoardByIdAsync.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -82,4 +114,4 @@ const cardSlice = createSlice({
 });
 
 // export const { addCard } = cardSlice.actions;
-// export default cardSlice.reducer;
+export default boardSlice.reducer;

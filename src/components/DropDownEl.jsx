@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function Dropdown({ label, data }) {
+export default function Dropdown({ label, data, setFetch }) {
   const [open, setOpen] = useState(false);
   const dropdownEl = useRef(); //return obj {current: value}
   useEffect(() => {
@@ -25,6 +25,7 @@ export default function Dropdown({ label, data }) {
         role="button"
         onClick={() => {
           setOpen(!open);
+          setFetch(true);
         }}
       >
         {open ? (

@@ -1,5 +1,6 @@
 import axios from "./axios";
 
+export const createBoard = (data) => axios.post(`/boards`, data);
 export const getBoardById = (boardId) => axios.get(`/workspaces/${userId}`);
 
 export const getAllCardsInBoard = (boardId) =>
@@ -7,3 +8,6 @@ export const getAllCardsInBoard = (boardId) =>
 
 export const getTaskById = (taskId) =>
   axios.get(`/workspaces/workspace/${workspaceId}`);
+
+export const getAllBoardsById = (workspaceId) =>
+  axios.get(`/boards/${workspaceId}`);

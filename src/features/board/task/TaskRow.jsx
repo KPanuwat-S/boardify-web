@@ -4,6 +4,18 @@ import { PenIcon } from "../../../icons";
 export default function TaskRow({ text }) {
   const [openModal, setOpenModal] = useState(false);
   const [hover, setHover] = useState(false);
+  const mockData = {
+    label: 1,
+    name: "Mock task",
+    date: "27-7-65",
+    checkLists: 10,
+    checkListsChecked: 1,
+    members: ["panuwat", "Laksami"],
+    attachment: true,
+    comments: 2,
+  };
+
+  const dispatch = useDispatch();
 
   const handleMouseOver = () => {
     setHover(true);
@@ -14,16 +26,15 @@ export default function TaskRow({ text }) {
   };
 
   return (
-    <>
-      <div
-        className=" flex cursor-pointer  "
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-      >
+    
+    text && (
+      <div>
         <div
-          className="flex justify-between rounded-xl shadow-[0_1px_2px_rgb(0_0_0_/0.2)] bg-[#f6f5fa]   p-4 w-full mx-5 my-2 h-fit"
+          className=" flex cursor-pointer relative"
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
           onClick={() => {
-            setOpenModal(true);
+            setOpen(true);
           }}
         >
           <div className="font-light">{text}</div>
@@ -41,6 +52,6 @@ export default function TaskRow({ text }) {
           onClose={() => setOpenModal(false)}
         ></Modal>
       )}
-    </>
+      
   );
 }

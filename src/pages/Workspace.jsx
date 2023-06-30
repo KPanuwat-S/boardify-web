@@ -6,6 +6,7 @@ import {
   getAllWorkSpacesAsync,
 } from "../features/workspace/Slice/workspaceSlice";
 import WorkspaceComponent from "./WorkspaceComponent";
+import { getAllBoardsInWorkspaceAsync } from "../features/board/board/Slice/boardSlice";
 
 // Mock Data
 
