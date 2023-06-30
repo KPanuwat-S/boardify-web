@@ -5,9 +5,12 @@ import { PenIcon } from "../../../icons";
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneTaskAsync } from "./Slice/taskSlice";
+import cn from "../../../utils/cn";
+
 export default function TaskRow({ fetch, task, cardItem, setFetch }) {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
+
   const mockData = {
     label: 1,
     name: "Mock task",
@@ -28,7 +31,45 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
   const handleMouseOut = () => {
     setHover(false);
   };
+  const user = useSelector((state) => state.auth.user);
 
+  useEffect(() => {
+    dispatch(getOneTaskAsync(task.taskId)).unwrap();
+  }, []);
+
+  const fetchTask = useSelector((state) => state.task.taskItem);
+
+  const [taskItem, setTaskItem] = useState(
+    useSelector((state) => state.task.taskItem) || {
+      name: "",
+      description: "",
+      position: "",
+      dueDate: "",
+      attachmentId: "",
+      labelId: "",
+      userId: user.id,
+      Label: {
+        description: "",
+        color: "",
+      },
+      ChecklistItems: [],
+      Comments: [],
+      TaskMembers: [],
+      Attachment: {
+        file: "",
+        userId: user.id,
+      },
+    }
+  );
+  useEffect(() => {
+    if (fetchTask !== null) setTaskItem(fetchTask);
+  }, [fetchTask]);
+
+  useEffect(() => {
+    dispatch(getOneTaskAsync(task.taskId)).unwrap();
+  }, [fetch]);
+
+  console.log("task item", taskItem);
   return (
     task && (
       <div>
@@ -43,9 +84,20 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
           <div className="hover:bg-gray-200 flex justify-between rounded-xl shadow-[0_1px_2px_rgb(0_0_0_/0.2)] bg-[#f6f5fa]   p-4 w-full mx-5 my-2 h-fit">
             <div className="flex justify-between flex-col w-full ">
               <div className="flex justify-between">
-                <div className="w-10 h-2 bg-blue-600 rounded-full"></div>
+                <div
+                  className={cn(
+                    taskItem.labelId == 1
+                      ? "bg-red-500"
+                      : taskItem.labelId == 2
+                      ? "bg-blue-600"
+                      : taskItem.labelId == 3
+                      ? "bg-yellow-500"
+                      : "bg-green-500",
+                    "w-10 h-2 rounded-full"
+                  )}
+                ></div>
               </div>
-              <p className="font-light text-s">{task.taskName}</p>
+              <p className="font-light text-s">{taskItem.name}</p>
 
               <div className="w-100 h-10 flex items-end gap-5 text-gray-600">
                 <div className="flex gap-2">

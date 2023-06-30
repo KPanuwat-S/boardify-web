@@ -25,7 +25,6 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
-  const inputRef = useRef(null);
 
   const [taskItem, setTaskItem] = useState(
     useSelector((state) => state.task.taskItem) || {
@@ -49,7 +48,7 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
       },
     }
   );
-  const [title, setTitle] = useState(taskItem.name || "");
+  const [title, setTitle] = useState(taskItem.name || "Title");
   const fetchTask = useSelector((state) => state.task.taskItem);
   console.log("taskItem", taskItem);
   useEffect(() => {
@@ -105,16 +104,20 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
                 >
                   {isEdit ? (
                     <input
-                      className="px-2 border"
+                      className="px-2 w-[230px] outline outline-blue-600"
                       type="text"
                       defaultValue={taskItem.name}
                       value={title}
                       onChange={(e) => {
                         setTitle(e.target.value);
                       }}
+                      onClick={() => {
+                        setIsEdit(true);
+                      }}
                     />
                   ) : (
                     <h1
+                      className="px-2 w-[230px]"
                       onClick={() => {
                         setIsEdit(true);
                         setTitle(taskItem.name);
