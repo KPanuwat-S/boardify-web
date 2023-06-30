@@ -4,6 +4,7 @@ import InputErrorMessage from "./InputErrorMessage";
 import useForm from "../../../hooks/useForm";
 import { useDispatch } from "react-redux";
 import { login } from "../Slice/authSlice";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
   const { input, handleChangeInput, error, handleSubmitForm } = useForm(
@@ -19,8 +20,15 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       await dispatch(login(data)).unwrap();
+      toast.success(`Welcome !`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      console.log("test on submit");
     } catch (err) {
       console.log(err);
+      toast.error(`Wrong Account`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
 
@@ -31,6 +39,7 @@ export default function LoginForm() {
     >
       <div>
         <LoginInput
+          type="text"
           placeholder="Enter email"
           name="email"
           value={input.email}
@@ -41,6 +50,7 @@ export default function LoginForm() {
       </div>
       <div>
         <LoginInput
+          type="password"
           placeholder="Enter password"
           name="password"
           value={input.password}
@@ -50,7 +60,7 @@ export default function LoginForm() {
         <InputErrorMessage message={error.password} />
       </div>
       <div>
-        <button className="bg-[#61bd4f] text-white w-full leading-[2.5rem] rounded-md text-lg font-bold ">
+        <button className="bg-blue-600 hover:bg-blue-700 text-white w-full leading-[2.5rem] rounded-md text-l font-semibold ">
           Continue
         </button>
       </div>

@@ -1,10 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import * as authService from "../../../api/auth-api";
-// import { setAccessToken } from "../../../utils/localstorage";
-import { setAccessToken } from "../../../utils/localstorage";
-
-// import { removeAccessToken } from "../../../utils/localstorage";
+import { setAccessToken, removeAccessToken } from "../../../utils/localstorage";
 
 const initialState = {
   isAuthenticated: false,
@@ -24,7 +21,7 @@ export const registerAsync = createAsyncThunk(
 
       return fetchMe.data.user;
     } catch (error) {
-      thunkApi.rejectWithValue(error.response.data.message);
+      return thunkApi.rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -57,52 +54,30 @@ export const googleLogin = createAsyncThunk(
   }
 );
 
-// export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
-//   try {
-//     const res = await authService.fetchMe();
-//     return res.data.user;
-//   } catch (err) {
-//     return thunkApi.rejectWithValue(err.response.data.message);
-//   }
-// });
+export const logout = createAsyncThunk("auth/logout", async () => {
+  removeAccessToken();
+});
 
-// export const logout = createAsyncThunk("auth/logout", async () => {
-//   removeAccessToken();
-// });
+export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
+  try {
+    const res = await authService.fetchMe();
+    return res.data.user;
+  } catch (err) {
+    return thunkApi.rejectWithValue(err.response.data.message);
+  }
+});
+
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  //   reducers: {
-  //     updateProfileImage: (state, action) => {
-  //       state.user.profileImage = action.payload;
-  //     },
-  //     updateCoverImage: (state, action) => {
-  //       state.user.coverImage = action.payload;
-  //     },
-  //   },
+
   extraReducers: (builder) =>
     builder
-      //   .addCase(logout.fulfilled, (state) => {
-      //     state.isAuthenticated = false;
-      //     state.user = null;
-      //   })
-      //   .addCase(registerAsync.pending, (state) => {
-      //     state.loading = true;
-      //   })
-      //   .addCase(registerAsync.fulfilled, (state, action) => {
-      //     state.isAuthenticated = true;
-      //     state.loading = false;
-      //     state.user = action.payload;
-      //   })
-      //   .addCase(registerAsync.rejected, (state, action) => {
-      //     state.error = action.payload;
-      //     state.loading = false;
-      //   })
+
       .addCase(login.pending, (state, action) => {
         state.isAuthenticated = false;
         state.loading = true;
-        state.user = action.payload;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isAuthenticated = true;
@@ -126,21 +101,23 @@ const authSlice = createSlice({
       .addCase(googleLogin.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.user = action.payload;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.isAuthenticated = false;
+        state.user = null;
+      })
+      .addCase(fetchMe.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.initialLoading = false;
+      })
+      .addCase(fetchMe.rejected, (state, action) => {
+        state.error = action.payload;
+        state.initialLoading = false;
+      })
+      .addCase(fetchMe.pending, (state) => {
+        state.initialLoading = true;
       }),
-  //   .addCase(fetchMe.fulfilled, (state, action) => {
-  //     state.isAuthenticated = true;
-  //     state.user = action.payload;
-  //     state.initialLoading = false;
-  //   })
-  //   .addCase(fetchMe.rejected, (state, action) => {
-  //     state.error = action.payload;
-  //     state.initialLoading = false;
-  //   })
-  //   .addCase(fetchMe.pending, (state) => {
-  //     state.initialLoading = true;
-  //   }),
 });
 
 export default authSlice.reducer;
-
-// // export const { updateProfileImage, updateCoverImage } = authSlice.actions;

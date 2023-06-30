@@ -29,7 +29,6 @@ function CreateButton() {
     if (member !== "") {
       setMemberList([...memberList, member]);
     }
-
     setMember("");
   };
 
@@ -37,9 +36,9 @@ function CreateButton() {
     e.preventDefault();
     console.log("memberList fir", memberList);
   };
+
   const submitInput = (e) => {
     e.preventDefault();
-
     const members = memberList;
     console.log("memedsa", members);
     setCreateWorkspaceData((prev) => {
@@ -48,14 +47,16 @@ function CreateButton() {
       return { ...data, members };
     });
   };
+
   const memberHandler = (e) => {
     setMember(e.target.value);
   };
+
   const deleteMemberHandler = (id) => {
     const filterdMeber = memberList.filter((el, idx) => idx !== id);
     setMemberList(filterdMeber);
   };
-
+  
   const elementIfIndexIsOne = (
     <>
       <h1 className="text-gray-800 text-center font-light mb-10">
@@ -93,11 +94,6 @@ function CreateButton() {
               }}
               //
             >
-              {/* <input
-        type="submit"
-
-        value="NEXT"
-      /> */}
               NEXT
             </button>
           </div>
