@@ -10,7 +10,7 @@ function Header() {
     <div className="flex mx-auto py-3 border-b">
       <div className="flex-1">
         <div className="flex items-center gap-5 justify-start">
-          <Link to="/homepage">
+          <Link to="/">
             <h1 className="font-bold text-3xl text-gray-800 ml-5">Boardify.</h1>
           </Link>
           <Link to="/workspace">
