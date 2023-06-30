@@ -77,6 +77,16 @@ export const editChecklistAsync = createAsyncThunk(
     }
   }
 );
+export const deleteChecklistAsync = createAsyncThunk(
+  "task/deleteChecklistAsync",
+  async (input, thunkApi) => {
+    try {
+      await taskService.deleteChecklist(input);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 
 const taskSlice = createSlice({
   name: "task",
@@ -127,6 +137,9 @@ const taskSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(editChecklistAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteChecklistAsync.fulfilled, (state, action) => {
         state.isLoading = false;
       }),
 });

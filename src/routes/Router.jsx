@@ -28,7 +28,7 @@ function Router() {
         </>
       ),
       children: [
-        { path: "/homepage", element: <Homepage /> },
+        { path: "/", element: <Homepage /> },
         // { path: "/workspace", element: <Workspace /> },
         { path: "/boards", element: <Boards /> },
         { path: "/boardDetail/:id", element: <BoardDetail /> },

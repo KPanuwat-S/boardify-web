@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import DropdownTask from "./DropDownTask";
 
-import CheckListSideMenu from "./CheckListSideMenu";
+import DropdownTask from "./DropDownTask";
 import JoinTaskSideMenu from "./JoinTaskSideMenu";
 import LabelSideMenu from "./LabelSideMenu";
 import DateSideMenu from "./DateSideMenu";
 import TaskDescription from "./TaskDescription";
 import ChecklistListItems from "./ChecklistListItems";
 import { useDispatch, useSelector } from "react-redux";
-import { getOneTaskAsync } from "../../features/board/task/Slice/taskSlice";
-import { createLabel } from "../../utils/createLabel";
-import Loading from "../Loading";
+import {
+  editTaskAsync,
+  getOneTaskAsync,
+} from "../../features/board/task/Slice/taskSlice";
+
+import cn from "../../utils/cn";
+import { useRef } from "react";
 
 function TaskEditContent({ open, task, cardItem, setFetch }) {
   const [openDescription, setOpenDescription] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
-  const [title, setTitle] = useState("Title");
+
   const [isEdit, setIsEdit] = useState(false);
   const [check, setCheck] = useState(false);
   const [add, setAdd] = useState(false);
@@ -45,6 +48,7 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
       },
     }
   );
+  const [title, setTitle] = useState(taskItem.name || "Title");
   const fetchTask = useSelector((state) => state.task.taskItem);
   console.log("taskItem", taskItem);
   useEffect(() => {
@@ -55,42 +59,68 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
     if (fetchTask !== null) setTaskItem(fetchTask);
   }, [fetchTask]);
 
-  // const card = useSelector((state) => state.card.cardItems);
-
-  // TODO:
-  // const [listItem, setListItem] = useState({
-  //   description: "",
-  //   isChecked: false,
-  // });
-  // const [arrayOfList, setArrayOfList] = useState([]);
   const onSuccess = () => {
     setOpenDropDown(false);
+  };
+  const createLabel = (labelId) => {
+    const labelObj = { 1: "Urgent", 2: "Important", 3: "Medium", 4: "Low" };
+    return labelObj[labelId];
+  };
+
+  const submitEditTitle = () => {
+    const editTaskItem = { ...taskItem, name: title };
+    const input = {
+      id: taskItem.id,
+      data: editTaskItem,
+    };
+    dispatch(editTaskAsync(input));
+    // setTaskItem((oldObject) => {
+    //   return { ...oldObject, name: title };
+    // });
+
+    setFetch(true);
+    setTaskItem(editTaskItem);
+    setIsEdit(false);
   };
 
   return (
     <>
-      <div className="flex w-full mx-auto gap-10 p-5 rounded-[4px]">
+      <div
+        className="flex w-full mx-auto gap-10 p-5 rounded-[4px]"
+        onClick={submitEditTitle}
+      >
         {/* Right */}
 
-        <div className="flex flex-col gap-10 flex-1 ">
+        <div className="flex flex-col gap-5 flex-1 ">
           <div>
             <div className="flex justify-between items-center">
               <div className="flex gap-5 items-center">
                 <i class="fa-solid fa-bars-progress text-gray-500"></i>
-                <h1 className="cursor-pointer hover:bg-gray-100 p-2 rounded-[4px]">
+                <h1
+                  className="cursor-pointer hover:bg-gray-100 p-2 rounded-[4px]"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   {isEdit ? (
                     <input
-                      className="px-2"
+                      className="px-2 w-[230px] outline outline-blue-600"
                       type="text"
+                      defaultValue={taskItem.name}
                       value={title}
                       onChange={(e) => {
                         setTitle(e.target.value);
                       }}
+                      onClick={() => {
+                        setIsEdit(true);
+                      }}
                     />
                   ) : (
                     <h1
+                      className="px-2 w-[230px]"
                       onClick={() => {
                         setIsEdit(true);
+                        setTitle(taskItem.name);
                       }}
                     >
                       {taskItem.name}
@@ -107,22 +137,30 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
                 )}
               </div>
             </div>
-            <p className="font-light text-[14px]">In Card: {cardItem.name}</p>
+            <p className="font-light text-[14px]">In Card: {taskItem.name}</p>
             <div className="mt-5 flex gap-5">
               {taskItem.Label && (
                 <div>
                   <p className="font-light text-xs mb-1">Labels</p>
-                  <div className="bg-blue-600 rounded-full w-20 text-center text-white font-light text-xs">
-                    {taskItem.Label.description}
+                  <div
+                    className={cn(
+                      taskItem.labelId == 1
+                        ? "bg-red-500"
+                        : taskItem.labelId == 2
+                        ? "bg-blue-600"
+                        : taskItem.labelId == 3
+                        ? "bg-yellow-500"
+                        : "bg-green-500",
+                      "  rounded-full w-20 text-center text-white font-light text-xs"
+                    )}
+                  >
+                    {createLabel(taskItem.labelId)}
                   </div>
                 </div>
               )}
               {taskItem.TaskMembers?.length > 0 && (
                 <div>
                   <p className="font-light text-xs mb-1">Member</p>
-                  {/* <div className="bg-blue-600 rounded-full w-20 text-center text-white font-light text-xs">
-                  {taskItem.Label.description}
-                </div> */}
                 </div>
               )}
             </div>
@@ -131,6 +169,7 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
             <TaskDescription
               setOpenDescription={setOpenDescription}
               openDescription={openDescription}
+              taskItem={taskItem}
             />
             <ChecklistListItems setTaskItem={setTaskItem} />
           </div>
@@ -159,13 +198,6 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
             cardItem={cardItem}
             setTaskItem={setTaskItem}
           />
-          {/* <DropdownTask
-            label="Checklists"
-            icon={<i class="fa-solid fa-list-check ml-2"></i>}
-            Component={CheckListSideMenu}
-            cardItem={cardItem}
-            setTaskItem={setTaskItem}
-          /> */}
         </div>
       </div>
     </>
