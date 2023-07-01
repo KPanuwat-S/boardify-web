@@ -52,7 +52,7 @@ export default function CardPerList() {
     labels: labels, //["sprint1","sprint2","sprint3"]
     datasets: [
       {
-        label: "My First dataset",
+        // label: "My First dataset",
         backgroundColor: "#44546F",
         borderColor: "rgb(255, 99, 132)",
         barPercentage: 1,

@@ -27,9 +27,12 @@ export default function CardPerLabel() {
     labels: labels, //["sprint1","sprint2","sprint3"]
     datasets: [
       {
-        label: "My First dataset",
-        backgroundColor: "rgb(255, 99, 132)",
+        // label: "My First dataset",
+        backgroundColor: "#44546F",
         borderColor: "rgb(255, 99, 132)",
+        barPercentage: 0.8,
+
+        // categoryPercentage: 1,
         data: x, //[5,10,20]
       },
     ],
@@ -40,11 +43,44 @@ export default function CardPerLabel() {
         display: false,
       },
     },
+    responsive: true,
+    maintainAspectRatio: false,
+    borderRadius: "5",
+    minRotation: "10",
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 36,
+        min: 0,
+        ticks: {
+          stepSize: 9,
+        },
+
+        border: {
+          dash: [1, 3, 0],
+          display: false,
+          color: "red",
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+        border: {
+          color: "gray",
+        },
+        // ticks: {
+        //   autoSkip: true,
+        //   maxRotation: 45,
+        //   minRotation: 45,
+        // },
+      },
+    },
   };
   const LineChart = () => {
     return (
       <div>
-        <Bar data={data} options={options} />
+        <Bar style={{ height: "300px" }} data={data} options={options} />
       </div>
     );
   };
