@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@fortawesome/fontawesome-free':
@@ -10,6 +14,9 @@ dependencies:
   axios:
     specifier: ^1.4.0
     version: 1.4.0
+  chart.js:
+    specifier: ^4.3.0
+    version: 4.3.0
   dayjs:
     specifier: ^1.11.8
     version: 1.11.8
@@ -25,6 +32,9 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.2.0
+  react-chartjs-2:
+    specifier: ^5.2.0
+    version: 5.2.0(chart.js@4.3.0)(react@18.2.0)
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
@@ -66,6 +76,9 @@ devDependencies:
   autoprefixer:
     specifier: ^10.4.14
     version: 10.4.14(postcss@8.4.24)
+  daisyui:
+    specifier: ^3.1.7
+    version: 3.1.7(postcss@8.4.24)
   eslint:
     specifier: ^8.38.0
     version: 8.38.0
@@ -635,6 +648,10 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
+  /@kurkle/color@0.3.2:
+    resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
+    dev: false
+
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -950,6 +967,13 @@ packages:
       supports-color: 7.2.0
     dev: true
 
+  /chart.js@4.3.0:
+    resolution: {integrity: sha512-ynG0E79xGfMaV2xAHdbhwiPLczxnNNnasrmPEXriXsPJGjmhOBYzFVEsB65w2qMDz+CaBJJuJD0inE/ab/h36g==}
+    engines: {pnpm: '>=7'}
+    dependencies:
+      '@kurkle/color': 0.3.2
+    dev: false
+
   /chokidar@3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
     engines: {node: '>= 8.10.0'}
@@ -996,6 +1020,10 @@ packages:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
 
+  /colord@2.9.3:
+    resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
+    dev: true
+
   /combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
     engines: {node: '>= 0.8'}
@@ -1025,6 +1053,13 @@ packages:
       which: 2.0.2
     dev: true
 
+  /css-selector-tokenizer@0.8.0:
+    resolution: {integrity: sha512-Jd6Ig3/pe62/qe5SBPTN8h8LeUg/pT4lLgtavPf7updwwHpvFzxvOQBHYj2LZDMjUnBzgvIUSjRcf6oT5HzHFg==}
+    dependencies:
+      cssesc: 3.0.0
+      fastparse: 1.1.2
+    dev: true
+
   /cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
@@ -1033,6 +1068,21 @@ packages:
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+
+  /daisyui@3.1.7(postcss@8.4.24):
+    resolution: {integrity: sha512-VQhaunQlB7Buo+AbE+S3i6H/eYknKEuKVHG67y7sbG58uEjeLK6n2rojG3YE7fwoOss6ldbUL8Oy0MyoJi0CHw==}
+    engines: {node: '>=16.9.0'}
+    peerDependencies:
+      postcss: ^8
+    dependencies:
+      colord: 2.9.3
+      css-selector-tokenizer: 0.8.0
+      postcss: 8.4.24
+      postcss-js: 4.0.1(postcss@8.4.24)
+      tailwindcss: 3.3.2
+    transitivePeerDependencies:
+      - ts-node
+    dev: true
 
   /dayjs@1.11.8:
     resolution: {integrity: sha512-LcgxzFoWMEPO7ggRv1Y2N31hUf2R0Vj7fuy/m+Bg1K8rr+KAs1AEy4y9jd5DXe8pbHgX+srkHNS7TH6Q6ZhYeQ==}
@@ -1385,6 +1435,10 @@ packages:
 
   /fast-levenshtein@2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
+    dev: true
+
+  /fastparse@1.1.2:
+    resolution: {integrity: sha512-483XLLxTVIwWK3QTrMGRqUfUpoOs/0hbQrl2oz4J0pAcm3A3bu84wxTFqGqkJzewCLdME38xJLJAxBABfQT8sQ==}
     dev: true
 
   /fastq@1.15.0:
@@ -2236,6 +2290,16 @@ packages:
       extend: 3.0.2
       parchment: 1.1.4
       quill-delta: 3.6.3
+    dev: false
+
+  /react-chartjs-2@5.2.0(chart.js@4.3.0)(react@18.2.0):
+    resolution: {integrity: sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==}
+    peerDependencies:
+      chart.js: ^4.1.1
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      chart.js: 4.3.0
+      react: 18.2.0
     dev: false
 
   /react-dom@18.2.0(react@18.2.0):
