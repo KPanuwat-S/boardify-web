@@ -8,6 +8,8 @@ const initialState = {
   userdata: [],
   memberdata: "",
   membercard: [],
+  showmembercard: [],
+  // countmember: {},
 };
 
 export const searchUser = createAsyncThunk(
@@ -32,7 +34,7 @@ export const searchAddMember = createAsyncThunk(
       // console.log(value);
       const res = await memberService.searchAddMember(value);
       // console.log("sssss",res);
-      console.log(res.data);
+      // console.log(res.data);
       return res.data[0];
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data.message);
@@ -44,7 +46,7 @@ export const addMemberAsnyc = createAsyncThunk(
   "member/addMemberAsnyc",
   async (value, thunkApi) => {
     try {
-      console.log('addMember slice', value)
+      // console.log('addMember slice', value)
       const res = await memberService.addMember(value);
       return res.data;
     } catch (error) {
@@ -52,6 +54,31 @@ export const addMemberAsnyc = createAsyncThunk(
     }
   }
 );
+
+export const getMemberAsync = createAsyncThunk(
+  "member/getMemberAsync",
+  async (id, thunkApi) => {
+    try {
+      // console.log(".......memberSlice", id);
+      const res = await memberService.getMemberWorkspace(id);
+      // console.log("....result : ", res);
+      return res.data;
+    } catch (error) {
+      thunkApi.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const deleteMemberWorkspace = createAsyncThunk(
+  "member/deleteMemberWorkspace",
+  async (id, thunkApi) => {
+    try {
+      await memberService.deleteMemberWorkspace(id)
+    } catch (error) {
+      thunkApi.rejectWithValue(error.response.data.message);
+    }
+  }
+)
 
 const memberSlice = createSlice({
   name: "member",
@@ -80,7 +107,13 @@ const memberSlice = createSlice({
       })
       .addCase(addMemberAsnyc.fulfilled, (state, action) => {
         state.membercard = action.payload;
-      }),
+      })
+      .addCase(getMemberAsync.fulfilled, (state, action) => {
+        state.showmembercard = action.payload;
+      })
+      // .addCase(countMemberOnBoard.fulfilled, (state, action) => {
+      //   state.countmember = action.payload;
+      // }),
 });
 
 export default memberSlice.reducer;

@@ -8,23 +8,34 @@ import {
 } from "../features/workspace/Slice/workspaceSlice";
 import MemberCard from "../features/member/components/MemberCard";
 import MemberInvitation from "../features/member/components/MemberInvitation";
+import { getMemberAsync } from "../features/member/slice/memberSlice";
 
 function MemberPage() {
   const { id } = useParams();
   console.log("id", id);
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
     dispatch(getWorkspaceMembersAsync(id));
     dispatch(getWorkspaceByIdAsync(id));
+    dispatch(getMemberAsync(id));
+    // dispatch(countMemberOnBoard(data));
   }, []);
+
   const dispatch = useDispatch();
   // dispatch(getWorkspaceMembersAsync(workspace.id));
   const members = useSelector((state) => state.workspace.members);
   // const workspace = useSelector((state) => state.workspace.workspaces);
 
   const workspace = useSelector((state) => state.workspace.oneWorkspace);
-  console.log("one workspace", workspace);
-  console.log("workspace in mem", workspace);
+  // console.log("one workspace", workspace);
+  // console.log("workspace in mem", workspace);
+
+  const memberInCard = useSelector((state) => state.member.showmembercard);
+  console.log("membercard", memberInCard);
+
+  // const countOnBoard = useSelector((state) => state.member.countmember);
+
   return (
     <div className="w-[1280px] mx-auto my-2">
       <div className="">
@@ -64,9 +75,9 @@ function MemberPage() {
 
       {/* Member Component */}
 
-      <div className="flex flex-col  mt-10">
+      <div className="flex flex-col mt-10">
         {/* Member Card */}
-        <MemberCard />
+        <MemberCard memberInCard={memberInCard} workspaceId={id} />
       </div>
     </div>
   );
