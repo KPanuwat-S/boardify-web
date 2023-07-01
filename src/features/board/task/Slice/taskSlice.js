@@ -108,6 +108,7 @@ const taskSlice = createSlice({
     builder
       .addCase(getOneTaskAsync.pending, (state, action) => {
         state.isLoading = true;
+        state.taskItem = {};
       })
       .addCase(getOneTaskAsync.fulfilled, (state, action) => {
         state.isLoading = false;

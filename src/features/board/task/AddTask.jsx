@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { addTaskAsync } from "../../../features/board/task/Slice/taskSlice";
 import { useDispatch } from "react-redux";
+// import { v4 as uuid4 } from "uuid";
 
-function AddTask({ setOpenModal, cardItem, tasksOfCards }) {
+function AddTask({ setOpenModal, cardItem, tasksOfCards, fetch, setFetch }) {
   const [taskName, setTaskName] = useState("");
   const dispatch = useDispatch();
 
@@ -14,12 +15,15 @@ function AddTask({ setOpenModal, cardItem, tasksOfCards }) {
   const submitTaskName = async () => {
     console.log("taskName", taskName);
     console.log("cardItem", cardItem);
+    console.log("tasksOfCards", tasksOfCards);
     const input = {
       cardId: cardItem.id,
-      task: { taskName: taskName, position: tasksOfCards?.length || 0 },
+      // task: { taskName: taskName, position: tasksOfCards?.length || 0 },
+      task: { taskName: taskName, position: 5 },
     };
     console.log("input in submit task", input);
     await dispatch(addTaskAsync(input)).unwrap();
+    setFetch(!fetch);
     setOpenModal();
   };
   return (

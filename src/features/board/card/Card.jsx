@@ -4,15 +4,20 @@ import CardList from "./CardList";
 import { useSelector } from "react-redux";
 
 export default function Card({ boardId }) {
-  // useEffect()
+  const [fetch, setFetch] = useState(false);
+
   return (
     <>
       <div className="flex gap-3 font-semibold text-blue-950">
         <div>
-          <CardList boardId={boardId} />
+          <CardList boardId={boardId} fetch={fetch} setFetch={setFetch} />
         </div>
         <div>
-          <AddCardContainer boardId={boardId} />
+          <AddCardContainer
+            boardId={boardId}
+            fetch={fetch}
+            setFetch={setFetch}
+          />
         </div>
       </div>
     </>

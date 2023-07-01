@@ -14,8 +14,7 @@ import {
 
 import cn from "../../utils/cn";
 
-
-function TaskEditContent({ open, task, cardItem, setFetch }) {
+function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   const [openDescription, setOpenDescription] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
 
@@ -48,20 +47,26 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
       },
     }
   );
-  const [title, setTitle] = useState(taskItem.name || "Title");
+
   const fetchTask = useSelector((state) => state.task.taskItem);
-  console.log("taskItem", taskItem);
+  // const [title, setTitle] = useState(taskItem.name || "Title");
+  const [title, setTitle] = useState(taskItem.name || "Title");
+
+  console.log("fetchTask", fetchTask);
+  console.log("task id", task.taskId);
+
   useEffect(() => {
-    dispatch(getOneTaskAsync(task.taskId)).unwrap();
-  }, []);
+    dispatch(getOneTaskAsync(task.taskId));
+    console.log("effect running");
+    console.log("task in useeffect", task);
+  }, [fetch]);
+
+  //
 
   useEffect(() => {
     if (fetchTask !== null) setTaskItem(fetchTask);
   }, [fetchTask]);
 
-  const onSuccess = () => {
-    setOpenDropDown(false);
-  };
   const createLabel = (labelId) => {
     const labelObj = { 1: "Urgent", 2: "Important", 3: "Medium", 4: "Low" };
     return labelObj[labelId];
@@ -78,16 +83,22 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
     //   return { ...oldObject, name: title };
     // });
 
-    setFetch(true);
+    setFetch(!fetch);
     setTaskItem(editTaskItem);
     setIsEdit(false);
+  };
+  const dateOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   return (
     <>
       <div
         className="flex w-full mx-auto gap-10 p-5 rounded-[4px]"
-        onClick={submitEditTitle}
+        // onClick={submitEditTitle}
       >
         {/* Right */}
 
@@ -97,27 +108,46 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
               <div className="flex gap-5 items-center">
                 <i class="fa-solid fa-bars-progress text-gray-500"></i>
                 <h1
-                  className="cursor-pointer hover:bg-gray-100 p-2 rounded-[4px]"
+                  className="cursor-pointer  p-2 rounded-[4px]"
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
                 >
                   {isEdit ? (
-                    <input
-                      className="px-2 w-[230px] outline outline-blue-600"
-                      type="text"
-                      defaultValue={taskItem.name}
-                      value={title}
-                      onChange={(e) => {
-                        setTitle(e.target.value);
-                      }}
-                      onClick={() => {
-                        setIsEdit(true);
-                      }}
-                    />
+                    <div className="flex gap-2">
+                      {" "}
+                      <input
+                        className="px-2 outline outline-blue-600"
+                        type="text"
+                        value={title}
+                        onChange={(e) => {
+                          setTitle(e.target.value);
+                        }}
+                        onClick={() => {
+                          setIsEdit(true);
+                          console.log("edit name");
+                        }}
+                      />
+                      <div className="font-light flex flex-col gap-2">
+                        <button
+                          onClick={submitEditTitle}
+                          className="text-white text-xs bg-blue-600 w-[50px] hover:bg-blue-700 p-1 rounded-[4px]"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsEdit(false);
+                          }}
+                          className="text-xs p-1 rounded-[4px] bg-gray-100 hover:bg-gray-200"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
                   ) : (
                     <h1
-                      className="px-2 w-[230px]"
+                      className="px-2 hover:bg-gray-100"
                       onClick={() => {
                         setIsEdit(true);
                         setTitle(taskItem.name);
@@ -126,20 +156,33 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
                       {taskItem.name}
                     </h1>
                   )}
+                  {/* <h1
+                    className="px-2 w-[230px]"
+                    onClick={() => {
+                      // setIsEdit(true);
+                      // setTitle(taskItem.name);
+                    }}
+                  >
+                    {taskItem.name}
+                  </h1> */}
                 </h1>
-                {taskItem.dueDate && (
+                {fetchTask?.dueDate && (
                   <div className="flex items-center gap-2 p-2 rounded-[4px] bg-blue-100 font-ligt text-xs">
                     <i class="fa-solid fa-clock-rotate-left text-gray-500"></i>
                     <p className="">
-                      Due: {new Date(taskItem.dueDate).toLocaleString()}
+                      Due:{" "}
+                      {new Date(fetchTask.dueDate).toLocaleDateString(
+                        "en-US",
+                        dateOptions
+                      )}
                     </p>
                   </div>
                 )}
               </div>
             </div>
-            <p className="font-light text-[14px]">In Card: {taskItem.name}</p>
+            <p className="font-light text-[14px]">In Card: {cardItem.name}</p>
             <div className="mt-5 flex gap-5">
-              {taskItem.Label && (
+              {taskItem.labelId && (
                 <div>
                   <p className="font-light text-xs mb-1">Labels</p>
                   <div
@@ -171,7 +214,12 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
               openDescription={openDescription}
               taskItem={taskItem}
             />
-            <ChecklistListItems setTaskItem={setTaskItem} />
+            <ChecklistListItems
+              taskItem={taskItem}
+              setTaskItem={setTaskItem}
+              fetch={fetch}
+              setFetch={setFetch}
+            />
           </div>
         </div>
 
@@ -183,6 +231,9 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
             Component={DateSideMenu}
             cardItem={cardItem}
             setTaskItem={setTaskItem}
+            taskItem={taskItem}
+            fetch={fetch}
+            setFetch={setFetch}
           />
           <DropdownTask
             label="Join Task"
@@ -190,13 +241,19 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
             Component={JoinTaskSideMenu}
             cardItem={cardItem}
             setTaskItem={setTaskItem}
+            taskItem={taskItem}
+            fetch={fetch}
+            setFetch={setFetch}
           />
           <DropdownTask
+            setFetch={setFetch}
+            fetch={fetch}
             label="Labels"
             icon={<i class="fa-solid fa-tag ml-2"></i>}
             Component={LabelSideMenu}
             cardItem={cardItem}
             setTaskItem={setTaskItem}
+            taskItem={fetchTask}
           />
         </div>
       </div>

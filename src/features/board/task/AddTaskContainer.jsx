@@ -4,7 +4,12 @@ import Modal from "../../../components/Modal";
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
 import AddTask from "./AddTask";
 
-export default function AddTaskContainer({ cardItem, tasksOfCards }) {
+export default function AddTaskContainer({
+  cardItem,
+  tasksOfCards,
+  fetch,
+  setFetch,
+}) {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -29,6 +34,8 @@ export default function AddTaskContainer({ cardItem, tasksOfCards }) {
             onClose={() => setOpenModal(false)}
           >
             <AddTask
+              fetch={fetch}
+              setFetch={setFetch}
               tasksOfCards={tasksOfCards}
               cardItem={cardItem}
               setOpenModal={() => {
