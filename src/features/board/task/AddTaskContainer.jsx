@@ -3,7 +3,7 @@ import { AddIcon, MenuIcon, TimeIcon } from "../../../icons";
 import Modal from "../../../components/Modal";
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
 
-export default function AddTaskContainer() {
+export default function AddTaskContainer({ cardItem }) {
   const [openModal, setOpenModal] = useState(false);
   return (
     <>
@@ -26,7 +26,7 @@ export default function AddTaskContainer() {
             width={50}
             onClose={() => setOpenModal(false)}
           >
-            <TaskEditContent></TaskEditContent>
+            <TaskEditContent cardItem={cardItem}></TaskEditContent>
           </Modal>
         )}
       </div>

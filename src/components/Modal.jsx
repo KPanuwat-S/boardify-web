@@ -6,6 +6,7 @@ export default function Modal({ title, children, width = 27, open, onClose }) {
       {open && (
         <>
           <div className="fixed inset-0 bg-white opacity-70 z-20"></div>
+
           <div className="fixed inset-0 z-30" onMouseUp={onClose}>
             <div className="flex justify-center items-center min-h-full p-4">
               <div

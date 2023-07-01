@@ -24,7 +24,7 @@ function MemberPage() {
   console.log("one workspace", workspace);
   console.log("workspace in mem", workspace);
   return (
-    <div className="w-[1280px] mx-auto">
+    <div className="w-[1280px] mx-auto my-2">
       <div className="">
         <div className="flex justify-between">
           <div className="flex items-center gap-5">

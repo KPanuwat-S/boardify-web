@@ -39,7 +39,7 @@ export default function LoginPage() {
 
   return (
     <div>
-      <div className=" flex justify-center items-center gap-5">
+      <div className=" flex justify-center items-center gap-5 mt-5">
         {/* <img
           className="w-[60px]"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Antu_trello.svg/256px-Antu_trello.svg.png"
