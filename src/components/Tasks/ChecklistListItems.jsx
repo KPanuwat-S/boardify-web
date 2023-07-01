@@ -86,9 +86,9 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
   const deleteChecklistItem = (id) => {
     const filteredItems = list.filter((el) => el.id !== id);
     dispatch(deleteChecklistAsync(id));
-    console.log("id from delete checklist item", id);
-    // setFetch(!fetch);
+    // console.log("id from delete checklist item", id);
     setList(filteredItems);
+    // setFetch(!fetch);
   };
 
   // useEffect(() => {

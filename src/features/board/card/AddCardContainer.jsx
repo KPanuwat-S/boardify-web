@@ -29,8 +29,6 @@ export default function AddCardContainer({ boardId, fetch, setFetch }) {
       setCardName("");
       setFetch(!fetch);
       setOpen(false);
-
-      console.log("click close");
     } else {
       // toast.error("Card's name should not be empty");
     }
