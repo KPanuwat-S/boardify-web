@@ -4,7 +4,7 @@ import Card from "../features/board/card/Card";
 import { useParams } from "react-router-dom";
 export default function BoardDetail() {
   const { id } = useParams();
-  console.log("boardId in board detail", id);
+
   return (
     <>
       <Navbar boardId={id} />

@@ -9,7 +9,15 @@ import {
   getOneTaskAsync,
 } from "../../features/board/task/Slice/taskSlice";
 
-function DateSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
+function DateSideMenu({
+  open,
+  setOpen,
+  cardItem,
+  task,
+  setTaskItem,
+  fetch,
+  setFetch,
+}) {
   const days = ["S", "M", "T", "W", "T", "F", "S"];
   const currentDate = dayjs();
   const dispatch = useDispatch();
@@ -23,6 +31,8 @@ function DateSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
 
   // tasks of cards = array of task in a card
   console.log("taskItem", taskItem);
+  console.log("task prop", task);
+  console.log("tasksofcard", tasksOfCards);
   const submitDate = (date) => {
     const editTaskItem = { ...taskItem, dueDate: date };
 
@@ -31,8 +41,11 @@ function DateSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
       id: taskItem.id,
       data: editTaskItem,
     };
+
     dispatch(editTaskAsync(input));
+    dispatch(getOneTaskAsync(taskItem.id));
     setTaskItem(editTaskItem);
+    setFetch(!fetch);
     setOpen(false);
   };
 

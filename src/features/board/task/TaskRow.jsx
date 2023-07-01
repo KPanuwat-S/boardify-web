@@ -33,14 +33,19 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
   };
   const user = useSelector((state) => state.auth.user);
 
-  useEffect(() => {
-    dispatch(getOneTaskAsync(task.taskId)).unwrap();
-  }, []);
+  // console.log("task in task row", task);
+  // useEffect(() => {
+  //   dispatch(getOneTaskAsync(task.taskId)).unwrap();
+  // }, []);
 
-  const fetchTask = useSelector((state) => state.task.taskItem);
+  // const taskFromCardSlice = useSelector((state) => state.card.cardItems);
+  // const taskFromCardSlice2 = taskFromCardSlice.map((el) => el.tasks);
+  // console.log("taskFromCardSlice2", taskFromCardSlice2);
+
+  // const fetchTask = useSelector((state) => state.task.taskItem);
 
   const [taskItem, setTaskItem] = useState(
-    useSelector((state) => state.task.taskItem) || {
+    task || {
       name: "",
       description: "",
       position: "",
@@ -61,17 +66,18 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
       },
     }
   );
-  useEffect(() => {
-    if (fetchTask !== null) setTaskItem(fetchTask);
-  }, [fetchTask]);
 
-  useEffect(() => {
-    dispatch(getOneTaskAsync(task.taskId)).unwrap();
-  }, [fetch]);
+  // useEffect(() => {
+  //   if (fetchTask !== null) setTaskItem(fetchTask);
+  // }, [fetchTask]);
 
-  console.log("task item", taskItem);
+  // useEffect(() => {
+  //   dispatch(getOneTaskAsync(task.taskId)).unwrap();
+  // }, [fetch]);
+
+  // console.log("task item", taskItem);
   return (
-    task && (
+    taskItem && (
       <div>
         <div
           className=" flex cursor-pointer relative"
@@ -84,28 +90,32 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
           <div className="hover:bg-gray-200 flex justify-between rounded-xl shadow-[0_1px_2px_rgb(0_0_0_/0.2)] bg-[#f6f5fa]   p-4 w-full mx-5 my-2 h-fit">
             <div className="flex justify-between flex-col w-full ">
               <div className="flex justify-between">
-                <div
-                  className={cn(
-                    taskItem.labelId == 1
-                      ? "bg-red-500"
-                      : taskItem.labelId == 2
-                      ? "bg-blue-600"
-                      : taskItem.labelId == 3
-                      ? "bg-yellow-500"
-                      : "bg-green-500",
-                    "w-10 h-2 rounded-full"
-                  )}
-                ></div>
+                {task.labelColor && (
+                  <div
+                    className={cn(
+                      task.labelColor == "red"
+                        ? "bg-red-500"
+                        : task.labelColor == "blue"
+                        ? "bg-blue-600"
+                        : task.labelColor == "yellow"
+                        ? "bg-yellow-500"
+                        : "bg-green-500",
+                      "w-10 h-2 rounded-full"
+                    )}
+                  ></div>
+                )}
               </div>
-              <p className="font-light text-s">{taskItem.name}</p>
+              <p className="font-light text-s">{task.taskName}</p>
 
               <div className="w-100 h-10 flex items-end gap-5 text-gray-600">
-                <div className="flex gap-2">
-                  <i class="fa-regular fa-clock "></i>
-                  <p className="font-light text-xs">
-                    {new Date(task.dueDate).toDateString()}
-                  </p>
-                </div>
+                {task?.dueDate && (
+                  <div className="flex gap-2">
+                    <i class="fa-regular fa-clock "></i>
+                    <p className="font-light text-xs">
+                      {new Date(task.dueDate).toDateString()}
+                    </p>
+                  </div>
+                )}
                 <div className="flex items-center justify-center gap-2 text-gray-600 ">
                   <i class="fa-regular fa-square-check "></i>
                   <p className="font-light text-xs">
@@ -127,6 +137,8 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
             title="Create Task"
             open={() => {
               setOpen(true);
+              //
+              setFetch(!fetch);
             }}
             width={50}
             onClose={() => {
@@ -135,6 +147,7 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
             }}
           >
             <TaskEditContent
+              fetch={fetch}
               open={open}
               task={task}
               cardItem={cardItem}

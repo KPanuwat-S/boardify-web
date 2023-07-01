@@ -27,6 +27,7 @@ export const addTaskAsync = createAsyncThunk(
   "task/addTaskAsync",
   async (input, thunkApi) => {
     try {
+      const res = await taskService.addTask(input.cardId, input.task);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -107,6 +108,7 @@ const taskSlice = createSlice({
     builder
       .addCase(getOneTaskAsync.pending, (state, action) => {
         state.isLoading = true;
+        state.taskItem = {};
       })
       .addCase(getOneTaskAsync.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -121,7 +123,7 @@ const taskSlice = createSlice({
       })
       .addCase(addTaskAsync.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.taskItem = action.payload;
+        // state.taskItem = action.payload;
       })
       .addCase(editTaskAsync.pending, (state, action) => {
         state.isLoading = true;
