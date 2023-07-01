@@ -9,11 +9,11 @@ import {
 
 import Modal from "../../../components/Modal";
 
-export default function AddCardContainer({ boardId }) {
+export default function AddCardContainer({ boardId, fetch, setFetch }) {
   const [open, setOpen] = useState(false);
   const boards = useSelector((state) => state.board.boards);
   const positionOfAddedCard = boards.length;
-  console.log("position", positionOfAddedCard);
+  // console.log("position", positionOfAddedCard);
   const [cardName, setCardName] = useState("");
   const dispatch = useDispatch();
 
@@ -28,6 +28,7 @@ export default function AddCardContainer({ boardId }) {
       await dispatch(addCardAsync(input)).unwrap();
       setCardName("");
       setOpen(false);
+      setFetch(!fetch);
       console.log("click close");
     } else {
       // toast.error("Card's name should not be empty");

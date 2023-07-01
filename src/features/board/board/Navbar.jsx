@@ -1,6 +1,6 @@
 // import Avatar from "../../../assets/Avatar.jpg";
 import { Link } from "react-router-dom";
-export default function Navbar({boardId}) {
+export default function Navbar({ boardId }) {
   return (
     <>
       {/* MENU*/}
@@ -10,7 +10,6 @@ export default function Navbar({boardId}) {
           <div className="text-blue-600 font-semibold">CC14 Workspace</div>
         </div>
         <div className="flex justify-end gap-10 flex-1">
-   
           <Link>
             <div className="btn btn-ghost normal-case hover:text-blue-600">
               Table

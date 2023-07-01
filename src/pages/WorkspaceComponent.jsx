@@ -7,7 +7,6 @@ function WorkspaceComponent({ workspace, boards }) {
   useEffect(() => {
     dispatch(getWorkspaceMembersAsync(workspace.id));
   }, []);
-  const dispatch = useDispatch();
   // dispatch(getWorkspaceMembersAsync(workspace.id));
   const members = useSelector((state) => state.workspace.members);
 
@@ -36,7 +35,10 @@ function WorkspaceComponent({ workspace, boards }) {
         {boards.map((el) => {
           return (
             <Link to={`/boardDetail/${el.id}`}>
-              <div className="flex  items-center w-[240px] h-[120px] bg-gray-100 rounded-[4px] hover:bg-gray-200 duration-300">
+              <div
+                key={el.id}
+                className="flex  items-center w-[240px] h-[120px] bg-gray-100 rounded-[4px] hover:bg-gray-200 duration-300"
+              >
                 <div className="mx-5">
                   <i class="fa-solid fa-table-columns text-gray-800"></i>
                   <p>{el.name}</p>

@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import Navbar from "../features/board/board/Navbar";
 import SideBar from "../features/board/board/Sidebar";
 import Card from "../features/board/card/Card";
-<<<<<<< HEAD
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCardsAsync } from "../features/board/card/Slice/cardSlice";
+import { useParams } from "react-router-dom";
+import CardTest from "../features/board/card/CardTest";
 // const initialList = [
 
 //   {
@@ -27,21 +26,7 @@ import { fetchCardsAsync } from "../features/board/card/Slice/cardSlice";
 //   },
 // ];
 export default function BoardDetail() {
-  const board = useSelector((state) => state);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(fetchCardsAsync()).unwrap();
-    };
-    fetchData();
-  }, []);
-
-=======
-import { useParams } from "react-router-dom";
-export default function BoardDetail() {
   const { id } = useParams();
-  console.log("boardId in board detail", id);
->>>>>>> 08d13fa4aeba9a91010a9949699ac92f9a565e1d
   return (
     <>
       <Navbar boardId={id} />
@@ -51,11 +36,9 @@ export default function BoardDetail() {
         </div>
         <div className="flex w-full bg-[#F2F3F5] h-[100vh] bg-[#] p-16 overflow-x-auto ">
           <Card boardId={id} />
+          {/* <CardTest boardId={id} /> */}
         </div>
       </div>
     </>
   );
-}
-{
-  /* <div className="flex w-full bg-[#F2F3F5] h-[100vh] bg-[#] p-16 overflow-x-auto "></div> */
 }

@@ -29,7 +29,7 @@ function Workspace() {
       {workspaces.map((el, index) => {
         return (
           <WorkspaceComponent
-            key={index}
+            key={el.Workspace}
             workspace={el.Workspace}
             boards={el.Workspace.Boards}
           />

@@ -47,9 +47,9 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
   );
   const fetchTask = useSelector((state) => state.task.taskItem);
   console.log("taskItem", taskItem);
-  useEffect(() => {
-    dispatch(getOneTaskAsync(task.taskId)).unwrap();
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getOneTaskAsync(task.taskId)).unwrap();
+  // }, []);
 
   useEffect(() => {
     if (fetchTask !== null) setTaskItem(fetchTask);
@@ -93,7 +93,7 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
                         setIsEdit(true);
                       }}
                     >
-                      {taskItem.name}
+                      {/* {taskItem.name} */}
                     </h1>
                   )}
                 </h1>
@@ -107,7 +107,7 @@ function TaskEditContent({ open, task, cardItem, setFetch }) {
                 )}
               </div>
             </div>
-            <p className="font-light text-[14px]">In Card: {cardItem.name}</p>
+            {/* <p className="font-light text-[14px]">In Card: {cardItem.name}</p> */}
             <div className="mt-5 flex gap-5">
               {taskItem.Label && (
                 <div>

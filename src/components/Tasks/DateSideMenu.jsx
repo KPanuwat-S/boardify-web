@@ -19,7 +19,7 @@ function DateSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
 
   const cards = useSelector((state) => state.card.cardItems);
 
-  const tasksOfCards = cards.find((card) => card.id == cardItem.id).tasks;
+  // const tasksOfCards = cards.find((card) => card.id == cardItem.id).tasks;
 
   // tasks of cards = array of task in a card
   console.log("taskItem", taskItem);

@@ -1,42 +1,85 @@
-import { useSelector } from "react-redux";
-import CardColumn from "../../../components/Tasks/CardColumn";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getAllCardsInOneBoardAsync } from "../../../features/board/card/Slice/cardSlice";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-
-import { useState } from "react";
+import {
+  getAllCardsInOneBoardAsync,
+  updateCardAsync,
+  updateTaskAsync,
+} from "../../../features/board/card/Slice/cardSlice";
+import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable } from "./StrictModeItem";
+import TaskItem from "../../../components/Tasks/TaskItem";
 
-function CardList() {
-  const [cards, setCards] = useState(initialList);
-  const onDragEnd = (result) => {
+function CardList({ boardId, fetch, setFetch }) {
+  const cardItems = useSelector((state) => state.card.cardItems);
+  const dispatch = useDispatch();
+  // console.log(cardItems);
+  const [cards, setCards] = useState([]);
+  // const [fetch, setFetch] = useState(false);
+
+  useEffect(() => {
+    dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
+  }, [fetch]);
+
+  useEffect(() => {
+    if (cardItems.length > 0) setCards(cardItems);
+  }, [cardItems]);
+
+  const onDragEnd = async (result) => {
     const { destination, source, type } = result;
+    try {
+      if (!destination) return;
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      )
+        return;
 
-    if (!destination) return;
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    )
-      return;
+      if (type === "card") {
+        const entries = [...cards];
+        const [removed] = entries.splice(source.index, 1);
+        entries.splice(destination.index, 0, removed);
+        dispatch(updateCardAsync({ entries, boardId })).unwrap();
+        setCards(entries);
+      }
+      if (type === "task") {
+        const taskSourceIndex = source.index;
+        // console.log(taskSourceIndex);
+        const taskDestinationIndex = destination.index;
+        // console.log(taskDestinationIndex);
+        const cardSourceIndex = cards.findIndex(
+          (card) => card.cardType === source.droppableId
+        );
+        const cardDestinationIndex = cards.findIndex(
+          (card) => card.cardType === destination.droppableId
+        );
+        //task source data
+        const newSourceTasks = [...cards[cardSourceIndex]?.tasks];
+        //task destination data
 
-    if (type === "column") {
-      const entries = [...cards];
-      const [removed] = entries.splice(source.index, 1);
-      entries.splice(destination.index, 0, removed);
-      setCards(entries);
-    }
-    if (type === "card") {
-      const start = cards.find((list) => list.id === source.droppableId)?.cards;
-      const finish = cards.find(
-        (list) => list.id === destination.droppableId
-      )?.cards;
+        // if (!cardSourceIndex || !cardDestinationIndex) return;
 
-      if (!start || !finish) return;
-
-      const [removed] = start.splice(source.index, 1);
-      finish.splice(destination.index, 0, removed);
-      setCards(cards);
+        const newDestinationTask =
+          source.droppableId !== destination.droppableId
+            ? [...cards[cardDestinationIndex]?.tasks]
+            : newSourceTasks;
+        //source task data remove
+        const [removedTask] = newSourceTasks.splice(taskSourceIndex, 1);
+        newDestinationTask.splice(taskDestinationIndex, 0, removedTask);
+        //sort ข้อมูลทั้งหมด
+        const newCard = [...cards];
+        newCard[cardSourceIndex] = {
+          ...cards[cardSourceIndex],
+          tasks: newSourceTasks,
+        };
+        newCard[cardDestinationIndex] = {
+          ...cards[cardDestinationIndex],
+          tasks: newDestinationTask,
+        };
+        dispatch(updateTaskAsync({ newCard, boardId })).unwrap();
+        setCards(newCard);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -45,7 +88,7 @@ function CardList() {
       <StrictModeDroppable
         droppableId="agenda"
         direction={"horizontal"}
-        type="column"
+        type="card"
       >
         {(provided) => (
           <div
@@ -53,8 +96,12 @@ function CardList() {
             ref={provided.innerRef}
             className="flex gap-4"
           >
-            {cards.map((list, idx) => (
-              <Draggable key={list.id} draggableId={list.id} index={idx}>
+            {cards.map((card, idx) => (
+              <Draggable
+                key={card?.cardId}
+                draggableId={card?.cardType}
+                index={idx}
+              >
                 {(provided) => (
                   <div
                     {...provided.draggableProps}
@@ -63,9 +110,10 @@ function CardList() {
                     className="flex flex-row-reverse gap-3 "
                   >
                     <TaskItem
-                      id={list.id}
-                      title={list.title}
-                      cards={list.cards}
+                      id={card?.cardId}
+                      cardName={card?.cardName}
+                      tasks={card?.tasks}
+                      cardType={card?.cardType}
                     />
                   </div>
                 )}
@@ -78,7 +126,9 @@ function CardList() {
     </DragDropContext>
   );
 }
+
 export default CardList;
+
 // {/* <div className="flex flex-row-reverse gap-3 ">
 // {/* {sortedTodoList && sortedTodoList.length > 0
 //   ? sortedTodoList.map((todo) => <TaskItem key={todo.id} todo={todo} />)
@@ -96,3 +146,21 @@ export default CardList;
 <TaskItem />
 </div> */
 }
+// const newDestinationTask =
+//   source.droppableId !== destination.droppableId
+//     ? [...cards[cardDestinationIndex]?.tasks]
+//     : newSourceTasks;
+// //source task data remove
+// const [removedTask] = newSourceTasks.splice(taskSourceIndex, 1);
+// newDestinationTask.splice(taskDestinationIndex, 0, removedTask);
+// //sort ข้อมูลทั้งหมด
+// const newCard = [...cards];
+// newCard[cardSourceIndex] = {
+//   ...cards[cardSourceIndex],
+//   tasks: newSourceTasks,
+// };
+// newCard[cardDestinationIndex] = {
+//   ...cards[cardDestinationIndex],
+//   tasks: newDestinationTask,
+// };
+// setCards(newCard);
