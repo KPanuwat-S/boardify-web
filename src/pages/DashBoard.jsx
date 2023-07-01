@@ -1,11 +1,11 @@
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import CardPerList from "../components/Dashboard/CardPerList";
 import CardPerDueDate from "../components/Dashboard/CardPerDueDate";
 import CardPerMember from "../components/Dashboard/CardPerMember";
 import CardPerLabel from "../components/Dashboard/CardPerLabel";
 import Navbar from "../features/board/board/Navbar";
 import SideBar from "../features/board/board/Sidebar";
-import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
+// import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
 import { MeatballsIcon3 } from "../icons";
 
 export default function DashBoard() {

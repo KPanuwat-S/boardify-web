@@ -18,7 +18,7 @@ export default function CardPerList() {
   const dataTask = cards.map((card) => ({
     id: card.id,
     cardName: card.name,
-    taskTotal: card.taskTotal,
+    // taskTotal: card.taskTotal,
   }));
 
   const labels = dataTask.map(({ cardName }) => cardName);
