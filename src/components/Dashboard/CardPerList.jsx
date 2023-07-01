@@ -1,49 +1,25 @@
 // import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCardsInOneBoardAsync } from "../../features/board/card/Slice/cardSlice";
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 export default function CardPerList() {
-  const dataTask = [
-    {
-      id: 1,
-      cardName: "sprint1",
-      taskTotal: 5,
-    },
-    {
-      id: 2,
-      cardName: "sprint2",
-      taskTotal: 7,
-    },
-    {
-      id: 3,
-      cardName: "sprint3",
-      taskTotal: 8,
-    },
-    {
-      id: 4,
-      cardName: "sprint4",
-      taskTotal: 5,
-    },
-    {
-      id: 5,
-      cardName: "sprint5",
-      taskTotal: 0,
-    },
-    {
-      id: 6,
-      cardName: "sprint6",
-      taskTotal: 3,
-    },
-    {
-      id: 7,
-      cardName: "sprint7",
-      taskTotal: 6,
-    },
-    {
-      id: 8,
-      cardName: "sprint8",
-      taskTotal: 8,
-    },
-  ];
+  const dispatch = useDispatch();
+  const cards = useSelector((state) => state.card.cards);
+  useEffect(() => {
+    dispatch(getAllCardsInOneBoardAsync());
+  }, [dispatch]);
+
+  if (!cards) {
+    return <div>Loading...</div>;
+  }
+
+  const dataTask = cards.map((card) => ({
+    id: card.id,
+    cardName: card.name,
+    taskTotal: card.taskTotal,
+  }));
 
   const labels = dataTask.map(({ cardName }) => cardName);
   const x = dataTask.map(({ taskTotal }) => taskTotal);
