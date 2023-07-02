@@ -46,6 +46,14 @@ export const getWorkspaceMembersAsync = createAsyncThunk(
   }
 );
 
+export const createWorkspaceAndInviteMember = createAsyncThunk(
+  "workspace/createWorkspaceAndInviteMember",
+  async (input, thunkApi) => {
+    try {
+    } catch (err) {}
+  }
+);
+
 const workspaceSlice = createSlice({
   name: "workspace",
   initialState,
