@@ -10,7 +10,9 @@ export const getAllCardsInOneBoardAsync = createAsyncThunk(
   "card/getAllCardsInOneBoardAsync",
   async (input, thunkApi) => {
     try {
+      console.log(input);
       const res = await cardService.getAllCards(input);
+      console.log(res.data);
       return res.data[0].cards;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);

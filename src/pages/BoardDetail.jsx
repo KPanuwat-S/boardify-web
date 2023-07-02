@@ -26,7 +26,7 @@ import CardTest from "../features/board/card/CardTest";
 //   },
 // ];
 export default function BoardDetail() {
-  const { id } = useParams();
+  const id = useParams();
   return (
     <>
       <Navbar boardId={id} />

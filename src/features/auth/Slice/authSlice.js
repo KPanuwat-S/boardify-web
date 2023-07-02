@@ -28,6 +28,7 @@ export const registerAsync = createAsyncThunk(
 
 export const login = createAsyncThunk("auth/login", async (input, thunkApi) => {
   try {
+    console.log(input);
     const res = await authService.login(input);
     setAccessToken(res.data.accessToken);
     const resFetchMe = await authService.fetchMe();

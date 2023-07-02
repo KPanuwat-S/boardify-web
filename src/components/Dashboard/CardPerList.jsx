@@ -4,20 +4,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCardsInOneBoardAsync } from "../../features/board/card/Slice/cardSlice";
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 export default function CardPerList() {
+  const { id } = useParams();
+  // console.log(id);
   const dispatch = useDispatch();
-  const cards = useSelector((state) => state.card.cards);
+  const cardItems = useSelector((state) => state.card);
+  console.log(cardItems);
+  const [chart, setChart] = useState([]);
   useEffect(() => {
-    dispatch(getAllCardsInOneBoardAsync());
-  }, [dispatch]);
+    dispatch(getAllCardsInOneBoardAsync(id));
+  }, []);
+  useEffect(() => {
+    if (cardItems.length > 0) setChart(cards);
+  }, [cardItems]);
 
-  if (!cards) {
+  if (!chart) {
     return <div>Loading...</div>;
   }
 
-  const dataTask = cards.map((card) => ({
-    id: card.id,
-    cardName: card.name,
+  const dataTask = chart.map((card) => ({
+    id: card.cardId,
+    cardName: card.cardName,
     // taskTotal: card.taskTotal,
   }));
 

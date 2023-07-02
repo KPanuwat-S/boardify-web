@@ -40,7 +40,7 @@ function Router() {
         { path: "/register", element: <RegisterPage /> },
         { path: "/welcoming", element: <WelcomingPage /> },
         { path: "/board", element: <Boards /> },
-        { path: "/dashboard", element: <DashBoard /> },
+        { path: "/dashboard/:id", element: <DashBoard /> },
 
         // { path: "/myProfile", element: <MyProfile /> },
       ],
