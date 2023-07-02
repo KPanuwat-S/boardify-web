@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as workspaceService from "../../../api/workspaceApi";
-import { workspace } from "../../../mockdata";
 
 const initialState = {
   workspaces: [],

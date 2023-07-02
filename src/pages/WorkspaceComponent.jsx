@@ -9,7 +9,7 @@ function WorkspaceComponent({ workspace, boards }) {
   }, []);
   // dispatch(getWorkspaceMembersAsync(workspace.id));
   const members = useSelector((state) => state.workspace.members);
-
+  const boardsLimited = boards.slice(0, 5);
   return (
     <>
       <div className="flex items-center justify-between">
@@ -32,7 +32,7 @@ function WorkspaceComponent({ workspace, boards }) {
       </div>
       <hr className="mt-2" />
       <div className="mt-5 grid grid-cols-5 gap-5">
-        {boards.map((el) => {
+        {boardsLimited.map((el) => {
           return (
             <Link to={`/boardDetail/${el.id}`}>
               <div

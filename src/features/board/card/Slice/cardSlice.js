@@ -64,7 +64,7 @@ const cardSlice = createSlice({
       })
       .addCase(getAllCardsInOneBoardAsync.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.cardItems = action.payload;
+        state.cardItems = action.payload ?? [];
       })
       .addCase(getAllCardsInOneBoardAsync.rejected, (state, action) => {
         state.isLoading = false;

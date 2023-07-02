@@ -13,6 +13,9 @@ export default function DropdownTask({
   cardItem,
   task,
   setTaskItem,
+  taskItem,
+  fetch,
+  setFetch,
 }) {
   const [open, setOpen] = useState(false);
   const dropdownEl = useRef(); //return obj {current: value}
@@ -34,6 +37,7 @@ export default function DropdownTask({
       <div
         role="button"
         onClick={(e) => {
+          // setFetch(!fetch);
           setOpen(true);
         }}
       >
@@ -48,6 +52,9 @@ export default function DropdownTask({
           setOpen={setOpen}
           cardItem={cardItem}
           setTaskItem={setTaskItem}
+          taskItem={taskItem}
+          fetch={fetch}
+          setFetch={setFetch}
         />
       </div>
     </div>

@@ -9,6 +9,10 @@ import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable } from "./StrictModeItem";
 import TaskItem from "../../../components/Tasks/TaskItem";
 
+
+
+
+
 function CardList({ boardId, fetch, setFetch }) {
   const cardItems = useSelector((state) => state.card.cardItems);
   const dispatch = useDispatch();
@@ -123,11 +127,43 @@ function CardList({ boardId, fetch, setFetch }) {
           </div>
         )}
       </StrictModeDroppable>
-    </DragDropContext>
-  );
-}
-
+    </DragDropContext>)}
 export default CardList;
+// ======= Develop2.0
+//   // console.log("cardItems", cardItems);
+
+//   // const [cards, setCards] = useState(cardItems);
+
+//   useEffect(() => {
+//     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
+//     // setCards(cardItems);
+//     // if (cardItems !== null) setCards(cardItems);
+//   }, [fetch]);
+
+//   // useEffect(() => {
+//   //   if (cardItems !== null) setCards(cardItems);
+//   // }, [cardItems]);
+//   return (
+//     <>
+//       <div className="flex flex-row-reverse gap-3 ">
+//         {cardItems && cardItems.length > 0
+//           ? cardItems.map((cardItem, index) => (
+//               <CardColumn
+//                 boardId={boardId}
+//                 key={index}
+//                 cardItem={cardItem}
+//                 fetch={fetch}
+//                 setFetch={setFetch}
+//               />
+//             ))
+//           : "no todo found"}
+//       </div>
+//     </>
+// >>>>>>> origin/develop2.0
+//   );
+// }
+
+
 
 // {/* <div className="flex flex-row-reverse gap-3 ">
 // {/* {sortedTodoList && sortedTodoList.length > 0

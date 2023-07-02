@@ -26,6 +26,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.8
     version: 1.11.8
+  dompurify:
+    specifier: ^3.0.3
+    version: 3.0.3
   gapi-script:
     specifier: ^1.2.0
     version: 1.2.0
@@ -1195,6 +1198,10 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /dompurify@3.0.3:
+    resolution: {integrity: sha512-axQ9zieHLnAnHh0sfAamKYiqXMJAVwu+LM/alQ7WDagoWessyWvMSFyW65CqF3owufNu8HBcE4cM2Vflu7YWcQ==}
+    dev: false
 
   /electron-to-chromium@1.4.433:
     resolution: {integrity: sha512-MGO1k0w1RgrfdbLVwmXcDhHHuxCn2qRgR7dYsJvWFKDttvYPx6FNzCGG0c/fBBvzK2LDh3UV7Tt9awnHnvAAUQ==}
