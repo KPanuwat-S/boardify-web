@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import Modal from "../../../components/Modal";
+import Modal from "../../../components/Modal";
 import { PenIcon } from "../../../icons";
 
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
@@ -76,6 +76,8 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
   // }, [fetch]);
 
   // console.log("task item", taskItem);
+  // console.log("fetch", fetch);
+  console.log("task", task);
   return (
     taskItem && (
       <div>
@@ -84,7 +86,7 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
           // onMouseOver={handleMouseOver}
           // onMouseOut={handleMouseOut}
           onClick={() => {
-            // setOpen(true);
+            setOpen(true);
           }}
         >
           <div className="hover:bg-gray-200 flex justify-between rounded-xl shadow-[0_1px_2px_rgb(0_0_0_/0.2)] bg-[#f6f5fa]   p-4 w-full mx-5 my-2 h-fit">
@@ -116,13 +118,17 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
                     </p>
                   </div>
                 )}
-                <div className="flex items-center justify-center gap-2 text-gray-600 ">
-                  <i class="fa-regular fa-square-check "></i>
-                  <p className="font-light text-xs">
-                    {/* {mockData.checkListsChecked}/{mockData.checkLists} */}
-                  </p>
-                </div>
-                <div className="flex-end bg-blue-600 rounded-full h-5 w-5"></div>
+
+                {task.checkListsTotal > 0 && (
+                  <div className="flex items-center justify-center gap-2 text-gray-600 ">
+                    <i class="fa-regular fa-square-check "></i>
+                    <p className="font-light text-xs">
+                      {task.checkListsChecked}/{task.checkListsTotal}
+                    </p>
+                  </div>
+                )}
+
+                {task.members.length > 0 && <i class="fa-regular fa-user"></i>}
               </div>
             </div>
             {/* {hover && (
@@ -138,10 +144,12 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
             open={() => {
               setOpen(true);
               //
-              setFetch(!fetch);
+              // setFetch(!fetch);
             }}
             width={50}
             onClose={() => {
+              console.log("close");
+              console.log("fetch", fetch);
               setOpen(false);
               setFetch(!fetch);
             }}

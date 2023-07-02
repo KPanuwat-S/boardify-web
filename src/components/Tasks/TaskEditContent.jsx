@@ -47,6 +47,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       },
     }
   );
+  console.log("taskItem", taskItem);
 
   const fetchTask = useSelector((state) => state.task.taskItem);
   // const [title, setTitle] = useState(taskItem.name || "Title");
@@ -153,7 +154,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                         setTitle(taskItem.name);
                       }}
                     >
-                      {/* {taskItem.name} */}
+                      {taskItem.name}
                     </h1>
                   )}
                   {/* <h1
@@ -214,6 +215,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
               openDescription={openDescription}
               taskItem={taskItem}
             />
+
             <ChecklistListItems
               taskItem={taskItem}
               setTaskItem={setTaskItem}

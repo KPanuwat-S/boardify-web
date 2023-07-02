@@ -8,6 +8,7 @@ import {
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable } from "./StrictModeItem";
 import TaskItem from "../../../components/Tasks/TaskItem";
+import { v4 as uuidv4 } from "uuid";
 
 function CardList({ boardId, fetch, setFetch }) {
   const cardItems = useSelector((state) => state.card.cardItems);
@@ -20,7 +21,8 @@ function CardList({ boardId, fetch, setFetch }) {
   console.log("cardsItem", cardItems);
 
   useEffect(() => {
-    dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
+    dispatch(getAllCardsInOneBoardAsync(boardId));
+    console.log("cardlist fn running");
   }, [fetch]);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ function CardList({ boardId, fetch, setFetch }) {
   }, [cardItems]);
 
   const onDragEnd = async (result) => {
+    console.log("result from drag end", result);
     const { destination, source, type } = result;
     try {
       if (!destination) return;
@@ -36,12 +39,12 @@ function CardList({ boardId, fetch, setFetch }) {
         destination.index === source.index
       )
         return;
-
       if (type === "card") {
         const entries = [...cards];
         const [removed] = entries.splice(source.index, 1);
         entries.splice(destination.index, 0, removed);
-        dispatch(updateCardAsync({ entries, boardId })).unwrap();
+        dispatch(updateCardAsync({ entries, boardId }));
+        // dispatch(updateCardAsync({ entries, boardId })).unwrap();
         setCards(entries);
       }
       if (type === "task") {
@@ -58,9 +61,7 @@ function CardList({ boardId, fetch, setFetch }) {
         //task source data
         const newSourceTasks = [...cards[cardSourceIndex]?.tasks];
         //task destination data
-
         // if (!cardSourceIndex || !cardDestinationIndex) return;
-
         const newDestinationTask =
           source.droppableId !== destination.droppableId
             ? [...cards[cardDestinationIndex]?.tasks]
@@ -85,11 +86,14 @@ function CardList({ boardId, fetch, setFetch }) {
       console.log(error);
     }
   };
-  console.log("cards", cards);
+
+  const id = uuidv4();
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <StrictModeDroppable
         droppableId="agenda"
+        // droppableId={id}
         direction={"horizontal"}
         type="card"
       >
@@ -101,8 +105,12 @@ function CardList({ boardId, fetch, setFetch }) {
           >
             {cards.map((card, idx) => (
               <Draggable
-                key={card?.cardId}
-                draggableId={card?.cardType}
+                // key={card?.cardId}
+                // draggableId={card?.cardId}
+                key={card?.id}
+                draggableId={card?.id + ""}
+                // draggableId={uuidv4()}
+                // draggableId="agenda"
                 index={idx}
               >
                 {(provided) => (
@@ -113,7 +121,8 @@ function CardList({ boardId, fetch, setFetch }) {
                     className="flex flex-row-reverse gap-3 "
                   >
                     <TaskItem
-                      id={card?.cardId}
+                      boardId={boardId}
+                      id={card?.cardId + ""}
                       // cardName={card?.cardName}
                       cardItem={card}
                       tasks={card?.tasks}

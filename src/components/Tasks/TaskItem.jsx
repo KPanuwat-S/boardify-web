@@ -4,10 +4,28 @@ import AddTaskContainer from "../../features/board/task/AddTaskContainer";
 import TaskRow from "../../features/board/task/TaskRow";
 import { MeatballsIcon2 } from "../../icons";
 import { StrictModeDroppable } from "../../features/board/card/StrictModeItem";
+import { v4 as uuidv4 } from "uuid";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCardsInOneBoardAsync } from "../../features/board/card/Slice/cardSlice";
 
-function TaskItem({ id, cardItem, tasks, cardType, setFetch }) {
+function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
   // console.log(cardType);
-  console.log("tasks", tasks);
+  const dispatch = useDispatch();
+  const fetchCards = useSelector((state) => state.card.cardItems);
+
+  const [tasksOfCards, setTaskOfCards] = useState(
+    fetchCards.find((card) => card.id == cardItem.id).tasks
+  );
+
+  console.log("cardItem in task item", cardItem);
+  useEffect(() => {
+    dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
+  }, [fetch]);
+  useEffect(() => {
+    // setCards(fetchCards);
+    setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id).tasks);
+  }, [fetchCards]);
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">
       {(provided, snapshot) => (
@@ -24,11 +42,11 @@ function TaskItem({ id, cardItem, tasks, cardType, setFetch }) {
               <MeatballsIcon2 />
             </div>
           </div>
-
-          {tasks.map((task, idx) => (
+          {tasksOfCards.map((task, idx) => (
             <Draggable
               key={task?.taskId}
-              draggableId={task?.taskType}
+              draggableId={task?.taskId + ""}
+              // draggableId={uuidv4()}
               index={idx}
             >
               {(provided) => (
@@ -41,7 +59,6 @@ function TaskItem({ id, cardItem, tasks, cardType, setFetch }) {
                   {/* <TaskRow name={task?.taskName} /> */}
                   <TaskRow
                     task={task}
-                    // cardItem={cardItem}
                     cardItem={cardItem}
                     fetch={fetch}
                     setFetch={setFetch}
@@ -52,7 +69,12 @@ function TaskItem({ id, cardItem, tasks, cardType, setFetch }) {
           ))}
           {provided.placeholder}
 
-          <AddTaskContainer />
+          <AddTaskContainer
+            cardItem={cardItem}
+            tasksOfCards={tasksOfCards}
+            setFetch={setFetch}
+            fetch={fetch}
+          />
         </div>
       )}
     </StrictModeDroppable>

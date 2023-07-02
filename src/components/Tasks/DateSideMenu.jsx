@@ -32,7 +32,7 @@ function DateSideMenu({
   // tasks of cards = array of task in a card
   console.log("taskItem", taskItem);
   console.log("task prop", task);
-  console.log("tasksofcard", tasksOfCards);
+  // console.log("tasksofcard", tasksOfCards);
   const submitDate = (date) => {
     const editTaskItem = { ...taskItem, dueDate: date };
 
