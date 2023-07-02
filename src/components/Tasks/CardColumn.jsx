@@ -31,8 +31,6 @@ function CardColumn({ cardItem, fetch, setFetch, boardId }) {
 
   useEffect(() => {
     setCards(fetchCards);
-
-    // setTaskOfCards(cards.find((card) => card.id == cardItem.id).tasks);
   }, [fetchCards]);
   // setTaskOfCards(cards.find((card) => card.id == cardItem.id).tasks);
   // cardItem = card id
