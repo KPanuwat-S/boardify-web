@@ -13,7 +13,7 @@ export default function AddCardContainer({ boardId, fetch, setFetch }) {
   const [open, setOpen] = useState(false);
   const boards = useSelector((state) => state.board.boards);
   const positionOfAddedCard = boards.length;
-  console.log("position", positionOfAddedCard);
+  // console.log("position", positionOfAddedCard);
   const [cardName, setCardName] = useState("");
   const dispatch = useDispatch();
 

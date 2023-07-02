@@ -31,6 +31,28 @@ export const addCardAsync = createAsyncThunk(
     }
   }
 );
+export const updateCardAsync = createAsyncThunk(
+  "card/updateCardAsync",
+  async (input, thunkApi) => {
+    try {
+      const { entries, boardId } = input;
+      await cardService.updateCards(entries, boardId);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+export const updateTaskAsync = createAsyncThunk(
+  "card/updateTaskAsync",
+  async (input, thunkApi) => {
+    try {
+      const { newCard, boardId } = input;
+      await cardService.updateTasks(newCard, boardId);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 
 const cardSlice = createSlice({
   name: "card",

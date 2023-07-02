@@ -53,7 +53,7 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
     dispatch(addChecklistAsync(checklistObject));
     setTaskItem(editTaskItem);
     setListItem("");
-    setFetch(!fetch);
+    // setFetch(!fetch);
     console.log("checklistObject", checklistObject);
     // const input = { id: taskItem.id, data: editTaskItem };
 
@@ -61,7 +61,6 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
     setAddCheckList(false);
   };
 
-  // const [percent, setPercent] = useState(0);
   const submitEditChecklistItem = (id) => {
     const editItem = list.find((el) => el.id === id);
     const newEditItem = { ...editItem, isChecked: !editItem.isChecked };
@@ -90,7 +89,7 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
     setList(filteredItems);
     // setFetch(!fetch);
   };
-
+  // const [percent, setPercent] = useState(0);
   // useEffect(() => {
   //   const isCheckIsTrue = list.filter((el) => el.isChecked == true);
   //   const progressPercentage = (isCheckIsTrue.length / list.length) * 100;
@@ -134,7 +133,6 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
               </div>
             </div>
           </div> */}
-
           <div className="flex flex-col overflow-scroll">
             {list.map((el) => {
               return (

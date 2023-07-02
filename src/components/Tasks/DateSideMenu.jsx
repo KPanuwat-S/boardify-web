@@ -27,12 +27,12 @@ function DateSideMenu({
 
   const cards = useSelector((state) => state.card.cardItems);
 
-  const tasksOfCards = cards.find((card) => card.id == cardItem.id).tasks;
+  // const tasksOfCards = cards.find((card) => card.id == cardItem.id).tasks;
 
   // tasks of cards = array of task in a card
   console.log("taskItem", taskItem);
   console.log("task prop", task);
-  console.log("tasksofcard", tasksOfCards);
+  // console.log("tasksofcard", tasksOfCards);
   const submitDate = (date) => {
     const editTaskItem = { ...taskItem, dueDate: date };
 
