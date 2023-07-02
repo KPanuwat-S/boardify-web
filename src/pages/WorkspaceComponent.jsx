@@ -17,7 +17,6 @@ function WorkspaceComponent({ workspace, boards }) {
           <div className="flex items-center gap-5 ">
             <i class="fa-solid fa-chart-simple text-blue-600"></i>
             <h2 className="font-semibold text-blue-600 text-xl flex-1">
-              {" "}
               {workspace.name}
             </h2>
           </div>

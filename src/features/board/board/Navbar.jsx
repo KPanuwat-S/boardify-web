@@ -6,7 +6,7 @@ export default function Navbar({ boardId }) {
       {/* MENU*/}
       <div className="w-full p-3 flex justify-between border-b">
         <div className="flex gap-3 items-center px-5 ">
-          <i class="fa-solid fa-chart-simple text-blue-600"></i>
+          <i className="fa-solid fa-chart-simple text-blue-600"></i>
           <div className="text-blue-600 font-semibold">CC14 Workspace</div>
         </div>
         <div className="flex justify-end gap-10 flex-1">
@@ -22,7 +22,7 @@ export default function Navbar({ boardId }) {
             </div>
           </Link>
 
-          <Link>
+          <Link to="/dashboard">
             <div className="btn btn-ghost normal-case hover:text-blue-600">
               Dashboard
             </div>

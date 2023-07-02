@@ -8,3 +8,11 @@ html {
   font-family: "Poppins", sans-serif;
   color: #253858;
 }
+
+/* body {
+  overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+  display: none; 
+} */
