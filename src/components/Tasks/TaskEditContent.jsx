@@ -49,12 +49,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   );
 
   const fetchTask = useSelector((state) => state.task.taskItem);
-<<<<<<< HEAD
-  console.log("taskItem", taskItem);
-  // useEffect(() => {
-  //   dispatch(getOneTaskAsync(task.taskId)).unwrap();
-  // }, []);
-=======
   // const [title, setTitle] = useState(taskItem.name || "Title");
   const [title, setTitle] = useState(taskItem.name || "Title");
 
@@ -68,7 +62,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   }, [fetch]);
 
   //
->>>>>>> origin/develop2.0
 
   useEffect(() => {
     if (fetchTask !== null) setTaskItem(fetchTask);

@@ -1,23 +1,8 @@
 import { useState } from "react";
 // import Modal from "../../../components/Modal";
 import { PenIcon } from "../../../icons";
-import { useDispatch } from "react-redux";
+
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
-<<<<<<< HEAD
-export default function TaskRow({ name }) {
-  // const [openModal, setOpenModal] = useState(false);
-  // const [hover, setHover] = useState(false);
-  // const mockData = {
-  //   label: 1,
-  //   name: "Mock task",
-  //   date: "27-7-65",
-  //   checkLists: 10,
-  //   checkListsChecked: 1,
-  //   members: ["panuwat", "Laksami"],
-  //   attachment: true,
-  //   comments: 2,
-  // };
-=======
 import { useDispatch, useSelector } from "react-redux";
 import { getOneTaskAsync } from "./Slice/taskSlice";
 import cn from "../../../utils/cn";
@@ -36,24 +21,17 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
     attachment: true,
     comments: 2,
   };
->>>>>>> origin/develop2.0
 
   const dispatch = useDispatch();
 
-  // const handleMouseOver = () => {
-  //   setHover(true);
-  // };
+  const handleMouseOver = () => {
+    setHover(true);
+  };
 
-<<<<<<< HEAD
-  // const handleMouseOut = () => {
-  //   setHover(false);
-  // };
-=======
   const handleMouseOut = () => {
     setHover(false);
   };
   const user = useSelector((state) => state.auth.user);
->>>>>>> origin/develop2.0
 
   // console.log("task in task row", task);
   // useEffect(() => {
@@ -99,11 +77,7 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
 
   // console.log("task item", taskItem);
   return (
-<<<<<<< HEAD
-    name && (
-=======
     taskItem && (
->>>>>>> origin/develop2.0
       <div>
         <div
           className=" flex cursor-pointer relative"
@@ -131,17 +105,9 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
                   ></div>
                 )}
               </div>
-              <p className="font-light text-s">{name}</p>
+              <p className="font-light text-s">{task.taskName}</p>
 
               <div className="w-100 h-10 flex items-end gap-5 text-gray-600">
-<<<<<<< HEAD
-                <div className="flex gap-2">
-                  <i class="fa-regular fa-clock "></i>
-                  <p className="font-light text-xs">
-                    {/* {new Date(task.dueDate).toDateString()} */}
-                  </p>
-                </div>
-=======
                 {task?.dueDate && (
                   <div className="flex gap-2">
                     <i class="fa-regular fa-clock "></i>
@@ -150,7 +116,6 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
                     </p>
                   </div>
                 )}
->>>>>>> origin/develop2.0
                 <div className="flex items-center justify-center gap-2 text-gray-600 ">
                   <i class="fa-regular fa-square-check "></i>
                   <p className="font-light text-xs">
@@ -167,29 +132,6 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
             )} */}
           </div>
         </div>
-<<<<<<< HEAD
-        {
-          open && ""
-          // <Modal
-          //   title="Create Task"
-          //   open={() => {
-          //     setOpen(true);
-          //   }}
-          //   width={50}
-          //   onClose={() => {
-          //     // setOpen(false);
-          //     setFetch(true);
-          //   }}
-          // >
-          //   <TaskEditContent
-          //     open={false}
-          //     // task={text}
-          //     // cardItem={cardItem}
-          //     // setFetch={setFetch}
-          //   ></TaskEditContent>
-          // </Modal>
-        }
-=======
         {open && (
           <Modal
             title="Create Task"
@@ -213,7 +155,6 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
             ></TaskEditContent>
           </Modal>
         )}
->>>>>>> origin/develop2.0
       </div>
     )
   );

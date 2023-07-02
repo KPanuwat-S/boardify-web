@@ -9,16 +9,15 @@ import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable } from "./StrictModeItem";
 import TaskItem from "../../../components/Tasks/TaskItem";
 
-
-
-
-
 function CardList({ boardId, fetch, setFetch }) {
   const cardItems = useSelector((state) => state.card.cardItems);
   const dispatch = useDispatch();
   // console.log(cardItems);
   const [cards, setCards] = useState([]);
   // const [fetch, setFetch] = useState(false);
+
+  console.log("cards", cards);
+  console.log("cardsItem", cardItems);
 
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
@@ -86,7 +85,7 @@ function CardList({ boardId, fetch, setFetch }) {
       console.log(error);
     }
   };
-
+  console.log("cards", cards);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <StrictModeDroppable
@@ -115,9 +114,12 @@ function CardList({ boardId, fetch, setFetch }) {
                   >
                     <TaskItem
                       id={card?.cardId}
-                      cardName={card?.cardName}
+                      // cardName={card?.cardName}
+                      cardItem={card}
                       tasks={card?.tasks}
                       cardType={card?.cardType}
+                      fetch={fetch}
+                      setFetch={setFetch}
                     />
                   </div>
                 )}
@@ -127,7 +129,9 @@ function CardList({ boardId, fetch, setFetch }) {
           </div>
         )}
       </StrictModeDroppable>
-    </DragDropContext>)}
+    </DragDropContext>
+  );
+}
 export default CardList;
 // ======= Develop2.0
 //   // console.log("cardItems", cardItems);
@@ -162,8 +166,6 @@ export default CardList;
 // >>>>>>> origin/develop2.0
 //   );
 // }
-
-
 
 // {/* <div className="flex flex-row-reverse gap-3 ">
 // {/* {sortedTodoList && sortedTodoList.length > 0

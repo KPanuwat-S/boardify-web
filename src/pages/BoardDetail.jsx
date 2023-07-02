@@ -7,6 +7,7 @@ import CardTest from "../features/board/card/CardTest";
 
 export default function BoardDetail() {
   const { id } = useParams();
+  console.log("id", id);
   return (
     <>
       <Navbar boardId={id} />
@@ -16,7 +17,6 @@ export default function BoardDetail() {
         </div>
         <div className="flex w-full bg-[#F2F3F5] h-[100vh] bg-[#] p-16 overflow-x-auto ">
           <Card boardId={id} />
-
         </div>
       </div>
     </>

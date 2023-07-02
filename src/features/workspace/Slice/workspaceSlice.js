@@ -13,9 +13,8 @@ export const getAllWorkSpacesAsync = createAsyncThunk(
   "workspace/getAllWorkSpacesAsync",
   async (input, thunkApi) => {
     try {
-      console.log(input);
       const res = await workspaceService.getWorkspace(input);
-      console.log(res.data);
+      console.log("get all workspaces", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -44,6 +43,14 @@ export const getWorkspaceMembersAsync = createAsyncThunk(
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
+  }
+);
+
+export const createWorkspaceAndInviteMember = createAsyncThunk(
+  "workspace/createWorkspaceAndInviteMember",
+  async (input, thunkApi) => {
+    try {
+    } catch (err) {}
   }
 );
 

@@ -5,8 +5,9 @@ import TaskRow from "../../features/board/task/TaskRow";
 import { MeatballsIcon2 } from "../../icons";
 import { StrictModeDroppable } from "../../features/board/card/StrictModeItem";
 
-function TaskItem({ id, cardName, tasks, cardType }) {
+function TaskItem({ id, cardItem, tasks, cardType, setFetch }) {
   // console.log(cardType);
+  console.log("tasks", tasks);
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">
       {(provided, snapshot) => (
@@ -18,7 +19,7 @@ function TaskItem({ id, cardName, tasks, cardType }) {
           ref={provided.innerRef}
         >
           <div className="flex justify-between p-5">
-            <div className="text-gray-600">{cardName}</div>
+            <div className="text-gray-600">{cardItem.name}</div>
             <div>
               <MeatballsIcon2 />
             </div>
@@ -37,7 +38,14 @@ function TaskItem({ id, cardName, tasks, cardType }) {
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                 >
-                  <TaskRow name={task?.taskName} />
+                  {/* <TaskRow name={task?.taskName} /> */}
+                  <TaskRow
+                    task={task}
+                    // cardItem={cardItem}
+                    cardItem={cardItem}
+                    fetch={fetch}
+                    setFetch={setFetch}
+                  />
                 </div>
               )}
             </Draggable>
