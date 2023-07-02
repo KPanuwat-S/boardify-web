@@ -12,10 +12,7 @@ import TaskItem from "../../../components/Tasks/TaskItem";
 function CardList({ boardId, fetch, setFetch }) {
   const cardItems = useSelector((state) => state.card.cardItems);
   const dispatch = useDispatch();
-  // console.log(cardItems);
   const [cards, setCards] = useState([]);
-  // const [fetch, setFetch] = useState(false);
-
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
   }, [fetch]);
@@ -38,34 +35,26 @@ function CardList({ boardId, fetch, setFetch }) {
         const entries = [...cards];
         const [removed] = entries.splice(source.index, 1);
         entries.splice(destination.index, 0, removed);
-        dispatch(updateCardAsync({ entries, boardId })).unwrap();
+        dispatch(updateCardAsync({ entries, boardId }));
         setCards(entries);
       }
       if (type === "task") {
         const taskSourceIndex = source.index;
-        // console.log(taskSourceIndex);
         const taskDestinationIndex = destination.index;
-        // console.log(taskDestinationIndex);
         const cardSourceIndex = cards.findIndex(
           (card) => card.cardType === source.droppableId
         );
         const cardDestinationIndex = cards.findIndex(
           (card) => card.cardType === destination.droppableId
         );
-        //task source data
         const newSourceTasks = [...cards[cardSourceIndex]?.tasks];
-        //task destination data
-
-        // if (!cardSourceIndex || !cardDestinationIndex) return;
 
         const newDestinationTask =
           source.droppableId !== destination.droppableId
             ? [...cards[cardDestinationIndex]?.tasks]
             : newSourceTasks;
-        //source task data remove
         const [removedTask] = newSourceTasks.splice(taskSourceIndex, 1);
         newDestinationTask.splice(taskDestinationIndex, 0, removedTask);
-        //sort ข้อมูลทั้งหมด
         const newCard = [...cards];
         newCard[cardSourceIndex] = {
           ...cards[cardSourceIndex],
@@ -75,7 +64,7 @@ function CardList({ boardId, fetch, setFetch }) {
           ...cards[cardDestinationIndex],
           tasks: newDestinationTask,
         };
-        dispatch(updateTaskAsync({ newCard, boardId })).unwrap();
+        dispatch(updateTaskAsync({ newCard, boardId }));
         setCards(newCard);
       }
     } catch (error) {
@@ -90,11 +79,11 @@ function CardList({ boardId, fetch, setFetch }) {
         direction={"horizontal"}
         type="card"
       >
-        {(provided) => (
+        {(provided, snapshot) => (
           <div
             {...provided.droppableProps}
             ref={provided.innerRef}
-            className="flex gap-4"
+            className={`flex gap-4  ${snapshot.isDraggingOver && " "} `}
           >
             {cards.map((card, idx) => (
               <Draggable
