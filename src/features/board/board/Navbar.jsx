@@ -16,13 +16,12 @@ export default function Navbar({ boardId }) {
             </div>
           </Link>
           <Link>
-            {" "}
             <div className="btn btn-ghost normal-case hover:text-blue-600">
               Calendar
             </div>
           </Link>
 
-          <Link>
+          <Link to={`/dashboard/${boardId}`}>
             <div className="btn btn-ghost normal-case hover:text-blue-600">
               Dashboard
             </div>
