@@ -20,14 +20,14 @@ function CardColumn({ cardItem, fetch, setFetch, boardId }) {
     fetchCards.find((card) => card.id == cardItem.id).tasks
   );
 
-  useEffect(() => {
-    dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
-  }, [fetch]);
+  // useEffect(() => {
+  //   dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
+  // }, [fetch]);
 
-  useEffect(() => {
-    // setCards(fetchCards);
-    setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id).tasks);
-  }, [fetchCards]);
+  // useEffect(() => {
+  //   // setCards(fetchCards);
+  //   setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id).tasks);
+  // }, [fetchCards]);
 
   useEffect(() => {
     setCards(fetchCards);

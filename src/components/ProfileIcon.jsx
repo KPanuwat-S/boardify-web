@@ -2,11 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DropDownProfile from "./DropDownProfile";
- 
+
 function ProfileIcon() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log("isAuthenticated", isAuthenticated);
-  console.log("authenticate icon");
+  // console.log("isAuthenticated", isAuthenticated);
+  // console.log("authenticate icon");
   return isAuthenticated ? (
     // <Link to="/myProfile">
     <>

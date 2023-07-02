@@ -47,6 +47,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       },
     }
   );
+  console.log("taskItem", taskItem);
 
   const fetchTask = useSelector((state) => state.task.taskItem);
   // const [title, setTitle] = useState(taskItem.name || "Title");
@@ -180,7 +181,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                 )}
               </div>
             </div>
-            <p className="font-light text-[14px]">In Card: {cardItem.name}</p>
+            {/* <p className="font-light text-[14px]">In Card: {cardItem.name}</p> */}
             <div className="mt-5 flex gap-5">
               {taskItem.labelId && (
                 <div>
@@ -214,6 +215,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
               openDescription={openDescription}
               taskItem={taskItem}
             />
+
             <ChecklistListItems
               taskItem={taskItem}
               setTaskItem={setTaskItem}

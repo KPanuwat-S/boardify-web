@@ -1,10 +1,13 @@
+import { useEffect } from "react";
 import Navbar from "../features/board/board/Navbar";
 import SideBar from "../features/board/board/Sidebar";
 import Card from "../features/board/card/Card";
 import { useParams } from "react-router-dom";
+import CardTest from "../features/board/card/CardTest";
+
 export default function BoardDetail() {
   const { id } = useParams();
-
+  console.log("id", id);
   return (
     <>
       <Navbar boardId={id} />

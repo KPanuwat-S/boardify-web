@@ -16,10 +16,10 @@ export const registerAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await authService.register(input);
-      setAccessToken(res.data.accessToken);
-      const fetchMe = await authService.fetchProfile();
+      // setAccessToken(res.data.accessToken);
+      // const fetchMe = await authService.fetchProfile();
 
-      return fetchMe.data.user;
+      // return fetchMe.data.user;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response.data.message);
     }
@@ -27,7 +27,6 @@ export const registerAsync = createAsyncThunk(
 );
 
 export const login = createAsyncThunk("auth/login", async (input, thunkApi) => {
-  console.log(input);
   try {
     const res = await authService.login(input);
     setAccessToken(res.data.accessToken);
@@ -66,7 +65,6 @@ export const fetchMe = createAsyncThunk("auth/fetchMe", async (_, thunkApi) => {
     return thunkApi.rejectWithValue(err.response.data.message);
   }
 });
-
 
 const authSlice = createSlice({
   name: "auth",

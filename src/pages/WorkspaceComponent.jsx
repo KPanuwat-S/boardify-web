@@ -7,7 +7,6 @@ function WorkspaceComponent({ workspace, boards }) {
   useEffect(() => {
     dispatch(getWorkspaceMembersAsync(workspace.id));
   }, []);
-
   // dispatch(getWorkspaceMembersAsync(workspace.id));
   const members = useSelector((state) => state.workspace.members);
   const boardsLimited = boards.slice(0, 5);
