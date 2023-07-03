@@ -12,15 +12,19 @@ import { getMemberAsync } from "../features/member/slice/memberSlice";
 
 function MemberPage() {
   const { id } = useParams();
-  console.log("id", id);
+  // console.log("id", id);
   const [open, setOpen] = useState(false);
+  const [fetchDelete, setFetchDelete] = useState(false);
 
   useEffect(() => {
     dispatch(getWorkspaceMembersAsync(id));
     dispatch(getWorkspaceByIdAsync(id));
     dispatch(getMemberAsync(id));
-    // dispatch(countMemberOnBoard(data));
   }, []);
+
+  useEffect(() => {
+    dispatch(getMemberAsync(id));
+  }, [fetchDelete]);
 
   const dispatch = useDispatch();
   // dispatch(getWorkspaceMembersAsync(workspace.id));
@@ -32,9 +36,7 @@ function MemberPage() {
   // console.log("workspace in mem", workspace);
 
   const memberInCard = useSelector((state) => state.member.showmembercard);
-  console.log("membercard", memberInCard);
-
-  // const countOnBoard = useSelector((state) => state.member.countmember);
+  console.log(memberInCard);
 
   return (
     <div className="w-[1280px] mx-auto my-2">
@@ -62,11 +64,15 @@ function MemberPage() {
             // width={35}
             onClose={() => {
               setOpen(false);
-              console.log("onclose");
             }}
           >
             <div className="px-10 h-[600px]">
-              <MemberInvitation workspaceId={id} />
+              <MemberInvitation
+                workspaceId={id}
+                setFetch={setFetchDelete}
+                fetchDelete={fetchDelete}
+                onClose={() => setOpen(false)}
+              />
             </div>
           </Modal>
         </div>
@@ -77,7 +83,12 @@ function MemberPage() {
 
       <div className="flex flex-col mt-10">
         {/* Member Card */}
-        <MemberCard memberInCard={memberInCard} workspaceId={id} />
+        <MemberCard
+          memberInCard={memberInCard}
+          workspaceId={id}
+          setFetch={setFetchDelete}
+          fetchDelete={fetchDelete}
+        />
       </div>
     </div>
   );

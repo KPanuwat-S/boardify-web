@@ -1,6 +1,6 @@
 import React from "react";
 
-function MemberItem({ firstName, lastName, email }) {
+function MemberItem({ firstName = "", lastName ="", email }) {
   const profileText = firstName[0] + lastName[0];
   return (
     <div className="flex gap-5">
