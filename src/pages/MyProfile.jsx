@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMyproject } from "../features/myProject/Slice/myProjectSlice";
 import MyprofileComponent from "./MyprofileComponent";
+import { Link } from "react-router-dom";
 
 // Mock Data
 
@@ -37,9 +38,8 @@ function MyProfile() {
         <p>Email</p>
       </div> */}
 
-      <div className="">
-        <div className="px-10 w-full py-5 sticky top-20 bg-gray-200 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 border border-gray-100">
-          {" "}
+      <div className=" flex bg-gray-200">
+        <div className="px-10 w-full py-5 sticky top-20 bg-gray-200 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 border ">
           <h1 className="text-blue-600 font-bold">My task</h1>
           <label>
             <h1 className="font-semibold text-gray-600 mb-5">Sort by</h1>
@@ -53,6 +53,20 @@ function MyProfile() {
               <option value={"1"}>Sorting by due date</option>
             </select>
           </label>
+          natta
+        </div>
+        <div>
+          <Link to="/purchase">
+            {/* <div className="bg-orange-500 w-28  p-4 flex justify-center items-center mt-10 mr-14"> */}
+            <div className="bg-white hover:bg-slate-300 w-48  p-4  gap-2 flex justify-center items-center mt-10 mr-14 shadow-md border bottom-1">
+              <div>
+                <PurchaseIcon />
+              </div>
+              <button>
+                <div>Upgrade</div>
+              </button>
+            </div>
+          </Link>
         </div>
 
         {items.projects.length > 0 &&
