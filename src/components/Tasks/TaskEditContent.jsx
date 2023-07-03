@@ -11,17 +11,25 @@ import {
   editTaskAsync,
   getOneTaskAsync,
 } from "../../features/board/task/Slice/taskSlice";
+import LeaveTaskSideMenu from "./LeaveTaskSideMenu";
 
 import cn from "../../utils/cn";
 
 function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
+  const dispatch = useDispatch();
+  console.log("task", task);
+
+  useEffect(() => {
+    dispatch(getOneTaskAsync(task.taskId));
+    console.log("effect running");
+    console.log("fetchTask in edit content", fetchTask);
+  }, [fetch]);
   const [openDescription, setOpenDescription] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
 
   const [isEdit, setIsEdit] = useState(false);
   const [check, setCheck] = useState(false);
   const [add, setAdd] = useState(false);
-  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);
 
@@ -56,12 +64,11 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   console.log("fetchTask", fetchTask);
   console.log("task id", task.taskId);
 
-  useEffect(() => {
-    dispatch(getOneTaskAsync(task.taskId));
-    console.log("effect running");
-    console.log("task in useeffect", task);
-  }, [fetch]);
-
+  const meAsMember = taskItem?.TaskMembers?.find((el) => el.userId === user.id);
+  const [join, setJoin] = useState(!!meAsMember);
+  console.log("join", join);
+  console.log("meAsMember in edit content", meAsMember);
+  // console.log("taskItem outeside useeeffect", taskItem);
   //
 
   useEffect(() => {
@@ -202,11 +209,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                   </div>
                 </div>
               )}
-              {taskItem.TaskMembers?.length > 0 && (
-                <div>
-                  <p className="font-light text-xs mb-1">Member</p>
-                </div>
-              )}
             </div>
           </div>
           <div>
@@ -237,7 +239,30 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             fetch={fetch}
             setFetch={setFetch}
           />
-          <DropdownTask
+          {join ? (
+            <DropdownTask
+              label="Leave Task"
+              icon={<i class="fa-solid fa-arrow-right-from-bracket ml-2"></i>}
+              Component={LeaveTaskSideMenu}
+              cardItem={cardItem}
+              setTaskItem={setTaskItem}
+              taskItem={taskItem}
+              fetch={fetch}
+              setFetch={setFetch}
+            />
+          ) : (
+            <DropdownTask
+              label="Join Task"
+              icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
+              Component={JoinTaskSideMenu}
+              cardItem={cardItem}
+              setTaskItem={setTaskItem}
+              taskItem={taskItem}
+              fetch={fetch}
+              setFetch={setFetch}
+            />
+          )}
+          {/* <DropdownTask
             label="Join Task"
             icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
             Component={JoinTaskSideMenu}
@@ -246,7 +271,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             taskItem={taskItem}
             fetch={fetch}
             setFetch={setFetch}
-          />
+          /> */}
           <DropdownTask
             setFetch={setFetch}
             fetch={fetch}
@@ -257,6 +282,17 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             setTaskItem={setTaskItem}
             taskItem={fetchTask}
           />
+          {fetchTask?.TaskMembers?.length > 0 && (
+            <div className="mt-5">
+              <p className=" text-xs mb-1 font-semibold">Assigned To</p>
+              {fetchTask?.TaskMembers?.map((el) => (
+                <div className=" flex items-center justify-center text-white bg-blue-400 rounded-full w-[30px] h-[30px]">
+                  {el.User.firstName[0].toUpperCase()}
+                  {el.User.lastName[0].toUpperCase()}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>

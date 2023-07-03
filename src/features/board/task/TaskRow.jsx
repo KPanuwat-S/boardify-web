@@ -4,7 +4,7 @@ import { PenIcon } from "../../../icons";
 
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
 import { useDispatch, useSelector } from "react-redux";
-import { getOneTaskAsync } from "./Slice/taskSlice";
+import { getOneTaskAsync, removeTaskItem } from "./Slice/taskSlice";
 import cn from "../../../utils/cn";
 
 export default function TaskRow({ fetch, task, cardItem, setFetch }) {
@@ -152,6 +152,7 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
               console.log("fetch", fetch);
               setOpen(false);
               setFetch(!fetch);
+              dispatch(removeTaskItem());
             }}
           >
             <TaskEditContent

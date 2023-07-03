@@ -89,6 +89,17 @@ export const deleteChecklistAsync = createAsyncThunk(
   }
 );
 
+export const addMeToTaskAsync = createAsyncThunk(
+  "task/addMemberToTaskAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await taskService.addMeToTask(input);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const taskSlice = createSlice({
   name: "task",
   initialState: initialState,
@@ -102,6 +113,9 @@ const taskSlice = createSlice({
     },
     addChecklist: (state, action) => {
       state.checklist.push(action.payload);
+    },
+    removeTaskItem: (state, action) => {
+      state.taskItem = {};
     },
   },
   extraReducers: (builder) =>
@@ -143,8 +157,12 @@ const taskSlice = createSlice({
       })
       .addCase(deleteChecklistAsync.fulfilled, (state, action) => {
         state.isLoading = false;
+      })
+      .addCase(addMeToTaskAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
       }),
 });
-export const { editTask, getChecklist, addChecklist } = taskSlice.actions;
+export const { editTask, removeTaskItem, getChecklist, addChecklist } =
+  taskSlice.actions;
 
 export default taskSlice.reducer;

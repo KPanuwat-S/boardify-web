@@ -6,7 +6,7 @@ import {
   addMeToTaskAsync,
   getOneTaskAsync,
 } from "../../features/board/task/Slice/taskSlice";
-function JoinTaskSideMenu({
+function LeaveTaskSideMenu({
   open,
   setOpen,
   cardItem,
@@ -26,13 +26,14 @@ function JoinTaskSideMenu({
   const taskItem = useSelector((state) => state.task.taskItem);
 
   const submitJoinTask = () => {
-    // const meAsMember = taskItem.TaskMembers?.find(
-    //   (el) => el.userId === id
-    // ).User;
+    const meAsMember = taskItem.TaskMembers?.find(
+      (el) => el.userId === id
+    ).User;
     // if (meAsMember) return setOpen(false);
     const taskId = taskItem.id;
     console.log("taskId", taskId);
-
+    const newMember = [...taskItem.TaskMembers, ];
+    const editTaskItem = { ...taskItem, TaskMembers: newMember };
     dispatch(addMeToTaskAsync({ taskId }));
     setFetch(!fetch);
     setOpen(false);
@@ -46,7 +47,7 @@ function JoinTaskSideMenu({
         }}
         className="flex flex-col w-[350px] gap-2 absolute z-50 bg-white border rounded-[4px] shadow-lg p-2"
       >
-        <h1 className="text-center mt-1 ">Join this task</h1>
+        <h1 className="text-center mt-1 ">Leave this task</h1>
         <hr className="mb-1" />
         <div className="rounded-[4px] m-2 p-2">
           <MemberItem firstName={firstName} lastName={lastName} email={email} />
@@ -56,7 +57,7 @@ function JoinTaskSideMenu({
             onClick={submitJoinTask}
             className="bg-blue-600 text-white py-1 px-5 rounded-[4px]"
           >
-            Join
+            Leave
           </button>
 
           <button
@@ -73,4 +74,4 @@ function JoinTaskSideMenu({
   );
 }
 
-export default JoinTaskSideMenu;
+export default LeaveTaskSideMenu;

@@ -16,3 +16,6 @@ export const editChecklist = (editChecklist) =>
 
 export const deleteChecklist = (checklistId) =>
   axios.delete(`boards/tasks/checklists/${checklistId}`);
+
+export const addMeToTask = (data) =>
+  axios.post(`boards/tasks/members/me`, data);
