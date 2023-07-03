@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import MemberItem from "./Member/MemberItem";
+import { useDispatch } from "react-redux";
+import { createWorkspaceAndInviteMember } from "../features/workspace/Slice/workspaceSlice";
 
 function CreateButton() {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [createWorkspaceData, setCreateWorkspaceData] = useState({
     createrId: "",
-    workspaceName: "",
+    name: "",
   });
 
   const [memberList, setMemberList] = useState([]);
@@ -55,6 +58,10 @@ function CreateButton() {
     console.log("data", createWorkspaceData);
     e.stopPropagation();
     // setOpen(false);
+    console.log("submit data", { ...createWorkspaceData, members });
+    dispatch(
+      createWorkspaceAndInviteMember({ ...createWorkspaceData, members })
+    );
     onClose();
     // setCreateWorkspaceData("");
   };
@@ -92,12 +99,12 @@ function CreateButton() {
         }}
       >
         <div className="flex flex-col  gap-2">
-          <label htmlFor="workspaceName">Workspace name</label>
+          <label htmlFor="name">Workspace name</label>
           <input
             className="border border-gray-400 p-2 rounded-[4px]"
             type="text"
-            id="workspaceName"
-            name="workspaceName"
+            id="name"
+            name="name"
             value={createWorkspaceData.workspaceName}
             onChange={changeDataHandler}
           />

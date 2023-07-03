@@ -6,17 +6,23 @@ import CardPerLabel from "../components/Dashboard/CardPerLabel";
 import Navbar from "../features/board/board/Navbar";
 import SideBar from "../features/board/board/Sidebar";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 // import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
 // import { MeatballsIcon3 } from "../icons";
 
 export default function DashBoard() {
   // const { id } = useParams();
-  const id = useParams();
+  const { id } = useParams();
   console.log("id", id);
+  const dispatch = useDispatch();
+  const allWorkspace = useSelector((state) => state.workspace.workspaces);
+  const thisWorkSpace = allWorkspace.find((el) =>
+    el.Workspace.Boards.find((el) => el.id == id)
+  );
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar boardId={id} workspace={thisWorkSpace.Workspace} />
       </div>
       <div className="flex">
         <div className="h-[100vh]">
@@ -29,7 +35,7 @@ export default function DashBoard() {
               <div className="w-[560px] bg-white border-solid border-[1px] rounded-xl shadow-inner  ">
                 <div className="p-8 ">
                   <div className="flex justify-between">
-                    <p className="">Task per list</p>
+                    <p className="">Task per Card</p>
                     <div>{/* <MeatballsIcon3 /> */}</div>
                   </div>
                   <div className="m-10 mb-[-10px]">
@@ -40,7 +46,7 @@ export default function DashBoard() {
               <div className="w-[560px] bg-white border-solid border-[1px] rounded-xl shadow-inner  ">
                 <div className="p-8 ">
                   <div className="flex justify-between">
-                    <p className="">Task per member</p>
+                    <p className="">Task per Member</p>
                     <div>{/* <MeatballsIcon3 /> */}</div>
                   </div>
                   <div className="m-10 mb-[-10px]">
@@ -54,7 +60,7 @@ export default function DashBoard() {
               <div className="w-[560px] bg-white border-solid border-[1px] rounded-xl shadow-inner ">
                 <div className="p-8 ">
                   <div className="flex justify-between">
-                    <p className="">Task per due date</p>
+                    <p className="">Task per Due Date</p>
                     <div>{/* <MeatballsIcon3 /> */}</div>
                   </div>
                   <div className="m-10 mb-[-10px]">
@@ -65,7 +71,7 @@ export default function DashBoard() {
               <div className="w-[560px] bg-white border-solid border-[1px] rounded-xl shadow-inner  ">
                 <div className="p-8 ">
                   <div className="flex justify-between">
-                    <p className="">Task per label</p>
+                    <p className="">Task per Label</p>
                     <div>{/* <MeatballsIcon3 /> */}</div>
                   </div>
                   <div className="m-10 mb-[-10px]">

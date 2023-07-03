@@ -17,6 +17,7 @@ function WorkspaceDetail() {
     dispatch(getAllBoardsInWorkspaceAsync(id));
     dispatch(getWorkspaceMembersAsync(id));
     dispatch(getWorkspaceByIdAsync(id));
+    console.log("useeffect run");
   }, []);
 
   const [open, setOpen] = useState(false);
@@ -26,7 +27,7 @@ function WorkspaceDetail() {
   console.log("baords", boards);
   console.log("workspaceid", id);
   return (
-    <div className="w-[1280px] mx-auto">
+    <div className="w-[1280px] mx-auto mt-5">
       <div className=" ">
         <div className="flex justify-between">
           <div className="flex items-center gap-5">

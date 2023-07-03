@@ -15,8 +15,9 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
   const fetchCards = useSelector((state) => state.card.cardItems);
 
   const [tasksOfCards, setTaskOfCards] = useState(
-    fetchCards.find((card) => card.id == cardItem.id).tasks
+    fetchCards.find((card) => card.id == cardItem.id)?.tasks || tasks
   );
+  console.log("task prop", tasks);
 
   console.log("cardItem in task item", cardItem);
   useEffect(() => {
@@ -24,7 +25,7 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
   }, [fetch]);
   useEffect(() => {
     // setCards(fetchCards);
-    setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id).tasks);
+    setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id)?.tasks);
   }, [fetchCards]);
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">
@@ -42,7 +43,7 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
               <MeatballsIcon2 />
             </div>
           </div>
-          {tasksOfCards.map((task, idx) => (
+          {tasksOfCards?.map((task, idx) => (
             <Draggable
               key={task?.taskId}
               draggableId={task?.taskId + ""}

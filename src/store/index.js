@@ -6,6 +6,8 @@ import boardReducer from "../features/board/board/Slice/boardSlice";
 import taskReducer from "../features/board/task/Slice/taskSlice";
 import memberReducer from "../features/member/slice/memberSlice";
 import projectsReducer from "../features/myProject/Slice/myProjectSlice";
+import stripeReducer from "../features/stripe/Slice/purchaseSlice";
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -15,6 +17,7 @@ export const store = configureStore({
     board: boardReducer,
     task: taskReducer,
     projects: projectsReducer,
+    stripe: stripeReducer,
   },
 });
 
