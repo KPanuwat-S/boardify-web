@@ -2,33 +2,33 @@
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 export default function CardPerDueDate() {
-  const dataTask = [
-    {
-      id: 1,
-      status: "complete",
-      taskTotal: 7,
-    },
-    {
-      id: 2,
-      status: "Due soon",
-      taskTotal: 1,
-    },
-    {
-      id: 3,
-      status: "Due later",
-      taskTotal: 5,
-    },
-    {
-      id: 3,
-      status: "Overdue",
-      taskTotal: 0,
-    },
-    {
-      id: 3,
-      status: "No due date",
-      taskTotal: 33,
-    },
-  ];
+  // const dataTask = [
+  //   {
+  //     id: 1,
+  //     status: "complete",
+  //     taskTotal: 7,
+  //   },
+  //   {
+  //     id: 2,
+  //     status: "Due soon",
+  //     taskTotal: 1,
+  //   },
+  //   {
+  //     id: 3,
+  //     status: "Due later",
+  //     taskTotal: 5,
+  //   },
+  //   {
+  //     id: 3,
+  //     status: "Overdue",
+  //     taskTotal: 0,
+  //   },
+  //   {
+  //     id: 3,
+  //     status: "No due date",
+  //     taskTotal: 33,
+  //   },
+  // ];
 
   const labels = dataTask.map(({ status }) => status);
   const x = dataTask.map(({ taskTotal }) => taskTotal);

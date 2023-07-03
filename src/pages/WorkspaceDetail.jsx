@@ -10,6 +10,7 @@ function WorkspaceDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.board.boards);
+  console.log(boards);
   useEffect(() => {
     dispatch(getAllBoardsInWorkspaceAsync(id));
     dispatch(getWorkspaceMembersAsync(id));
