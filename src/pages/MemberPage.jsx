@@ -6,25 +6,37 @@ import {
   getWorkspaceMembersAsync,
   getWorkspaceByIdAsync,
 } from "../features/workspace/Slice/workspaceSlice";
-import MemberInvitation from "../features/member/components/MemberInvitation";
 import MemberCard from "../features/member/components/MemberCard";
+import MemberInvitation from "../features/member/components/MemberInvitation";
+import { getMemberAsync } from "../features/member/Slice/memberSlice";
 
 function MemberPage() {
   const { id } = useParams();
-  console.log("id", id);
+  // console.log("id", id);
   const [open, setOpen] = useState(false);
+  const [fetchDelete, setFetchDelete] = useState(false);
+
   useEffect(() => {
     dispatch(getWorkspaceMembersAsync(id));
     dispatch(getWorkspaceByIdAsync(id));
+    dispatch(getMemberAsync(id));
   }, []);
+
+  useEffect(() => {
+    dispatch(getMemberAsync(id));
+  }, [fetchDelete]);
+
   const dispatch = useDispatch();
   // dispatch(getWorkspaceMembersAsync(workspace.id));
   const members = useSelector((state) => state.workspace.members);
   // const workspace = useSelector((state) => state.workspace.workspaces);
 
   const workspace = useSelector((state) => state.workspace.oneWorkspace);
-  console.log("one workspace", workspace);
-  console.log("workspace in mem", workspace);
+  // console.log("one workspace", workspace);
+  // console.log("workspace in mem", workspace);
+
+  const memberInCard = useSelector((state) => state.member.showmembercard);
+  console.log(memberInCard);
   return (
     <div className="w-[1280px] mx-auto my-2">
       <div className="">
@@ -55,7 +67,12 @@ function MemberPage() {
             }}
           >
             <div className="px-10 h-[600px]">
-              <MemberInvitation workspaceId={id} />
+              <MemberInvitation
+                workspaceId={id}
+                setFetch={setFetchDelete}
+                fetchDelete={fetchDelete}
+                onClose={() => setOpen(false)}
+              />
             </div>
           </Modal>
         </div>
@@ -65,24 +82,13 @@ function MemberPage() {
       {/* Member Component */}
 
       <div className="flex flex-col  mt-10">
-        {/* <div className="flex flex-1 gap-5 justify-between">
-          <div className="flex gap-5">
-            <div className="flex items-center justify-center w-[40px] h-[40px] bg-blue-400 text-white rounded-full"></div>
-            <div>
-              <h2 className="font-bold">Sadana Doe</h2>
-              <h3>sadananDoe@gmail.com</h3>
-            </div>
-          </div>
-          <div className="flex items-center gap-5 ">
-            <div>
-              <h2 className="text-blue-600">On 2 Boards</h2>
-            </div>
-            <div>Admin</div>
-            <button className="flex items-center px-2 py-1 bg-gray-100 rounded-[4px] hover:bg-gray-200 duration-200">
-              <h2 className="text-gray-500">Remove</h2>
-            </button>
-          </div>
-        </div> */}
+        <MemberCard
+          memberInCard={memberInCard}
+          workspaceId={id}
+          setFetch={setFetchDelete}
+          fetchDelete={fetchDelete}
+        />
+
         <MemberCard />
       </div>
     </div>
