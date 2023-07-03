@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BACKEND_URL } from "../../config/env";
+import { BACKEND_URL } from "../config/env";
 import { getAccessToken } from "../utils/localstorage";
 
 axios.defaults.baseURL = BACKEND_URL;
