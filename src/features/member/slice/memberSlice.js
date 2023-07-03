@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import * as memberService from "../../../api/memberApi";
+// import * as memberService from "../../../api/memberApi";
 
+import * as memberService from "../../../api/memberApi";
 const initialState = {
   error: null,
   loading: false,

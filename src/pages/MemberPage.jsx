@@ -8,7 +8,7 @@ import {
 } from "../features/workspace/Slice/workspaceSlice";
 import MemberCard from "../features/member/components/MemberCard";
 import MemberInvitation from "../features/member/components/MemberInvitation";
-import { getMemberAsync } from "../features/member/slice/memberSlice";
+import { getMemberAsync } from "../features/member/Slice/memberSlice";
 
 function MemberPage() {
   const { id } = useParams();

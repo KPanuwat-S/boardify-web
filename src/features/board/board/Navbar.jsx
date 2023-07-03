@@ -3,17 +3,17 @@
 import { Link } from "react-router-dom";
 
 export default function Navbar({ boardId, workspace }) {
-  console.log("workspace in nav", workspace);
+  // console.log("workspace in nav", workspace);
   return (
     <>
       {/* MENU*/}
       <div className="w-full p-3 flex justify-between items-center border-b">
-        <Link to={`/workspaceDetail/${workspace.id}`}>
+        {/* <Link to={`/workspaceDetail/${workspace.id}`}>
           <div className="flex gap-3 items-center px-5 py-5 ">
             <i class="fa-solid fa-chart-simple text-blue-600"></i>
             <div className="text-blue-600 font-semibold">{workspace?.name}</div>
           </div>
-        </Link>
+        </Link> */}
         <div className="flex justify-end gap-10 flex-1">
           <Link>
             <div className="btn btn-ghost normal-case hover:text-blue-600">

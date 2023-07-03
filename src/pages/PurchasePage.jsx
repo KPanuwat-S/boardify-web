@@ -24,36 +24,32 @@ export default function PurchasePage() {
   };
 
   return (
-    <div className="flex flex-col gap-10 items-center">
-      <h1>Product</h1>
-      <div>
-        <div className="card w-96 bg-base-100 shadow-xl">
-          <figure className="px-10 pt-10">
-            <img
-              src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-              alt="Shoes"
-              className="rounded-xl"
-            />
-          </figure>
-          <div className="card-body items-center text-center">
-            <h2 className="card-title">Shoes!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions">
-              <button className="btn btn-primary">Buy Now</button>
+    <div className="flex  h-[400px] justify-center items-center">
+      <div className="flex flex-col gap-10 items-center ">
+        <div>
+          <div className="card w-[400px] bg-base-100 shadow-xl ">
+            <div className="card-body items-center text-start gap-8 ">
+              <div className="font-bold text-lg ">Premium</div>
+              <p>
+                Get Premium on boardify today for comment feature make
+                communication in the team more effective
+              </p>
+              <div className="card-actions">
+                <button
+                  type="button"
+                  className="w-[5rem] h-[2rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
+                  onClick={(e) => {
+                    handleOnclick(e.target.name);
+                  }}
+                  name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
+                >
+                  Buy
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <button
-        type="button"
-        className="w-[8rem] border border-black bg-blue-400 text-white cursor-pointer text-center"
-        onClick={(e) => {
-          handleOnclick(e.target.name);
-        }}
-        name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
-      >
-        Buy
-      </button>
     </div>
   );
 }

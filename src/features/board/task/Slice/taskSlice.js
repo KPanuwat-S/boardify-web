@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   error: null,
   checklist: [],
+  membersInTask: [],
 };
 
 // READ
@@ -100,6 +101,31 @@ export const addMeToTaskAsync = createAsyncThunk(
   }
 );
 
+export const getMemberInTaskAsync = createAsyncThunk(
+  "task/getMemberInTaskAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await taskService.getAllMembersInTask(input);
+      console.log("res get member", res);
+      return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const removeMeFromTaskAsync = createAsyncThunk(
+  "task/removeMeFromTaskAsync",
+  async (input, thunkApi) => {
+    try {
+      await taskService.removeMeFromTask(input);
+      // return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const taskSlice = createSlice({
   name: "task",
   initialState: initialState,
@@ -116,6 +142,12 @@ const taskSlice = createSlice({
     },
     removeTaskItem: (state, action) => {
       state.taskItem = {};
+    },
+    removeMeFromTask: (state, action) => {
+      console.log("action", action.payload);
+      state.membersInTask = state.membersInTask.filter(
+        (el) => el.userId !== action.payload
+      );
     },
   },
   extraReducers: (builder) =>
@@ -160,9 +192,20 @@ const taskSlice = createSlice({
       })
       .addCase(addMeToTaskAsync.fulfilled, (state, action) => {
         state.isLoading = false;
+      })
+      .addCase(getMemberInTaskAsync.fulfilled, (state, action) => {
+        state.membersInTask = action.payload;
+      })
+      .addCase(removeMeFromTaskAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
       }),
 });
-export const { editTask, removeTaskItem, getChecklist, addChecklist } =
-  taskSlice.actions;
+export const {
+  removeMeFromTask,
+  editTask,
+  removeTaskItem,
+  getChecklist,
+  addChecklist,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;

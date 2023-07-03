@@ -128,7 +128,11 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
                   </div>
                 )}
 
-                {task.members.length > 0 && <i class="fa-regular fa-user"></i>}
+                <div className="items-end">
+                  {task.members.length > 0 && (
+                    <i class="fa-regular fa-user"></i>
+                  )}
+                </div>
               </div>
             </div>
             {/* {hover && (

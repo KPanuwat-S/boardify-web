@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberItem from "../Member/MemberItem";
 
 import {
   addMeToTaskAsync,
   getOneTaskAsync,
+  removeMeFromTask,
+  removeMeFromTaskAsync,
 } from "../../features/board/task/Slice/taskSlice";
 function LeaveTaskSideMenu({
   open,
@@ -16,25 +18,25 @@ function LeaveTaskSideMenu({
   fetch,
 }) {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getOneTaskAsync(taskItem?.id));
-  }, []);
+    // setTaskItemId(taskItem.id);
+  }, [fetch]);
 
   const { firstName, lastName, email, id } = useSelector(
     (state) => state.auth.user
   );
+  // if (memberAsMe >= 0) return;
+  const user = useSelector((state) => state.auth.user);
   const taskItem = useSelector((state) => state.task.taskItem);
+  const memberIntasks = useSelector((state) => state.task.membersInTask);
+  const memberAsMe = memberIntasks.findIndex((el) => el.userId == user.id);
 
-  const submitJoinTask = () => {
-    const meAsMember = taskItem.TaskMembers?.find(
-      (el) => el.userId === id
-    ).User;
-    // if (meAsMember) return setOpen(false);
-    const taskId = taskItem.id;
-    console.log("taskId", taskId);
-    const newMember = [...taskItem.TaskMembers, ];
-    const editTaskItem = { ...taskItem, TaskMembers: newMember };
-    dispatch(addMeToTaskAsync({ taskId }));
+  // console.log("task in leave task", taskItem.id);
+  const submitLeaveTask = () => {
+    console.log("task id in leave", taskItem);
+    dispatch(removeMeFromTaskAsync(taskItem.id));
     setFetch(!fetch);
     setOpen(false);
   };
@@ -54,7 +56,7 @@ function LeaveTaskSideMenu({
         </div>
         <div className="flex justify-center gap-2 mt-5 mb-2">
           <button
-            onClick={submitJoinTask}
+            onClick={submitLeaveTask}
             className="bg-blue-600 text-white py-1 px-5 rounded-[4px]"
           >
             Leave
