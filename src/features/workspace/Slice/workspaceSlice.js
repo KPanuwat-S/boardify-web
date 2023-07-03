@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as workspaceService from "../../../api/workspaceApi";
-import { workspace } from "../../../mockdata";
 
 const initialState = {
   workspaces: [],
@@ -14,9 +13,8 @@ export const getAllWorkSpacesAsync = createAsyncThunk(
   "workspace/getAllWorkSpacesAsync",
   async (input, thunkApi) => {
     try {
-      console.log(input);
       const res = await workspaceService.getWorkspace(input);
-      console.log(res.data);
+      console.log("get all workspaces", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -45,6 +43,17 @@ export const getWorkspaceMembersAsync = createAsyncThunk(
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
+  }
+);
+
+export const createWorkspaceAndInviteMember = createAsyncThunk(
+  "workspace/createWorkspaceAndInviteMember",
+  async (input, thunkApi) => {
+    try {
+      console.log("input in wp slice", input);
+      const res = await workspaceService.createWorkspaces(input);
+      return res.data;
+    } catch (err) {}
   }
 );
 
@@ -92,6 +101,9 @@ const workspaceSlice = createSlice({
       })
       .addCase(getWorkspaceByIdAsync.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(createWorkspaceAndInviteMember.fulfilled, (state, action) => {
+        state.isLoading = false;
       }),
 });
 export const { getWorkspaceById } = workspaceSlice.actions;

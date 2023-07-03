@@ -8,13 +8,20 @@ import {
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable } from "./StrictModeItem";
 import TaskItem from "../../../components/Tasks/TaskItem";
+import { v4 as uuidv4 } from "uuid";
 
 function CardList({ boardId, fetch, setFetch }) {
   const cardItems = useSelector((state) => state.card.cardItems);
   const dispatch = useDispatch();
   const [cards, setCards] = useState([]);
+  // const [fetch, setFetch] = useState(false);
+
+  console.log("cards", cards);
+  console.log("cardsItem", cardItems);
+
   useEffect(() => {
-    dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
+    dispatch(getAllCardsInOneBoardAsync(boardId));
+    console.log("cardlist fn running");
   }, [fetch]);
 
   useEffect(() => {
@@ -22,6 +29,7 @@ function CardList({ boardId, fetch, setFetch }) {
   }, [cardItems]);
 
   const onDragEnd = async (result) => {
+    console.log("result from drag end", result);
     const { destination, source, type } = result;
     try {
       if (!destination) return;
@@ -30,12 +38,12 @@ function CardList({ boardId, fetch, setFetch }) {
         destination.index === source.index
       )
         return;
-
       if (type === "card") {
         const entries = [...cards];
         const [removed] = entries.splice(source.index, 1);
         entries.splice(destination.index, 0, removed);
         dispatch(updateCardAsync({ entries, boardId }));
+        // dispatch(updateCardAsync({ entries, boardId })).unwrap();
         setCards(entries);
       }
       if (type === "task") {
@@ -48,7 +56,8 @@ function CardList({ boardId, fetch, setFetch }) {
           (card) => card.cardType === destination.droppableId
         );
         const newSourceTasks = [...cards[cardSourceIndex]?.tasks];
-
+        //task destination data
+        // if (!cardSourceIndex || !cardDestinationIndex) return;
         const newDestinationTask =
           source.droppableId !== destination.droppableId
             ? [...cards[cardDestinationIndex]?.tasks]
@@ -72,10 +81,13 @@ function CardList({ boardId, fetch, setFetch }) {
     }
   };
 
+  const id = uuidv4();
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <StrictModeDroppable
         droppableId="agenda"
+        // droppableId={id}
         direction={"horizontal"}
         type="card"
       >
@@ -87,8 +99,12 @@ function CardList({ boardId, fetch, setFetch }) {
           >
             {cards.map((card, idx) => (
               <Draggable
-                key={card?.cardId}
-                draggableId={card?.cardType}
+                // key={card?.cardId}
+                // draggableId={card?.cardId}
+                key={card?.id}
+                draggableId={card?.id + ""}
+                // draggableId={uuidv4()}
+                // draggableId="agenda"
                 index={idx}
               >
                 {(provided) => (
@@ -99,10 +115,14 @@ function CardList({ boardId, fetch, setFetch }) {
                     className="flex flex-row-reverse gap-3 "
                   >
                     <TaskItem
-                      id={card?.cardId}
-                      cardName={card?.cardName}
+                      boardId={boardId}
+                      id={card?.cardId + ""}
+                      // cardName={card?.cardName}
+                      cardItem={card}
                       tasks={card?.tasks}
                       cardType={card?.cardType}
+                      fetch={fetch}
+                      setFetch={setFetch}
                     />
                   </div>
                 )}
@@ -115,8 +135,40 @@ function CardList({ boardId, fetch, setFetch }) {
     </DragDropContext>
   );
 }
-
 export default CardList;
+// ======= Develop2.0
+//   // console.log("cardItems", cardItems);
+
+//   // const [cards, setCards] = useState(cardItems);
+
+//   useEffect(() => {
+//     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
+//     // setCards(cardItems);
+//     // if (cardItems !== null) setCards(cardItems);
+//   }, [fetch]);
+
+//   // useEffect(() => {
+//   //   if (cardItems !== null) setCards(cardItems);
+//   // }, [cardItems]);
+//   return (
+//     <>
+//       <div className="flex flex-row-reverse gap-3 ">
+//         {cardItems && cardItems.length > 0
+//           ? cardItems.map((cardItem, index) => (
+//               <CardColumn
+//                 boardId={boardId}
+//                 key={index}
+//                 cardItem={cardItem}
+//                 fetch={fetch}
+//                 setFetch={setFetch}
+//               />
+//             ))
+//           : "no todo found"}
+//       </div>
+//     </>
+// >>>>>>> origin/develop2.0
+//   );
+// }
 
 // {/* <div className="flex flex-row-reverse gap-3 ">
 // {/* {sortedTodoList && sortedTodoList.length > 0

@@ -20,6 +20,7 @@ export default function CardPerLabel() {
     },
   ];
 
+  
   const labels = dataTask.map(({ labelName }) => labelName);
   const x = dataTask.map(({ taskTotal }) => taskTotal);
 

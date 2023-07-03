@@ -27,6 +27,7 @@ export const addTaskAsync = createAsyncThunk(
   "task/addTaskAsync",
   async (input, thunkApi) => {
     try {
+      const res = await taskService.addTask(input.cardId, input.task);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -77,6 +78,16 @@ export const editChecklistAsync = createAsyncThunk(
     }
   }
 );
+export const deleteChecklistAsync = createAsyncThunk(
+  "task/deleteChecklistAsync",
+  async (input, thunkApi) => {
+    try {
+      await taskService.deleteChecklist(input);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 
 const taskSlice = createSlice({
   name: "task",
@@ -97,6 +108,7 @@ const taskSlice = createSlice({
     builder
       .addCase(getOneTaskAsync.pending, (state, action) => {
         state.isLoading = true;
+        state.taskItem = {};
       })
       .addCase(getOneTaskAsync.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -111,7 +123,7 @@ const taskSlice = createSlice({
       })
       .addCase(addTaskAsync.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.taskItem = action.payload;
+        // state.taskItem = action.payload;
       })
       .addCase(editTaskAsync.pending, (state, action) => {
         state.isLoading = true;
@@ -127,6 +139,9 @@ const taskSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(editChecklistAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteChecklistAsync.fulfilled, (state, action) => {
         state.isLoading = false;
       }),
 });

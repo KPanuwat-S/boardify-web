@@ -17,7 +17,9 @@ import WelcomingPage from "../pages/WelcomingPage";
 import MyProfile from "../pages/MyProfile";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 import TaskEditContent from "../components/Tasks/TaskEditContent";
-
+import DashBoard from "../pages/Dashboard";
+import PurchasePage from "../pages/PurchasePage";
+import SuccessPage from "../pages/SuccessPage";
 function Router() {
   const router = createBrowserRouter([
     {
@@ -29,9 +31,11 @@ function Router() {
         </>
       ),
       children: [
-        { path: "/homepage", element: <Homepage /> },
+        { path: "/", element: <Homepage /> },
+        // { path: "/homepage", element: <Homepage /> },
         // { path: "/workspace", element: <Workspace /> },
         { path: "/boards", element: <Boards /> },
+        { path: "/dashboard/:id", element: <DashBoard /> },
         { path: "/boardDetail/:id", element: <BoardDetail /> },
         { path: "/workspaceDetail/:id", element: <WorkspaceDetail /> },
         // { path: "/login", element: <LoginPage /> },
@@ -42,7 +46,9 @@ function Router() {
         { path: "/board", element: <Boards /> },
         { path: "/dashboard/:id", element: <DashBoard /> },
 
-        // { path: "/myProfile", element: <MyProfile /> },
+        { path: "/myProfile", element: <MyProfile /> },
+        { path: "/purchase", element: <PurchasePage /> },
+        { path: "/success", element: <SuccessPage /> },
       ],
     },
 

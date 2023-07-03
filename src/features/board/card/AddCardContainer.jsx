@@ -27,9 +27,8 @@ export default function AddCardContainer({ boardId, fetch, setFetch }) {
     if (cardName) {
       await dispatch(addCardAsync(input)).unwrap();
       setCardName("");
-      setOpen(false);
       setFetch(!fetch);
-      console.log("click close");
+      setOpen(false);
     } else {
       // toast.error("Card's name should not be empty");
     }

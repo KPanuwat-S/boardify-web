@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import MemberItem from "./Member/MemberItem";
+import { useDispatch } from "react-redux";
+import { createWorkspaceAndInviteMember } from "../features/workspace/Slice/workspaceSlice";
 
 function CreateButton() {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [createWorkspaceData, setCreateWorkspaceData] = useState({
     createrId: "",
-    workspaceName: "",
+    name: "",
   });
 
   const [memberList, setMemberList] = useState([]);
@@ -16,6 +19,12 @@ function CreateButton() {
   useEffect(() => {
     setIndex(1);
   }, []);
+
+  const onClose = () => {
+    setOpen(false);
+    setIndex(1);
+    setCreateWorkspaceData("");
+  };
 
   const changeDataHandler = (e) => {
     setCreateWorkspaceData((prevData) => {
@@ -37,7 +46,7 @@ function CreateButton() {
     console.log("memberList fir", memberList);
   };
 
-  const submitInput = (e) => {
+  const submitInput = async (e) => {
     e.preventDefault();
     const members = memberList;
     console.log("memedsa", members);
@@ -46,6 +55,20 @@ function CreateButton() {
       console.log("testmembers", { ...data, members });
       return { ...data, members };
     });
+    console.log("data", createWorkspaceData);
+    e.stopPropagation();
+    // setOpen(false);
+    console.log("submit data", { ...createWorkspaceData, members });
+    dispatch(
+      createWorkspaceAndInviteMember({ ...createWorkspaceData, members })
+    );
+    onClose();
+    // setCreateWorkspaceData("");
+  };
+
+  const submitWorkspace = (e) => {
+    //  e.preventDefault()
+    console.log(createWorkspaceData);
   };
 
   const memberHandler = (e) => {
@@ -56,7 +79,7 @@ function CreateButton() {
     const filterdMeber = memberList.filter((el, idx) => idx !== id);
     setMemberList(filterdMeber);
   };
-  
+
   const elementIfIndexIsOne = (
     <>
       <h1 className="text-gray-800 text-center font-light mb-10">
@@ -76,12 +99,12 @@ function CreateButton() {
         }}
       >
         <div className="flex flex-col  gap-2">
-          <label htmlFor="workspaceName">Workspace name</label>
+          <label htmlFor="name">Workspace name</label>
           <input
             className="border border-gray-400 p-2 rounded-[4px]"
             type="text"
-            id="workspaceName"
-            name="workspaceName"
+            id="name"
+            name="name"
             value={createWorkspaceData.workspaceName}
             onChange={changeDataHandler}
           />
@@ -108,7 +131,7 @@ function CreateButton() {
       <form action={() => {}}>
         <div className="flex flex-col gap-2">
           <h1 className="text-gray-800 text-center font-light ">
-            Invite your memberList to increase the productivity!
+            Invite your member to increase the productivity!
           </h1>
           <div className="flex items-center justify-center w-[250px] mx-auto">
             <img
@@ -160,7 +183,7 @@ function CreateButton() {
               onClick={submitInput}
               //
             >
-              Later
+              Invite Later
             </button>
             <button
               className="w-[120px] bg-blue-600 rounded-[4px] p-2 text-white"
@@ -181,7 +204,7 @@ function CreateButton() {
     <div
       role="button"
       className=" bg-blue-600 hover:bg-blue-700 duration-200 text-white py-1 px-2 rounded-[4px] focus:outline-none focus:ring focus:ring-gray-300"
-      onClick={(params) => {
+      onClick={() => {
         setOpen(true);
       }}
     >
@@ -189,9 +212,7 @@ function CreateButton() {
       <Modal
         title="Create New Workspace"
         open={open}
-        onClose={() => {
-          setOpen(false);
-        }}
+        onClose={onClose}
         width={35}
       >
         <div className="px-10 h-[600px]">

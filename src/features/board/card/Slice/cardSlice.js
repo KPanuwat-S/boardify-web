@@ -12,8 +12,8 @@ export const getAllCardsInOneBoardAsync = createAsyncThunk(
     try {
       console.log(input);
       const res = await cardService.getAllCards(input);
-      console.log(res.data);
-      return res.data[0].cards;
+      console.log("getAllCardsInOneBoardAsync", res);
+      return res.data.cards;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -24,9 +24,8 @@ export const addCardAsync = createAsyncThunk(
   "card/createCardAsync",
   async (input, thunkApi) => {
     try {
-      console.log(input);
       const res = await cardService.addCard(input.data, input.boardId);
-      console.log(res.data);
+      console.log("addCardAsync", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -66,7 +65,7 @@ const cardSlice = createSlice({
       })
       .addCase(getAllCardsInOneBoardAsync.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.cardItems = action.payload;
+        state.cardItems = action.payload ?? [];
       })
       .addCase(getAllCardsInOneBoardAsync.rejected, (state, action) => {
         state.isLoading = false;

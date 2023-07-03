@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBoardsInWorkspaceAsync } from "../features/board/board/Slice/boardSlice";
-import { getWorkspaceMembersAsync } from "../features/workspace/Slice/workspaceSlice";
+import {
+  getWorkspaceByIdAsync,
+  getWorkspaceMembersAsync,
+} from "../features/workspace/Slice/workspaceSlice";
 import Modal from "../components/Modal";
 import AddBoard from "../components/AddBoard";
 
@@ -14,21 +17,24 @@ function WorkspaceDetail() {
   useEffect(() => {
     dispatch(getAllBoardsInWorkspaceAsync(id));
     dispatch(getWorkspaceMembersAsync(id));
+    dispatch(getWorkspaceByIdAsync(id));
+    console.log("useeffect run");
   }, []);
 
   const [open, setOpen] = useState(false);
   const members = useSelector((state) => state.workspace.members);
-
+  const workspace = useSelector((state) => state.workspace.oneWorkspace);
+  console.log("workspace", workspace);
   console.log("baords", boards);
   console.log("workspaceid", id);
   return (
-    <div className="w-[1280px] mx-auto">
+    <div className="w-[1280px] mx-auto mt-5">
       <div className=" ">
         <div className="flex justify-between">
           <div className="flex items-center gap-5">
             <i class="fa-solid fa-chart-simple text-blue-600"></i>
             <h2 className="font-semibold text-blue-600 text-xl flex-1">
-              CC14 Group Project
+              {workspace?.name}
             </h2>
           </div>
           <div className="flex gap-5 items-center mt-2">

@@ -6,6 +6,10 @@ function JoinTaskSideMenu({ open, setOpen, cardItem,task,setTaskItem }) {
     (state) => state.auth.user
   );
 
+  const submitJoinTask = () => {
+    
+  }
+
   return (
     open && (
       <div

@@ -10,14 +10,14 @@ export default function CardPerList() {
   const { id } = useParams();
   // console.log(id);
   const dispatch = useDispatch();
-  const cardItems = useSelector((state) => state.card);
-  console.log(cardItems);
+  const cardItems = useSelector((state) => state.card.cardItems);
+  console.log("cardItems in card list", cardItems);
   const [chart, setChart] = useState([]);
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(id));
   }, []);
   useEffect(() => {
-    if (cardItems.length > 0) setChart(cards);
+    if (cardItems.length > 0) setChart(cardItems);
   }, [cardItems]);
 
   if (!chart) {
@@ -25,14 +25,15 @@ export default function CardPerList() {
   }
 
   const dataTask = chart.map((card) => ({
-    id: card.cardId,
-    cardName: card.cardName,
+    id: card.id,
+    cardName: card.name,
     // taskTotal: card.taskTotal,
   }));
 
   const labels = dataTask.map(({ cardName }) => cardName);
-  const x = dataTask.map(({ taskTotal }) => taskTotal);
+  const x = chart.map((el) => el.tasks.length);
 
+  // const x = [5, 10, 20];
   const data = {
     labels: labels, //["sprint1","sprint2","sprint3"]
     datasets: [
