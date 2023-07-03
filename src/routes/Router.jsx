@@ -17,7 +17,7 @@ import WelcomingPage from "../pages/WelcomingPage";
 import MyProfile from "../pages/MyProfile";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 import TaskEditContent from "../components/Tasks/TaskEditContent";
-import DashBoard from "../pages/Dashboard";
+
 import PurchasePage from "../pages/PurchasePage";
 import SuccessPage from "../pages/SuccessPage";
 function Router() {

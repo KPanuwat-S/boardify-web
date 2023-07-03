@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWorkspaceByIdAsync } from "../features/workspace/Slice/workspaceSlice";
 
 export default function BoardDetail() {
-  const id = useParams();
   const { id } = useParams();
   console.log("id", id);
   const dispatch = useDispatch();

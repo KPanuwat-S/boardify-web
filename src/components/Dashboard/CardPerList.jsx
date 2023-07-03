@@ -6,19 +6,20 @@ import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-export default function CardPerList() {
+export default function CardPerList({ chart }) {
   const { id } = useParams();
-  // console.log(id);
-  const dispatch = useDispatch();
-  const cardItems = useSelector((state) => state.card.cardItems);
-  console.log("cardItems in card list", cardItems);
-  const [chart, setChart] = useState([]);
-  useEffect(() => {
-    dispatch(getAllCardsInOneBoardAsync(id));
-  }, []);
-  useEffect(() => {
-    if (cardItems.length > 0) setChart(cardItems);
-  }, [cardItems]);
+
+  // const dispatch = useDispatch();
+  // const cardItems = useSelector((state) => state.card.cardItems);
+  // console.log("cardItems in card list", cardItems);
+  // const [chart, setChart] = useState([]);
+  // console.log(chart);
+  // useEffect(() => {
+  //   dispatch(getAllCardsInOneBoardAsync(id));
+  // }, []);
+  // useEffect(() => {
+  //   if (cardItems.length > 0) setChart(cardItems);
+  // }, [cardItems]);
 
   if (!chart) {
     return <div>Loading...</div>;

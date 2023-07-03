@@ -7,22 +7,33 @@ import Navbar from "../features/board/board/Navbar";
 import SideBar from "../features/board/board/Sidebar";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useEffect } from "react";
+import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
 // import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
 // import { MeatballsIcon3 } from "../icons";
 
 export default function DashBoard() {
-  // const { id } = useParams();
   const { id } = useParams();
-  console.log("id", id);
   const dispatch = useDispatch();
-  const allWorkspace = useSelector((state) => state.workspace.workspaces);
-  const thisWorkSpace = allWorkspace.find((el) =>
-    el.Workspace.Boards.find((el) => el.id == id)
-  );
+  // const allWorkspace = useSelector((state) => state.workspace.workspaces);
+  // const thisWorkSpace = allWorkspace.find((el) =>
+  //   el.Workspace.Boards.find((el) => el.id == id)
+  // );
+  const cardItems = useSelector((state) => state.card.cardItems);
+  const [chart, setChart] = useState([]);
+  console.log(chart);
+
+  useEffect(() => {
+    dispatch(getAllCardsInOneBoardAsync(id));
+  }, []);
+  useEffect(() => {
+    if (cardItems.length > 0) setChart(cardItems);
+  }, [cardItems]);
   return (
     <>
       <div>
-        <Navbar boardId={id} workspace={thisWorkSpace.Workspace} />
+        {/* <Navbar boardId={id} workspace={thisWorkSpace.Workspace} /> */}
       </div>
       <div className="flex">
         <div className="h-[100vh]">
@@ -39,7 +50,7 @@ export default function DashBoard() {
                     <div>{/* <MeatballsIcon3 /> */}</div>
                   </div>
                   <div className="m-10 mb-[-10px]">
-                    <CardPerList />
+                    <CardPerList chart={chart} />
                   </div>
                 </div>
               </div>
@@ -75,7 +86,7 @@ export default function DashBoard() {
                     <div>{/* <MeatballsIcon3 /> */}</div>
                   </div>
                   <div className="m-10 mb-[-10px]">
-                    <CardPerLabel />
+                    <CardPerLabel chart={chart} />
                   </div>
                 </div>
               </div>
