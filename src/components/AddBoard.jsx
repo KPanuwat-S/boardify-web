@@ -18,12 +18,10 @@ function AddBoard({ workspaceId, onSuccess }) {
   const dispatch = useDispatch();
   const changeHandler = (e) => {
     setBoard(e.target.value);
-    console.log("board", board);
   };
   const createBoardHanlder = async (e) => {
     e.preventDefault();
     try {
-      console.log("before sending to db", data);
       await dispatch(createBoardAsync(data)).unwrap();
       dispatch(getAllBoardsInWorkspaceAsync(workspaceId));
       onSuccess();

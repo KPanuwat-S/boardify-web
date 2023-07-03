@@ -1,10 +1,13 @@
 import MemberEventInCard from "./MemberEventInCard";
 
-export default function MemberCard() {
+export default function MemberCard({ memberInCard, workspaceId, setFetch, fetchDelete }) {
   return (
-    <div className="flex flex-1 gap-5 justify-between">
+    <div className="flex flex-col gap-10 justify-between">
       {/* Info, Edit Member Card */}
-      <MemberEventInCard />
+
+      {memberInCard.map((el, idx) => (
+        <MemberEventInCard key={el.User.id} item={el} wsId={workspaceId} setFetch={setFetch} fetchDelete={fetchDelete} />
+      ))}
     </div>
   );
 }

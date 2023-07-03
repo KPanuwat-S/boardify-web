@@ -5,10 +5,16 @@ import {
   searchAddMember,
   searchUser,
   addMemberAsnyc,
+  clearMember,
 } from "../slice/memberSlice";
-import MemberInvitationBox from "./MemberInvitation";
+import MemberInvitationBox from "./MemberInvitationBox";
 
-export default function MemberInvitation({ workspaceId }) {
+export default function MemberInvitation({
+  workspaceId,
+  setFetch,
+  fetchDelete,
+  onClose,
+}) {
   const [memberList, setMemberList] = useState([]);
   const [member, setMember] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -24,20 +30,18 @@ export default function MemberInvitation({ workspaceId }) {
     }, 2000);
 
     return () => {
-      console.log("Cleanup");
       clearTimeout(id);
     };
   }, [searchValue]);
-  // searchValue
+
   const clickSelect = (el) => {
     setMember(el.email);
-    // console.log("test", el.email);
   };
 
   useEffect(() => {
     const memberIndex = memberList.findIndex((el) => el.id == members.id);
-
-    if (members !== "" && memberIndex == -1) {
+    console.log("members", members, "members");
+    if (members?.id && memberIndex == -1) {
       setMemberList([...memberList, members]);
     }
   }, [members]);
@@ -63,11 +67,18 @@ export default function MemberInvitation({ workspaceId }) {
       e.preventDefault();
 
       const memberAll = memberList;
-      console.log("memedsa", memberAll);
       const data = { workspaceId: workspaceId, memberAll };
-      console.log("ddd", data);
-
+      // setCreateWorkspaceData((prev) => {
+      //   const data = { ...prev };
+      //   console.log("testmembers", { ...data, memberAll });
+      //   return { ...data, memberAll };
+      // });
       await dispatch(addMemberAsnyc(data)).unwrap();
+      setMember("");
+      setMemberList([]);
+      setFetch(!fetchDelete);
+      dispatch(clearMember()).unwrap();
+      onClose();
     } catch (error) {
       console.log(error);
     }
@@ -78,6 +89,10 @@ export default function MemberInvitation({ workspaceId }) {
     setMemberList(filterdMeber);
   };
 
+  useEffect(() => {
+    console.log("memberList", memberList);
+  }, [memberList]);
+  
   return (
     <form onSubmit={submitInput} className="overflow-visible">
       <div className="flex flex-col gap-2">
