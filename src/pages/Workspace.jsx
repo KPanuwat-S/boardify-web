@@ -26,9 +26,10 @@ function Workspace() {
   return (
     <div className="w-[1280px] mx-auto mt-5">
       <h1 className="font-bold text-gray-400 text-2xl mb-5">Your Workspace</h1>
-      {workspaces.map((el) => {
+      {workspaces.map((el, index) => {
         return (
           <WorkspaceComponent
+            key={el.Workspace}
             workspace={el.Workspace}
             boards={el.Workspace.Boards}
           />

@@ -1,14 +1,42 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import MemberItem from "../Member/MemberItem";
-function JoinTaskSideMenu({ open, setOpen, cardItem,task,setTaskItem }) {
-  const { firstName, lastName, email } = useSelector(
+
+import {
+  addMeToTaskAsync,
+  getOneTaskAsync,
+} from "../../features/board/task/Slice/taskSlice";
+function JoinTaskSideMenu({
+  open,
+  setOpen,
+  cardItem,
+  task,
+  setTaskItem,
+  setFetch,
+  fetch,
+}) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getOneTaskAsync(taskItem?.id));
+  }, []);
+
+  const { firstName, lastName, email, id } = useSelector(
     (state) => state.auth.user
   );
+  const taskItem = useSelector((state) => state.task.taskItem);
 
   const submitJoinTask = () => {
-    
-  }
+    // const meAsMember = taskItem.TaskMembers?.find(
+    //   (el) => el.userId === id
+    // ).User;
+    // if (meAsMember) return setOpen(false);
+    const taskId = taskItem.id;
+    console.log("taskId", taskId);
+
+    dispatch(addMeToTaskAsync({ taskId }));
+    setFetch(!fetch);
+    setOpen(false);
+  };
 
   return (
     open && (
@@ -25,14 +53,18 @@ function JoinTaskSideMenu({ open, setOpen, cardItem,task,setTaskItem }) {
         </div>
         <div className="flex justify-center gap-2 mt-5 mb-2">
           <button
-            onClick={() => {
-              setOpen(false);
-            }}
+            onClick={submitJoinTask}
             className="bg-blue-600 text-white py-1 px-5 rounded-[4px]"
           >
             Join
           </button>
-          <button className="py-1 px-2 rounded-[4px] border border-gray-300 hover:bg-gray-300">
+
+          <button
+            className="py-1 px-2 rounded-[4px] border border-gray-300 hover:bg-gray-300"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
             Cancel
           </button>
         </div>

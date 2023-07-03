@@ -2,9 +2,16 @@ import { useState } from "react";
 import { AddIcon, MenuIcon, TimeIcon } from "../../../icons";
 import Modal from "../../../components/Modal";
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
+import AddTask from "./AddTask";
 
-export default function AddTaskContainer({ cardItem }) {
+export default function AddTaskContainer({
+  cardItem,
+  tasksOfCards,
+  fetch,
+  setFetch,
+}) {
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <div>
@@ -23,10 +30,18 @@ export default function AddTaskContainer({ cardItem }) {
             open={(params) => {
               setOpenModal(true);
             }}
-            width={50}
+            width={30}
             onClose={() => setOpenModal(false)}
           >
-            <TaskEditContent cardItem={cardItem}></TaskEditContent>
+            <AddTask
+              fetch={fetch}
+              setFetch={setFetch}
+              tasksOfCards={tasksOfCards}
+              cardItem={cardItem}
+              setOpenModal={() => {
+                setOpenModal(false);
+              }}
+            />
           </Modal>
         )}
       </div>

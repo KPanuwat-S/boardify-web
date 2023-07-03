@@ -23,7 +23,6 @@ export default function LoginForm() {
       toast.success(`Welcome !`, {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
-      console.log("test on submit");
     } catch (err) {
       console.log(err);
       toast.error(`Wrong Account`, {

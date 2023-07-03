@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cn from "../../utils/cn";
 import { useSelector, useDispatch } from "react-redux";
 import {
   editTaskAsync,
   getOneTaskAsync,
 } from "../../features/board/task/Slice/taskSlice";
-function LabelSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
+function LabelSideMenu({
+  open,
+  setOpen,
+  cardItem,
+  task,
+  setTaskItem,
+  // taskItem,
+  setFetch,
+  fetch,
+}) {
   const mockLabelsData = [
     { id: 1, description: "Urgent", color: "#ca3521" },
     { id: 2, description: "Important", color: "#0b66e4" },
@@ -15,6 +24,11 @@ function LabelSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
   const dispatch = useDispatch();
   const taskItem = useSelector((state) => state.task.taskItem);
   const [selectLabel, setSelectLabel] = useState("");
+
+  useEffect(() => {
+    dispatch(getOneTaskAsync(taskItem?.id));
+  }, []);
+
   const submitLabel = (label) => {
     const editTaskItem = { ...taskItem, labelId: label.id };
     const input = {
@@ -22,9 +36,12 @@ function LabelSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
       data: editTaskItem,
     };
     dispatch(editTaskAsync(input));
+    // editTaskAsync ทำให้ข้อมูลหลังบ้านเปลี่ยน
     setTaskItem(editTaskItem);
+    setFetch(!fetch);
+    // setTaskItem => ทำให้เวลาคลิกแล้ว state ใน edit เปลี่ยน
   };
-
+  console.log("taskItem in label", taskItem);
   return (
     open && (
       <div
@@ -39,7 +56,6 @@ function LabelSideMenu({ open, setOpen, cardItem, task, setTaskItem }) {
           {mockLabelsData.map((el) => {
             // const color = `bg-[${el.color}]`;
             const color = `bg-[${el.color}]`;
-            const labelStyle = [`w-[120px] h-4 rounded-[4px]`, color].join(" ");
             return (
               <div
                 onClick={() => {

@@ -25,7 +25,7 @@ export default function Dropdown({ label, data, setFetch }) {
         role="button"
         onClick={() => {
           setOpen(!open);
-          setFetch(true);
+          setFetch(!fetch);
         }}
       >
         {open ? (

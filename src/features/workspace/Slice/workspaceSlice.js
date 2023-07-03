@@ -46,6 +46,17 @@ export const getWorkspaceMembersAsync = createAsyncThunk(
   }
 );
 
+export const createWorkspaceAndInviteMember = createAsyncThunk(
+  "workspace/createWorkspaceAndInviteMember",
+  async (input, thunkApi) => {
+    try {
+      console.log("input in wp slice", input);
+      const res = await workspaceService.createWorkspaces(input);
+      return res.data;
+    } catch (err) {}
+  }
+);
+
 const workspaceSlice = createSlice({
   name: "workspace",
   initialState,
@@ -90,6 +101,9 @@ const workspaceSlice = createSlice({
       })
       .addCase(getWorkspaceByIdAsync.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(createWorkspaceAndInviteMember.fulfilled, (state, action) => {
+        state.isLoading = false;
       }),
 });
 export const { getWorkspaceById } = workspaceSlice.actions;
