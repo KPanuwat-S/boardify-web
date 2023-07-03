@@ -15,3 +15,5 @@ export const deleteWorkspace = (workspaceId) => axios.get(``);
 
 export const createWorkspaces = (newWorkspace) =>
   axios.post(`/workspaces/`, newWorkspace);
+
+export const countMemberWorkspace = (id) => axios.get(`/workspaces/countMemberWorkspace/${id}`)

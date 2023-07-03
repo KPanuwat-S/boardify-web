@@ -21,6 +21,7 @@ function Workspace() {
   }, []);
 
   const workspaces = useSelector((state) => state.workspace.workspaces);
+  console.log("+++++work : ", workspaces.Workspace);
 
   console.log("workspaces", workspaces);
   return (
@@ -32,6 +33,7 @@ function Workspace() {
             key={el.Workspace}
             workspace={el.Workspace}
             boards={el.Workspace.Boards}
+            countmember={el.count}
           />
         );
       })}

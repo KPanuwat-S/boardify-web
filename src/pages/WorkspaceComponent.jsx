@@ -1,15 +1,22 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getWorkspaceMembersAsync } from "../features/workspace/Slice/workspaceSlice";
-function WorkspaceComponent({ workspace, boards }) {
+import { countMemberWorkspace, getWorkspaceMembersAsync } from "../features/workspace/Slice/workspaceSlice";
+import { useState } from "react";
+function WorkspaceComponent({ workspace, boards, countmember }) {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getWorkspaceMembersAsync(workspace.id));
+    dispatch(countMemberWorkspace(workspace.id))
   }, []);
   // dispatch(getWorkspaceMembersAsync(workspace.id));
-  const members = useSelector((state) => state.workspace.members);
+
+  const members = useSelector((state) => state.workspace.countmember);
+  // console.log('count member ',members);
+
   const boardsLimited = boards.slice(0, 5);
+
   return (
     <div className=" mb-5 p-5">
       <div className="flex items-center justify-between">
@@ -26,7 +33,7 @@ function WorkspaceComponent({ workspace, boards }) {
         <Link to={`/member/${workspace.id}`}>
           <div className="flex items-center justify-center gap-1 p-2 bg-gray-100 hover:bg-gray-200 rounded-[4px] duration-200">
             <i class="fa-regular fa-user text-gray-500 w-5"></i>
-            <p className="text-gray-500">Member ({members.length})</p>
+            <p className="text-gray-500">Member {countmember}</p>
           </div>
         </Link>
       </div>

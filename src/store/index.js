@@ -7,9 +7,7 @@ import taskReducer from "../features/board/task/Slice/taskSlice";
 import memberReducer from "../features/member/slice/memberSlice";
 import projectsReducer from "../features/myProject/Slice/myProjectSlice";
 import stripeReducer from "../features/stripe/Slice/purchaseSlice";
-
 import authReducer from "../features/auth/Slice/authSlice";
-import memberReducer from "../features/member/slice/memberSlice";
 
 export const store = configureStore({
   reducer: {

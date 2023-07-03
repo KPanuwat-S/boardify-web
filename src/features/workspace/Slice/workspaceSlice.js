@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   members: [],
   oneWorkspace: null,
+  countmember: [],
 };
 
 export const getAllWorkSpacesAsync = createAsyncThunk(
@@ -14,7 +15,7 @@ export const getAllWorkSpacesAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await workspaceService.getWorkspace(input);
-      console.log("get all workspaces", res.data);
+      // console.log("get all workspaces", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -38,8 +39,10 @@ export const getWorkspaceMembersAsync = createAsyncThunk(
   "workspace/getWorkspaceMembersAsync",
   async (input, thunkApi) => {
     try {
+      console.log("====== input :", input);
       const res = await workspaceService.getWorkspaceMembers(input);
-      return res.data.members;
+      console.log("-------- res :",res.data);
+      return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -54,6 +57,20 @@ export const createWorkspaceAndInviteMember = createAsyncThunk(
       const res = await workspaceService.createWorkspaces(input);
       return res.data;
     } catch (err) {}
+  }
+);
+
+export const countMemberWorkspace = createAsyncThunk(
+  "workspace/countMemberWorkspace",
+  async (id, thunkApi) => {
+    try {
+      // console.log("+++++ id : ", id);
+      const res = await workspaceService.countMemberWorkspace(id);
+      // console.log("--------count", res.data);
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
   }
 );
 
@@ -104,6 +121,15 @@ const workspaceSlice = createSlice({
       })
       .addCase(createWorkspaceAndInviteMember.fulfilled, (state, action) => {
         state.isLoading = false;
+      })
+      .addCase(countMemberWorkspace.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(countMemberWorkspace.fulfilled, (state, action) => {
+        state.countmember.push(action.payload);
+      })
+      .addCase(countMemberWorkspace.rejected, (state, action) => {
+        state.error = action.payload;
       }),
 });
 export const { getWorkspaceById } = workspaceSlice.actions;
