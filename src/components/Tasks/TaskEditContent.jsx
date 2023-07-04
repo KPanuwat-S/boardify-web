@@ -9,6 +9,7 @@ import ChecklistListItems from "./ChecklistListItems";
 import { useDispatch, useSelector } from "react-redux";
 import {
   editTaskAsync,
+  getMemberInTaskAsync,
   getOneTaskAsync,
 } from "../../features/board/task/Slice/taskSlice";
 import LeaveTaskSideMenu from "./LeaveTaskSideMenu";
@@ -17,13 +18,18 @@ import cn from "../../utils/cn";
 
 function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   const dispatch = useDispatch();
-  console.log("task", task);
 
   useEffect(() => {
     dispatch(getOneTaskAsync(task.taskId));
-    console.log("effect running");
-    console.log("fetchTask in edit content", fetchTask);
+    dispatch(getMemberInTaskAsync(task.taskId));
   }, [fetch]);
+
+  useEffect(() => {}, []);
+  const user = useSelector((state) => state.auth.user);
+
+  const memberIntasks = useSelector((state) => state.task.membersInTask);
+  const memberAsMe = memberIntasks.findIndex((el) => el.userId == user.id);
+
   const [openDescription, setOpenDescription] = useState(false);
   const [openDropDown, setOpenDropDown] = useState(false);
 
@@ -31,7 +37,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   const [check, setCheck] = useState(false);
   const [add, setAdd] = useState(false);
 
-  const user = useSelector((state) => state.auth.user);
+  const [memberAll, setMemberInTasks] = useState([]);
 
   const [taskItem, setTaskItem] = useState(
     useSelector((state) => state.task.taskItem) || {
@@ -55,25 +61,26 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       },
     }
   );
-  console.log("taskItem", taskItem);
 
   const fetchTask = useSelector((state) => state.task.taskItem);
   // const [title, setTitle] = useState(taskItem.name || "Title");
   const [title, setTitle] = useState(taskItem.name || "Title");
 
-  console.log("fetchTask", fetchTask);
-  console.log("task id", task.taskId);
-
-  const meAsMember = taskItem?.TaskMembers?.find((el) => el.userId === user.id);
-  const [join, setJoin] = useState(!!meAsMember);
-  console.log("join", join);
-  console.log("meAsMember in edit content", meAsMember);
+  const [join, setJoin] = useState(false);
   // console.log("taskItem outeside useeeffect", taskItem);
-  //
+  // console.log("meAsmember", meAsMember);
+  console.log("join", join);
 
   useEffect(() => {
-    if (fetchTask !== null) setTaskItem(fetchTask);
+    if (fetchTask !== null) {
+      setTaskItem(fetchTask);
+    }
   }, [fetchTask]);
+
+  useEffect(() => {
+    if (memberIntasks !== undefined) setMemberInTasks(memberIntasks);
+  }, [memberIntasks]);
+  console.log("memberAll", memberAll);
 
   const createLabel = (labelId) => {
     const labelObj = { 1: "Urgent", 2: "Important", 3: "Medium", 4: "Low" };
@@ -87,9 +94,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       data: editTaskItem,
     };
     dispatch(editTaskAsync(input));
-    // setTaskItem((oldObject) => {
-    //   return { ...oldObject, name: title };
-    // });
 
     setFetch(!fetch);
     setTaskItem(editTaskItem);
@@ -102,6 +106,8 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
     day: "numeric",
   };
 
+  const dueDate = new Date(fetchTask?.dueDate).getTime();
+  const nowDate = new Date().getTime();
   return (
     <>
       <div
@@ -133,8 +139,8 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                         }}
                         onClick={() => {
                           setIsEdit(true);
-                          console.log("edit name");
                         }}
+                        autoFocus={true}
                       />
                       <div className="font-light flex flex-col gap-2">
                         <button
@@ -175,16 +181,34 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                   </h1> */}
                 </h1>
                 {fetchTask?.dueDate && (
-                  <div className="flex items-center gap-2 p-2 rounded-[4px] bg-blue-100 font-ligt text-xs">
-                    <i class="fa-solid fa-clock-rotate-left text-gray-500"></i>
-                    <p className="">
-                      Due:{" "}
-                      {new Date(fetchTask.dueDate).toLocaleDateString(
-                        "en-US",
-                        dateOptions
-                      )}
-                    </p>
-                  </div>
+                  <>
+                    {nowDate > dueDate ? (
+                      <div className="flex items-center gap-2 p-2 rounded-[4px] bg-red-100 font-ligt text-xs">
+                        <i class="fa-solid fa-clock-rotate-left text-gray-500"></i>
+                        <p className="">
+                          Due:{" "}
+                          {new Date(fetchTask?.dueDate).toLocaleDateString(
+                            "en-US",
+                            dateOptions
+                          )}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 p-2 rounded-[4px] bg-blue-100 font-ligt text-xs">
+                        <i class="fa-solid fa-clock-rotate-left text-gray-500"></i>
+                        <p className="">
+                          Due:{" "}
+                          {new Date(fetchTask.dueDate).toLocaleDateString(
+                            "en-US",
+                            dateOptions
+                          )}
+                        </p>
+                      </div>
+                    )}
+                    {nowDate > dueDate && (
+                      <p className="text-xs text-red-400 font-ligt">Over Due</p>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -212,12 +236,14 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             </div>
           </div>
           <div>
+            {" "}
             <TaskDescription
               setOpenDescription={setOpenDescription}
               openDescription={openDescription}
               taskItem={taskItem}
+              fetch={fetch}
+              setFetch={setFetch}
             />
-
             <ChecklistListItems
               taskItem={taskItem}
               setTaskItem={setTaskItem}
@@ -239,7 +265,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             fetch={fetch}
             setFetch={setFetch}
           />
-          {join ? (
+          {memberAsMe >= 0 ? (
             <DropdownTask
               label="Leave Task"
               icon={<i class="fa-solid fa-arrow-right-from-bracket ml-2"></i>}

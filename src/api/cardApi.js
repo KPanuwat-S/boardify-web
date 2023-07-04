@@ -11,3 +11,6 @@ export const updateCards = (data, boardId) =>
   axios.patch(`/boards/cardsDnD/${boardId}`, data);
 export const updateTasks = (data, boardId) =>
   axios.patch(`/boards/tasksDnD/${boardId}`, data);
+
+export const updateCardName = (name, id) =>
+  axios.patch(`/boards/cards/card/${id}`, name);

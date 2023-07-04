@@ -77,7 +77,7 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
 
   // console.log("task item", taskItem);
   // console.log("fetch", fetch);
-  console.log("task", task);
+  console.log("task in taskrow", task);
   return (
     taskItem && (
       <div>
@@ -128,7 +128,11 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
                   </div>
                 )}
 
-                {task.members.length > 0 && <i class="fa-regular fa-user"></i>}
+                <div className="items-end">
+                  {task.members.length > 0 && (
+                    <i class="fa-regular fa-user"></i>
+                  )}
+                </div>
               </div>
             </div>
             {/* {hover && (

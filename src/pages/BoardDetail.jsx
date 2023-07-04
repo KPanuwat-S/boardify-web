@@ -23,7 +23,7 @@ export default function BoardDetail() {
   console.log("this workspace in board", thisWorkSpace);
   return (
     <>
-      <Navbar boardId={id} workspace={thisWorkSpace?.Workspace} />
+      <Navbar boardId={id} />
       <div className="flex">
         <div className="h-[100vh]">
           <SideBar boardId={id} />

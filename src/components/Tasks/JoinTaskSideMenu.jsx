@@ -4,6 +4,7 @@ import MemberItem from "../Member/MemberItem";
 
 import {
   addMeToTaskAsync,
+  getMemberInTaskAsync,
   getOneTaskAsync,
 } from "../../features/board/task/Slice/taskSlice";
 function JoinTaskSideMenu({
@@ -18,21 +19,21 @@ function JoinTaskSideMenu({
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOneTaskAsync(taskItem?.id));
-  }, []);
+    dispatch(getMemberInTaskAsync(taskItem?.id));
+  }, [fetch]);
 
   const { firstName, lastName, email, id } = useSelector(
     (state) => state.auth.user
   );
+
   const taskItem = useSelector((state) => state.task.taskItem);
+  const memberIntasks = useSelector((state) => state.task.membersInTask);
+  const memberAsMe = memberIntasks.findIndex((el) => el.userId == user.id);
 
   const submitJoinTask = () => {
-    // const meAsMember = taskItem.TaskMembers?.find(
-    //   (el) => el.userId === id
-    // ).User;
-    // if (meAsMember) return setOpen(false);
+    if (memberAsMe >= 0) return;
     const taskId = taskItem.id;
     console.log("taskId", taskId);
-
     dispatch(addMeToTaskAsync({ taskId }));
     setFetch(!fetch);
     setOpen(false);

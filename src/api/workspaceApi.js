@@ -12,6 +12,8 @@ export const deleteWorkspace = (workspaceId) => axios.get(``);
 // export const login = (input) => axios.post("/auth/login", input);
 // export const fetchMe = () => axios.get("/auth/me");
 // export const gLogin = (input) => axios.post("/auth/googleLogin", input);
+export const editWorkspaceName = (workspaceId, workspaceName) =>
+  axios.patch(`workspaces/${workspaceId}`, workspaceName);
 
 export const createWorkspaces = (newWorkspace) =>
   axios.post(`/workspaces/`, newWorkspace);

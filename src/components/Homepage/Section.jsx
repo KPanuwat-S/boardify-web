@@ -1,4 +1,11 @@
-import React from "react";
+// import React from "react";
+import Board from "../../assets/Board.png";
+import {
+  AnnouncementIcon,
+  CheckListIcon,
+  FolderIcon,
+  LeafIcon,
+} from "../../icons";
 
 function Section() {
   return (
@@ -6,206 +13,112 @@ function Section() {
       <div className="max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
         <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:items-center lg:gap-x-16">
           <div className="mx-auto max-w-lg text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
-            <h2 className="text-3xl font-bold sm:text-4xl">Mange You Tasks</h2>
+            <h2 className="text-left text-3xl font-bold sm:text-4xl">
+              A productivity powerhouse
+            </h2>
 
-            <p className="mt-4 text-gray-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vero
-              aliquid sint distinctio iure ipsum cupiditate? Quis, odit
-              assumenda? Deleniti quasi inventore, libero reiciendis minima
-              aliquid tempora. Obcaecati, autem.
+            <p className="mt-4 text-gray-600 text-left">
+              A productivity powerhouse Simple, flexible, and powerful. All it
+              takes are boards, lists, and cards to get a clear view of who’s
+              doing what and what needs to get done. Learn more in our guide for
+              getting started.
             </p>
-
-            <a
-              href="#"
-              className="mt-8 inline-block rounded bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring focus:ring-gray-300"
-            >
-              Get Started Today
-            </a>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            <a
-              className="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-              href="/accountant"
-            >
-              <span className="inline-block rounded-lg bg-gray-50 p-3">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                  ></path>
-                </svg>
-              </span>
-
-              <h2 className="mt-2 font-bold">Accountant</h2>
-
-              <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-                Lorem ipsum dolor sit amet consectetur.
-              </p>
-            </a>
-
-            <a
-              className="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-              href="/accountant"
-            >
-              <span className="inline-block rounded-lg bg-gray-50 p-3">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                  ></path>
-                </svg>
-              </span>
-
-              <h2 className="mt-2 font-bold">Accountant</h2>
-
-              <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-                Lorem ipsum dolor sit amet consectetur.
-              </p>
-            </a>
-
-            <a
-              className="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-              href="/accountant"
-            >
-              <span className="inline-block rounded-lg bg-gray-50 p-3">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                  ></path>
-                </svg>
-              </span>
-
-              <h2 className="mt-2 font-bold">Accountant</h2>
-
-              <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-                Lorem ipsum dolor sit amet consectetur.
-              </p>
-            </a>
-
-            <a
-              className="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-              href="/accountant"
-            >
-              <span className="inline-block rounded-lg bg-gray-50 p-3">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                  ></path>
-                </svg>
-              </span>
-
-              <h2 className="mt-2 font-bold">Accountant</h2>
-
-              <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-                Lorem ipsum dolor sit amet consectetur.
-              </p>
-            </a>
-
-            <a
-              className="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-              href="/accountant"
-            >
-              <span className="inline-block rounded-lg bg-gray-50 p-3">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                  ></path>
-                </svg>
-              </span>
-
-              <h2 className="mt-2 font-bold">Accountant</h2>
-
-              <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-                Lorem ipsum dolor sit amet consectetur.
-              </p>
-            </a>
-
-            <a
-              className="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-              href="/accountant"
-            >
-              <span className="inline-block rounded-lg bg-gray-50 p-3">
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                  ></path>
-                </svg>
-              </span>
-
-              <h2 className="mt-2 font-bold">Accountant</h2>
-
-              <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-                Lorem ipsum dolor sit amet consectetur.
-              </p>
-            </a>
           </div>
         </div>
       </div>
+      <div className="flex  ">
+        <div className="flex flex-col gap-4">
+          <div className=" w-80 p-4 border border-blue-600 ml-8 border-l-8 rounded-lg shadow-xl shadow-slate-500">
+            <div>Bords</div>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis
+              officiis, provident nulla eos libero, repudiandae iusto nemo ex
+            </p>
+          </div>
+          <div className=" w-80 p-4 border border-blue-600 ml-8 border-l-8 rounded-lg shadow-xl shadow-slate-500">
+            <div>Bords</div>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis
+              officiis, provident nulla eos libero, repudiandae iusto nemo ex
+            </p>
+          </div>
+          <div className=" w-80 p-4 border border-blue-600 ml-8 border-l-8 rounded-lg shadow-xl shadow-slate-500">
+            <div>Bords</div>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis
+              officiis, provident nulla eos libero, repudiandae iusto nemo ex
+            </p>
+          </div>
+        </div>
+        <div className="ml-16">
+          {" "}
+          <img src={Board} width={800} className="rounded-xl" />
+        </div>
+      </div>
+      <div className="mt-24 mb-7">
+        <div className=" ml-8 font-semibold">TRELLO IN ACTION</div>
+        <div className="ml-8 text-3xl font-semibold">
+          Workflows for any project, big or small
+        </div>
+      </div>
+
+      {/* carualsal */}
+      <div className="flex gap-4 ml-8">
+        <div className="bg-[#ff7452] border relative z-0 w-72 ">
+          <div className="invisible">00</div>
+          <div className="flex w-8 h-7 bg-slate-50 absolute inset-2   z-0 rounded-md">
+            <FolderIcon />
+          </div>
+          <div className="bg-white h-24 pt-6 pl-3 pb-32  p-4">
+            <div className="font-bold ">Project Management</div>
+            <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+              Keep tasks in order, deadlines on track, and team members aligned
+              with Trello
+            </p>
+          </div>
+        </div>
+        <div className="bg-[#2684FF] border relative z-0 w-72 ">
+          <div className="invisible">00</div>
+          <div className="flex w-9 h-8 bg-slate-50 absolute inset-3    z-0 rounded-md">
+            <AnnouncementIcon />
+          </div>
+          <div className="bg-white h-24 pt-6 pl-3 pb-32  p-4">
+            <div className="font-bold ">Project Management</div>
+            <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+              Empower your team meetings to be more productive, empowering, and
+              dare we say-fun
+            </p>
+          </div>
+        </div>
+        <div className="bg-[#57D9A3] border relative z-0 w-72 ">
+          <div className="invisible">00</div>
+          <div className="flex w-9 h-8 bg-slate-50 absolute inset-3    z-0 rounded-md">
+            <LeafIcon />
+          </div>
+          <div className="bg-white h-24 pt-6 pl-3 pb-32  p-4">
+            <div className="font-bold ">Onboarding</div>
+            <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+              Onboarding to a new company or project is a snap with Trello&aposs
+              visual layout of to-do&aposs, resources, and progress tracking.
+            </p>
+          </div>
+        </div>
+        <div className="bg-[#FFC400] border relative z-0 w-72 ">
+          <div className="invisible">00</div>
+          <div className="flex w-10 h-8 bg-slate-50 absolute items-center justify-center inset-3    z-0 rounded-md">
+            <CheckListIcon />
+          </div>
+          <div className="bg-white h-24 pt-6 pl-3 pb-32  p-4">
+            <div className="font-bold ">Task management</div>
+            <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+              Use Trello to track, manage, complete, and bring tasks together
+              like pieces of a puzzle, and make your team&aposs projects a
+              cohesive success every time.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="flex ml-8 gap-60 my-24 "></div>
     </section>
   );
 }

@@ -7,7 +7,12 @@ import { StrictModeDroppable } from "../../features/board/card/StrictModeItem";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCardsInOneBoardAsync } from "../../features/board/card/Slice/cardSlice";
+import {
+  getAllCardsInOneBoardAsync,
+  updateCardAsync,
+  updateCardNameAsync,
+} from "../../features/board/card/Slice/cardSlice";
+import DropdownTask from "./DropDownTask";
 
 function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
   // console.log(cardType);
@@ -17,16 +22,29 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
   const [tasksOfCards, setTaskOfCards] = useState(
     fetchCards.find((card) => card.id == cardItem.id)?.tasks || tasks
   );
-  console.log("task prop", tasks);
 
-  console.log("cardItem in task item", cardItem);
+  const [isEdit, setIsEdit] = useState(false);
+  const [cardName, setCardName] = useState(cardItem.name);
+
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
   }, [fetch]);
+
   useEffect(() => {
     // setCards(fetchCards);
     setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id)?.tasks);
   }, [fetchCards]);
+
+  const subimitCardName = () => {
+    const name = { name: cardName };
+    const input = {
+      id: cardItem.id,
+      name,
+    };
+    console.log("input submit CardName", input);
+    dispatch(updateCardNameAsync(input));
+    setIsEdit(false);
+  };
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">
       {(provided, snapshot) => (
@@ -38,15 +56,57 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
           ref={provided.innerRef}
         >
           <div className="flex justify-between p-5">
-            <div className="text-gray-600">{cardItem.name}</div>
-            <div>
-              <MeatballsIcon2 />
-            </div>
+            {isEdit ? (
+              <div className="flex gap-2">
+                {" "}
+                <input
+                  className="px-2 outline outline-blue-600"
+                  type="text"
+                  value={cardName}
+                  onChange={(e) => {
+                    setCardName(e.target.value);
+                  }}
+                  onClick={(e) => {
+                    setIsEdit(true);
+                    e.stopPropagation();
+                  }}
+                />
+                <div className="font-light flex flex-col gap-2">
+                  <button
+                    onClick={subimitCardName}
+                    className="text-white text-xs bg-blue-600 w-[50px] hover:bg-blue-700 p-1 rounded-[4px]"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsEdit(false);
+                    }}
+                    className="text-xs p-1 rounded-[4px] bg-gray-100 hover:bg-gray-200"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div
+                onClick={(e) => {
+                  setIsEdit(true);
+                  e.stopPropagation();
+                  // setTitle(.name);
+                }}
+                className="group flex  items-center gap-5 text-gray-600 hover:bg-gray-100 p-2 rounded-[4px]"
+              >
+                <p>{cardName}</p>
+
+                <i class="fa-regular fa-pen-to-square text-white group-hover:text-gray-400"></i>
+              </div>
+            )}
           </div>
           {tasksOfCards?.map((task, idx) => (
             <Draggable
               key={task?.taskId}
-              draggableId={task?.taskId + ""}
+              draggableId={task?.taskType}
               // draggableId={uuidv4()}
               index={idx}
             >
@@ -57,7 +117,6 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                 >
-                  {/* <TaskRow name={task?.taskName} /> */}
                   <TaskRow
                     task={task}
                     cardItem={cardItem}
