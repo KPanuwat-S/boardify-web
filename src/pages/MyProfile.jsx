@@ -33,14 +33,14 @@ function MyProfile() {
     <div className="flex flex-col gap-5">
       <div className="flex gap-5 text-gray-700 mx-auto w-[1280px] mt-5">
         <div className=" text-white flex items-center justify-center bg-blue-300 w-[50px] h-[50px] rounded-full">
-          {user.firstName[0]} {user.lastName[0]}
+          {user?.firstName[0]} {user?.lastName[0]}
         </div>
         <div className="flex flex-col">
           <h1 className="font-bold">My Profile</h1>
           <p>
-            {user.firstName} {user.lastName}
+            {user?.firstName} {user?.lastName}
           </p>
-          <p className="text-blue-600">{user.email}</p>
+          <p className="text-blue-600">{user?.email}</p>
         </div>
       </div>
       <Link to="/purchase">
