@@ -1,28 +1,20 @@
 // import React from "react";
 import Chart from "chart.js/auto";
+import { useEffect } from "react";
+import { useState } from "react";
 import { Bar } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 export default function CardPerLabel() {
-  const dataTask = [
-    {
-      id: 1,
-      labelName: "S",
-      taskTotal: 3,
-    },
-    {
-      id: 2,
-      labelName: "M",
-      taskTotal: 2,
-    },
-    {
-      id: 3,
-      labelName: "L",
-      taskTotal: 8,
-    },
-  ];
+  const { taskLabel } = useSelector((state) => state.card.cardItems);
 
-  
-  const labels = dataTask.map(({ labelName }) => labelName);
-  const x = dataTask.map(({ taskTotal }) => taskTotal);
+  const [labelData, setLabelData] = useState([]);
+  useEffect(() => {
+    if (taskLabel) setLabelData(taskLabel);
+  }, [taskLabel]);
+  console.log(labelData);
+
+  const labels = labelData.map(({ labelName }) => labelName);
+  const x = labelData.map(({ taskTotal }) => taskTotal);
 
   const data = {
     labels: labels, //["sprint1","sprint2","sprint3"]

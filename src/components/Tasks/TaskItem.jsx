@@ -32,7 +32,7 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
       {(provided, snapshot) => (
         <div
           className={`bg-white  shadow-[0_0_4px_rgb(0_0_0_/0.2)] rounded-xl w-[320px] h-fit p-2 ${
-            snapshot.isDraggingOver && "bg-slate-100"
+            snapshot.isDraggingOver && "bg-gray-300"
           } `}
           {...provided.droppableProps}
           ref={provided.innerRef}
@@ -50,9 +50,11 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
               // draggableId={uuidv4()}
               index={idx}
             >
-              {(provided) => (
+              {(provided, snapshot) => (
                 <div
-                  className="w-full p-2 bg-white/90 rounded-lg mb-2 flex flex-col space-y-2"
+                  className={`w-full p-2 bg-white/90 rounded-lg mb-2 flex flex-col space-y-2 ${
+                    snapshot.isDragging && "bg-gray-400/10 "
+                  } `}
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as cardService from "../../../../api/cardApi";
 const initialState = {
   cardItems: [],
+  dashBoard: [],
   isLoading: false,
   error: null,
 };
@@ -13,6 +14,18 @@ export const getAllCardsInOneBoardAsync = createAsyncThunk(
       const res = await cardService.getAllCards(input);
       console.log("getAllCardsInOneBoardAsync", res);
       return res.data[0].cards;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+export const getDashBoardAsync = createAsyncThunk(
+  "card/getdashBoardAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await cardService.getAllDashBoard(input);
+      console.log("getAllCardsInOneBoardAsync", res);
+      return res.data[0];
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -67,6 +80,17 @@ const cardSlice = createSlice({
         state.cardItems = action.payload ?? [];
       })
       .addCase(getAllCardsInOneBoardAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getDashBoardAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getDashBoardAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.dashBoard = action.payload ?? [];
+      })
+      .addCase(getDashBoardAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })

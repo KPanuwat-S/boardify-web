@@ -14,7 +14,6 @@ function CardList({ boardId, fetch, setFetch }) {
   const cardItems = useSelector((state) => state.card.cardItems);
   console.log(cardItems.cards)
   const dispatch = useDispatch();
-  // console.log(cardItems);
   const [cards, setCards] = useState([]);
   console.log("------",cards)
   const [fetch, setFetch] = useState(false);
@@ -52,16 +51,13 @@ function CardList({ boardId, fetch, setFetch }) {
       }
       if (type === "task") {
         const taskSourceIndex = source.index;
-        // console.log(taskSourceIndex);
         const taskDestinationIndex = destination.index;
-        // console.log(taskDestinationIndex);
         const cardSourceIndex = cards.findIndex(
           (card) => card.cardType === source.droppableId
         );
         const cardDestinationIndex = cards.findIndex(
           (card) => card.cardType === destination.droppableId
         );
-        //task source data
         const newSourceTasks = [...cards[cardSourceIndex]?.tasks];
         //task destination data
         // if (!cardSourceIndex || !cardDestinationIndex) return;
@@ -69,10 +65,8 @@ function CardList({ boardId, fetch, setFetch }) {
           source.droppableId !== destination.droppableId
             ? [...cards[cardDestinationIndex]?.tasks]
             : newSourceTasks;
-        //source task data remove
         const [removedTask] = newSourceTasks.splice(taskSourceIndex, 1);
         newDestinationTask.splice(taskDestinationIndex, 0, removedTask);
-        //sort ข้อมูลทั้งหมด
         const newCard = [...cards];
         newCard[cardSourceIndex] = {
           ...cards[cardSourceIndex],
@@ -82,7 +76,7 @@ function CardList({ boardId, fetch, setFetch }) {
           ...cards[cardDestinationIndex],
           tasks: newDestinationTask,
         };
-        dispatch(updateTaskAsync({ newCard, boardId })).unwrap();
+        dispatch(updateTaskAsync({ newCard, boardId }));
         setCards(newCard);
       }
     } catch (error) {
@@ -100,11 +94,11 @@ function CardList({ boardId, fetch, setFetch }) {
         direction={"horizontal"}
         type="card"
       >
-        {(provided) => (
+        {(provided, snapshot) => (
           <div
             {...provided.droppableProps}
             ref={provided.innerRef}
-            className="flex gap-4"
+            className={`flex gap-4  ${snapshot.isDraggingOver && " "} `}
           >
             {cards.map((card, idx) => (
               <Draggable

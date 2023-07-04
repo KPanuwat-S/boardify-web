@@ -5,61 +5,43 @@ import CardPerMember from "../components/Dashboard/CardPerMember";
 import CardPerLabel from "../components/Dashboard/CardPerLabel";
 import Navbar from "../features/board/board/Navbar";
 import SideBar from "../features/board/board/Sidebar";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { useEffect } from "react";
-import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
 // import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
-// import { MeatballsIcon3 } from "../icons";
+import { MeatballsIcon3 } from "../icons";
 
 export default function DashBoard() {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  // const allWorkspace = useSelector((state) => state.workspace.workspaces);
-  // const thisWorkSpace = allWorkspace.find((el) =>
-  //   el.Workspace.Boards.find((el) => el.id == id)
-  // );
-  const cardItems = useSelector((state) => state.card.cardItems);
-  const [chart, setChart] = useState([]);
-  console.log(chart);
-
-  useEffect(() => {
-    dispatch(getAllCardsInOneBoardAsync(id));
-    dispatch(getDashBoardAsync(id))
-  }, []);
-  useEffect(() => {
-    if (cardItems.length > 0) setChart(cardItems);
-  }, [cardItems]);
   return (
     <>
       <div>
-        {/* <Navbar boardId={id} workspace={thisWorkSpace.Workspace} /> */}
+        <Navbar />
       </div>
       <div className="flex">
-        <div className="h-[100vh]">
+        <div className="h-[100vh] bg-black">
           <SideBar />
         </div>
         {/* ///// */}
-        <div className="my-9  max-h-[450px]  ">
+        <div className="m-9  max-h-[450px]  ">
           <div className=" p-8 bg-[#f5f5f5] flex gap-3 max-h-[480px] rounded-lg overflow-y-auto overflow-x-hidden ">
             <div className="flex  flex-col gap-3">
               <div className="w-[560px] bg-white border-solid border-[1px] rounded-xl shadow-inner  ">
                 <div className="p-8 ">
                   <div className="flex justify-between">
-                    <p className="">Task per Card</p>
-                    <div>{/* <MeatballsIcon3 /> */}</div>
+                    <p className="">Task per list</p>
+                    <div>
+                      <MeatballsIcon3 />
+                    </div>
                   </div>
                   <div className="m-10 mb-[-10px]">
-                    <CardPerList chart={chart} />
+                    <CardPerList />
                   </div>
                 </div>
               </div>
               <div className="w-[560px] bg-white border-solid border-[1px] rounded-xl shadow-inner  ">
                 <div className="p-8 ">
                   <div className="flex justify-between">
-                    <p className="">Task per Member</p>
-                    <div>{/* <MeatballsIcon3 /> */}</div>
+                    <p className="">Task per member</p>
+                    <div>
+                      <MeatballsIcon3 />
+                    </div>
                   </div>
                   <div className="m-10 mb-[-10px]">
                     <CardPerMember />
@@ -72,8 +54,10 @@ export default function DashBoard() {
               <div className="w-[560px] bg-white border-solid border-[1px] rounded-xl shadow-inner ">
                 <div className="p-8 ">
                   <div className="flex justify-between">
-                    <p className="">Task per Due Date</p>
-                    <div>{/* <MeatballsIcon3 /> */}</div>
+                    <p className="">Task per due date</p>
+                    <div>
+                      <MeatballsIcon3 />
+                    </div>
                   </div>
                   <div className="m-10 mb-[-10px]">
                     <CardPerDueDate />
@@ -83,8 +67,10 @@ export default function DashBoard() {
               <div className="w-[560px] bg-white border-solid border-[1px] rounded-xl shadow-inner  ">
                 <div className="p-8 ">
                   <div className="flex justify-between">
-                    <p className="">Task per Label</p>
-                    <div>{/* <MeatballsIcon3 /> */}</div>
+                    <p className="">Task per label</p>
+                    <div>
+                      <MeatballsIcon3 />
+                    </div>
                   </div>
                   <div className="m-10 mb-[-10px]">
                     <CardPerLabel />
