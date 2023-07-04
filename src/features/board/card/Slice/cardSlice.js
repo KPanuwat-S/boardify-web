@@ -67,6 +67,17 @@ export const updateTaskAsync = createAsyncThunk(
   }
 );
 
+export const updateCardNameAsync = createAsyncThunk(
+  "card/updateCardNameAsync",
+  async (input, thunkApi) => {
+    try {
+      await cardService.updateCardName(input.name, input.id);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const cardSlice = createSlice({
   name: "card",
   initialState: initialState,

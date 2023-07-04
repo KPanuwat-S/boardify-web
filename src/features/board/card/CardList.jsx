@@ -14,7 +14,7 @@ function CardList({ boardId, fetch, setFetch }) {
   const dispatch = useDispatch();
   const [cards, setCards] = useState([]);
   // const [fetch, setFetch] = useState(false);
-  console.log(cards)
+
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId));
     // console.log("cardlist fn running");
@@ -74,9 +74,9 @@ function CardList({ boardId, fetch, setFetch }) {
           ...cards[cardDestinationIndex],
           tasks: newDestinationTask,
         };
-        dispatch(updateTaskAsync({ newCard, boardId })).unwrap();
-        // console.log("newCard", newCard);
-        // console.log("newDestinationTask", newDestinationTask);
+        // dispatch(updateTaskAsync({ newCard, boardId })).unwrap();
+        console.log("newCard", newCard);
+        console.log("newDestinationTask", newDestinationTask);
         // setCards(newDestinationTask);
 
         setCards(newCard);
@@ -86,7 +86,7 @@ function CardList({ boardId, fetch, setFetch }) {
     }
   };
 
-  // console.log("---cards", cards);
+  const id = uuidv4();
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -105,6 +105,8 @@ function CardList({ boardId, fetch, setFetch }) {
             {cards.map((card, idx) => (
               <Draggable
                 // key={card?.cardId}
+                draggableId={card?.cardType}
+                // draggableId={card?.cardType}
                 draggableId={card?.cardType}
                 // draggableId={card?.cardType}
                 key={card?.id}

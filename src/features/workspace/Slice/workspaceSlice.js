@@ -74,6 +74,34 @@ export const countMemberWorkspace = createAsyncThunk(
   }
 );
 
+export const countMemberWorkspace = createAsyncThunk(
+  "workspace/countMemberWorkspace",
+  async (id, thunkApi) => {
+    try {
+      // console.log("+++++ id : ", id);
+      const res = await workspaceService.countMemberWorkspace(id);
+      // console.log("--------count", res.data);
+      return res.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const editWorkspaceNameAsync = createAsyncThunk(
+  "workspace/editWorkspaceNameAsync",
+  async (input, thunkApi) => {
+    try {
+      console.log("input in edit workspace name", input);
+      const res = await workspaceService.editWorkspaceName(
+        input.workspaceId,
+        input.workspaceName
+      );
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 const workspaceSlice = createSlice({
   name: "workspace",
   initialState,

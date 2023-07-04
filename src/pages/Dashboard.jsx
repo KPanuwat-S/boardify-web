@@ -12,7 +12,7 @@ export default function DashBoard() {
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar boardId={id} />
       </div>
       <div className="flex">
         <div className="h-[100vh] bg-black">
