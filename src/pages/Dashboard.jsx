@@ -22,7 +22,7 @@ export default function DashBoard() {
   return (
     <>
       <div>
-        <Navbar boardId={id} workspace={thisWorkSpace.Workspace} />
+        <Navbar boardId={id} />
       </div>
       <div className="flex">
         <div className="h-[100vh]">

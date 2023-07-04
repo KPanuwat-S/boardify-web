@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBoardsInWorkspaceAsync } from "../features/board/board/Slice/boardSlice";
 import {
+  editWorkspaceNameAsync,
   getWorkspaceByIdAsync,
   getWorkspaceMembersAsync,
 } from "../features/workspace/Slice/workspaceSlice";
@@ -10,31 +11,87 @@ import Modal from "../components/Modal";
 import AddBoard from "../components/AddBoard";
 
 function WorkspaceDetail() {
+  const [fetch, setFetch] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.board.boards);
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const members = useSelector((state) => state.workspace.members);
+  const workspace = useSelector((state) => state.workspace.oneWorkspace);
+  const [workspaceName, setWorkspaceName] = useState(workspace?.name);
+  console.log("workspace", workspace);
+  console.log("baords", boards);
+  console.log("workspaceid", id);
   useEffect(() => {
     dispatch(getAllBoardsInWorkspaceAsync(id));
     dispatch(getWorkspaceMembersAsync(id));
     dispatch(getWorkspaceByIdAsync(id));
     console.log("useeffect run");
-  }, []);
+  }, [fetch]);
 
-  const [open, setOpen] = useState(false);
-  const members = useSelector((state) => state.workspace.members);
-  const workspace = useSelector((state) => state.workspace.oneWorkspace);
-  console.log("workspace", workspace);
-  console.log("baords", boards);
-  console.log("workspaceid", id);
+  const sugmitEditWorkspaceName = (e) => {
+    e.preventDefault();
+    const workspaceEdit = { name: workspaceName };
+    const input = { workspaceId: id, workspaceName: workspaceEdit };
+    dispatch(editWorkspaceNameAsync(input));
+    setIsEdit(false);
+    setFetch(true);
+  };
   return (
     <div className="w-[1280px] mx-auto mt-5">
       <div className=" ">
         <div className="flex justify-between">
           <div className="flex items-center gap-5">
             <i class="fa-solid fa-chart-simple text-blue-600"></i>
-            <h2 className="font-semibold text-blue-600 text-xl flex-1">
-              {workspace?.name}
-            </h2>
+            {isEdit ? (
+              <div className="flex gap-2">
+                <input
+                  className="px-2 outline outline-blue-600"
+                  type="text"
+                  value={workspaceName}
+                  onChange={(e) => {
+                    setWorkspaceName(e.target.value);
+                  }}
+                  onClick={(e) => {
+                    setIsEdit(true);
+                    e.stopPropagation();
+                  }}
+                />
+                <div className="font-light flex flex-col gap-2">
+                  <button
+                    onClick={sugmitEditWorkspaceName}
+                    className="text-white text-xs bg-blue-600 w-[50px] hover:bg-blue-700 p-1 rounded-[4px]"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsEdit(false);
+                    }}
+                    className="text-xs p-1 rounded-[4px] bg-gray-100 hover:bg-gray-200"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div
+                onClick={(e) => {
+                  setIsEdit(true);
+                  e.stopPropagation();
+                  // setTitle(.name);
+                }}
+                className="group flex  items-center gap-5 text-gray-600 hover:bg-gray-100 p-2 rounded-[4px]"
+              >
+                <h2 className="font-semibold text-blue-600 text-xl flex-1">
+                  {workspaceName}
+                </h2>
+                <i class="fa-regular fa-pen-to-square text-white group-hover:text-gray-400"></i>
+              </div>
+            )}
           </div>
           <div className="flex gap-5 items-center mt-2">
             <div className="flex items-center justify-center gap-1 p-2 bg-gray-100 hover:bg-gray-200 rounded-[4px] duration-200">

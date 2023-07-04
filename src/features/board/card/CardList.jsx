@@ -13,12 +13,8 @@ import { v4 as uuidv4 } from "uuid";
 function CardList({ boardId, fetch, setFetch }) {
   const cardItems = useSelector((state) => state.card.cardItems);
   const dispatch = useDispatch();
-  // console.log(cardItems);
   const [cards, setCards] = useState([]);
   // const [fetch, setFetch] = useState(false);
-
-  console.log("cards", cards);
-  console.log("cardsItem", cardItems);
 
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId));
@@ -28,6 +24,52 @@ function CardList({ boardId, fetch, setFetch }) {
   useEffect(() => {
     if (cardItems.length > 0) setCards(cardItems);
   }, [cardItems]);
+  // const MockCards = [
+  //   {
+  //     id: 5,
+  //     name: "card05",
+  //     position: 1,
+  //     cardType: "card-05",
+  //     tasks: [
+  //       {
+  //         taskId: 10,
+  //         taskName: "task5",
+  //         taskDescription: "task5",
+  //         taskPosition: 1,
+  //         labelColor: "green",
+  //         labelDescription: "S",
+  //         taskType: "task-10",
+  //         checkListsTotal: 0,
+  //         checkListsChecked: 0,
+  //         dueDate: "2023-07-31T17:00:00.000Z",
+  //         members: [],
+  //         numberOfFilesAttached: null,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "card06",
+  //     position: 2,
+  //     cardType: "card-06",
+  //     tasks: [
+  //       {
+  //         taskId: 11,
+  //         taskName: "task6",
+  //         taskDescription: "task6",
+  //         taskPosition: 1,
+  //         labelColor: "green",
+  //         labelDescription: "S",
+  //         taskType: "task-11",
+  //         checkListsTotal: 0,
+  //         checkListsChecked: 0,
+  //         dueDate: null,
+  //         members: [],
+  //         numberOfFilesAttached: null,
+  //       },
+  //     ],
+  //   },
+  // ];
 
   const onDragEnd = async (result) => {
     console.log("result from drag end", result);
@@ -79,7 +121,11 @@ function CardList({ boardId, fetch, setFetch }) {
           ...cards[cardDestinationIndex],
           tasks: newDestinationTask,
         };
-        dispatch(updateTaskAsync({ newCard, boardId })).unwrap();
+        // dispatch(updateTaskAsync({ newCard, boardId })).unwrap();
+        console.log("newCard", newCard);
+        console.log("newDestinationTask", newDestinationTask);
+        // setCards(newDestinationTask);
+
         setCards(newCard);
       }
     } catch (error) {
@@ -87,7 +133,7 @@ function CardList({ boardId, fetch, setFetch }) {
     }
   };
 
-  const id = uuidv4();
+  console.log("---cards", cards);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -106,9 +152,9 @@ function CardList({ boardId, fetch, setFetch }) {
             {cards.map((card, idx) => (
               <Draggable
                 // key={card?.cardId}
-                // draggableId={card?.cardId}
+                draggableId={card?.cardType}
+                // draggableId={card?.cardType}
                 key={card?.id}
-                draggableId={card?.id + ""}
                 // draggableId={uuidv4()}
                 // draggableId="agenda"
                 index={idx}
@@ -122,7 +168,7 @@ function CardList({ boardId, fetch, setFetch }) {
                   >
                     <TaskItem
                       boardId={boardId}
-                      id={card?.cardId + ""}
+                      id={card?.cardId}
                       // cardName={card?.cardName}
                       cardItem={card}
                       tasks={card?.tasks}

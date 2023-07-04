@@ -8,10 +8,12 @@ export default function RegisterInput({
   placeholder,
   error,
   className,
+  type,
 }) {
   return (
     <div className="flex-col align-top text-[14px] overflow-hidden ver flex items-start bg-[#FAFBFC]  cursor-text rounded-[4px]">
       <input
+        type={type}
         name={name}
         id={id}
         value={value}

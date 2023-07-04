@@ -77,7 +77,7 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
 
   // console.log("task item", taskItem);
   // console.log("fetch", fetch);
-  console.log("task", task);
+  console.log("task in taskrow", task);
   return (
     taskItem && (
       <div>
