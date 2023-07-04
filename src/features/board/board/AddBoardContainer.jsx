@@ -23,10 +23,10 @@ export default function AddBoardContainer() {
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
         >
-          <div className="flex gap-5 items-center">
+          {/* <div className="flex gap-5 items-center">
             <div className="">Your Boards</div>
             {hover && <i class="fa-solid fa-plus text-blue-600"></i>}
-          </div>
+          </div> */}
         </div>
       </div>
       {openModal && (

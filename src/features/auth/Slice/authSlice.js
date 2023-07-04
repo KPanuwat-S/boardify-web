@@ -42,8 +42,9 @@ export const googleLogin = createAsyncThunk(
   "auth/googleLogin",
   async (input, thunkApi) => {
     console.log("google login", input);
+
     try {
-      const res = await authService.gLogin(input);
+      const res = await authService.gLogin({ data: input });
       console.log("res.data", res.data);
       setAccessToken(res.data.accessToken);
       const resFetchMe = await authService.fetchMe();
