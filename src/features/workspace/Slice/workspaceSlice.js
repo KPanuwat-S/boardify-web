@@ -57,6 +57,20 @@ export const createWorkspaceAndInviteMember = createAsyncThunk(
   }
 );
 
+export const editWorkspaceNameAsync = createAsyncThunk(
+  "workspace/editWorkspaceNameAsync",
+  async (input, thunkApi) => {
+    try {
+      console.log("input in edit workspace name", input);
+      const res = await workspaceService.editWorkspaceName(
+        input.workspaceId,
+        input.workspaceName
+      );
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 const workspaceSlice = createSlice({
   name: "workspace",
   initialState,

@@ -8,7 +8,7 @@ import {
 } from "../features/workspace/Slice/workspaceSlice";
 import MemberCard from "../features/member/components/MemberCard";
 import MemberInvitation from "../features/member/components/MemberInvitation";
-import { getMemberAsync } from "../features/member/Slice/memberSlice";
+import { getMemberAsync } from "../features/member/slice/memberSlice";
 
 function MemberPage() {
   const { id } = useParams();
@@ -37,6 +37,7 @@ function MemberPage() {
 
   const memberInCard = useSelector((state) => state.member.showmembercard);
   console.log(memberInCard);
+
   return (
     <div className="w-[1280px] mx-auto my-2">
       <div className="">
@@ -63,7 +64,6 @@ function MemberPage() {
             // width={35}
             onClose={() => {
               setOpen(false);
-              console.log("onclose");
             }}
           >
             <div className="px-10 h-[600px]">
@@ -81,15 +81,14 @@ function MemberPage() {
 
       {/* Member Component */}
 
-      <div className="flex flex-col  mt-10">
+      <div className="flex flex-col mt-10">
+        {/* Member Card */}
         <MemberCard
           memberInCard={memberInCard}
           workspaceId={id}
           setFetch={setFetchDelete}
           fetchDelete={fetchDelete}
         />
-
-        <MemberCard />
       </div>
     </div>
   );

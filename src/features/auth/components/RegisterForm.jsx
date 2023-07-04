@@ -47,6 +47,7 @@ export default function () {
             className="flex flex-col gap-10"
           >
             <RegisterInput
+              type="text"
               name="firstName"
               id="firstName"
               value={input.firstName}
@@ -60,6 +61,7 @@ export default function () {
               }
             />
             <RegisterInput
+              type="text"
               name="lastName"
               id="lastName"
               value={input.lastName}
@@ -73,6 +75,7 @@ export default function () {
               }
             />
             <RegisterInput
+              type="email"
               name="email"
               id="email"
               value={input.email}
@@ -86,6 +89,7 @@ export default function () {
               }
             />
             <RegisterInput
+              type="password"
               name="password"
               id="password"
               value={input.password}
@@ -99,6 +103,7 @@ export default function () {
               }
             />
             <RegisterInput
+              type="password"
               name="confirmPassword"
               id="confirmPassword"
               value={input.confirmPassword}

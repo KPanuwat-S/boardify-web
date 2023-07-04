@@ -4,7 +4,7 @@ import cardReducer from "../features/board/card/Slice/cardSlice";
 import workspaceReducer from "../features/workspace/Slice/workspaceSlice";
 import boardReducer from "../features/board/board/Slice/boardSlice";
 import taskReducer from "../features/board/task/Slice/taskSlice";
-import memberReducer from "../features/member/Slice/memberSlice";
+import memberReducer from "../features/member/slice/memberSlice";
 import projectsReducer from "../features/myProject/Slice/myProjectSlice";
 import stripeReducer from "../features/stripe/Slice/purchaseSlice";
 

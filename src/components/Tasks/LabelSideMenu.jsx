@@ -29,8 +29,22 @@ function LabelSideMenu({
     dispatch(getOneTaskAsync(taskItem?.id));
   }, []);
 
-  const submitLabel = (label) => {
-    const editTaskItem = { ...taskItem, labelId: label.id };
+  const submitLabel = (label = undefined) => {
+    const editTaskItem = { ...taskItem, labelId: label?.id };
+    const input = {
+      id: taskItem.id,
+      data: editTaskItem,
+    };
+    dispatch(editTaskAsync(input));
+    // editTaskAsync ทำให้ข้อมูลหลังบ้านเปลี่ยน
+    setTaskItem(editTaskItem);
+    setFetch(!fetch);
+    // setTaskItem => ทำให้เวลาคลิกแล้ว state ใน edit เปลี่ยน
+  };
+
+  const removeLabel = () => {
+    const editTaskItem = { ...taskItem, labelId: null, Label: null };
+    console.log("editTaskItem label", editTaskItem);
     const input = {
       id: taskItem.id,
       data: editTaskItem,
@@ -97,8 +111,22 @@ function LabelSideMenu({
           >
             Save
           </button>
-          <button className="py-1 px-2 rounded-[4px] border border-gray-300 hover:bg-gray-300">
+          <button
+            onClick={() => {
+              setOpen(false);
+            }}
+            className="py-1 px-2 rounded-[4px] border border-gray-300 hover:bg-gray-300"
+          >
             Cancel
+          </button>
+          <button
+            className="bg-blue-600 text-white py-1 px-5 rounded-[4px]"
+            onClick={() => {
+              setOpen(false);
+              removeLabel();
+            }}
+          >
+            Remove Label
           </button>
         </div>
       </div>

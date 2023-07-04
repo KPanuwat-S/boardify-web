@@ -34,13 +34,13 @@ export default function MemberInvitation({ workspaceId }) {
     // console.log("test", el.email);
   };
 
-  useEffect(() => {
-    const memberIndex = memberList.findIndex((el) => el.id == members.id);
+  // useEffect(() => {
+  //   const memberIndex = memberList.findIndex((el) => el.id == members.id);
 
-    if (members !== "" && memberIndex == -1) {
-      setMemberList([...memberList, members]);
-    }
-  }, [members]);
+  //   if (members !== "" && memberIndex == -1) {
+  //     setMemberList([...memberList, members]);
+  //   }
+  // }, [members]);
 
   const addMember = async (e) => {
     try {
