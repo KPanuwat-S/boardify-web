@@ -49,10 +49,10 @@ export const updateCardAsync = createAsyncThunk(
   async (input, thunkApi) => {
     // console.log(input)
     try {
-      const {entries,boardId} = input
-      console.log(entries,boardId)
+      const { entries, boardId } = input;
+      // console.log(entries, boardId);
       const res = await cardService.updateCards(entries, boardId);
-      console.log(res)
+      console.log(res.data);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -63,8 +63,11 @@ export const updateTaskAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const { newCard, boardId } = input;
+      // console.log(newCard, boardId);
+      console.log(newCard);
       const res = await cardService.updateTasks(newCard, boardId);
-      console.log(res.data)
+      console.log(res.data);
+      // return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -106,6 +109,17 @@ const cardSlice = createSlice({
         state.dashBoard = action.payload ?? [];
       })
       .addCase(getDashBoardAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateTaskAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(updateTaskAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // state.cardItems = action.payload ?? [];
+      })
+      .addCase(updateTaskAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
