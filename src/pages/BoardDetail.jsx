@@ -10,7 +10,7 @@ import { getWorkspaceByIdAsync } from "../features/workspace/Slice/workspaceSlic
 
 export default function BoardDetail() {
   const { id } = useParams();
-  console.log("id", id);
+  // console.log("id", id);
   const dispatch = useDispatch();
   // useEffect(() => {
   //   dispatch(getWorkspaceByIdAsync(id));

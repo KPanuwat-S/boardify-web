@@ -5,40 +5,11 @@ import { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 export default function CardPerMember() {
-  const dataTask = [
-    {
-      id: 1,
-      memberName: "Name: STANG",
-      taskTotal: 5,
-    },
-    {
-      id: 1,
-      memberName: "Name: Nattanicha",
-      taskTotal: 8,
-    },
-    {
-      id: 1,
-      memberName: "Name: Sunny",
-      taskTotal: 10,
-    },
-    {
-      id: 1,
-      memberName: "Name: Nay",
-      taskTotal: 15,
-    },
-    {
-      id: 1,
-      memberName: "Name: Fang",
-      taskTotal: 20,
-    },
-  ];
-  const { taskMembersData } = useSelector((state) => state.card.cardItems);
-
+  const {taskMemberData} = useSelector((state) => state.card.dashBoard);
   const [memberData, setMemberData] = useState([]);
   useEffect(() => {
-    if (taskMembersData) setMemberData(taskMembersData);
-  }, [taskMembersData]);
-  console.log(memberData);
+    if (taskMemberData) setMemberData(taskMemberData);
+  }, [taskMemberData]);
   const labels = memberData.map(({ firstName }) => firstName);
   const x = memberData.map(({ totalTask }) => totalTask);
 

@@ -8,29 +8,22 @@ import {
 import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable } from "./StrictModeItem";
 import TaskItem from "../../../components/Tasks/TaskItem";
-import { v4 as uuidv4 } from "uuid";
 
 function CardList({ boardId, fetch, setFetch }) {
   const cardItems = useSelector((state) => state.card.cardItems);
-  console.log(cardItems.cards)
   const dispatch = useDispatch();
   const [cards, setCards] = useState([]);
-  console.log("------",cards)
-  const [fetch, setFetch] = useState(false);
-
-  // console.log("cards", cards);
-  // console.log("cardsItem", cardItems);
-
+  // const [fetch, setFetch] = useState(false);
+  console.log(cards)
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId));
     // console.log("cardlist fn running");
   }, [fetch]);
 
   useEffect(() => {
-    if (cardItems.length > 0) {
-      console.log("........ :", cards)
-      setCards(cardItems.cards)};
+    if (cardItems.length > 0) setCards(cardItems);
   }, [cardItems]);
+
   const onDragEnd = async (result) => {
     // console.log("result from drag end", result);
     const { destination, source, type } = result;
@@ -51,13 +44,16 @@ function CardList({ boardId, fetch, setFetch }) {
       }
       if (type === "task") {
         const taskSourceIndex = source.index;
+        // console.log(taskSourceIndex);
         const taskDestinationIndex = destination.index;
+        // console.log(taskDestinationIndex);
         const cardSourceIndex = cards.findIndex(
           (card) => card.cardType === source.droppableId
         );
         const cardDestinationIndex = cards.findIndex(
           (card) => card.cardType === destination.droppableId
         );
+        //task source data
         const newSourceTasks = [...cards[cardSourceIndex]?.tasks];
         //task destination data
         // if (!cardSourceIndex || !cardDestinationIndex) return;
@@ -65,8 +61,10 @@ function CardList({ boardId, fetch, setFetch }) {
           source.droppableId !== destination.droppableId
             ? [...cards[cardDestinationIndex]?.tasks]
             : newSourceTasks;
+        //source task data remove
         const [removedTask] = newSourceTasks.splice(taskSourceIndex, 1);
         newDestinationTask.splice(taskDestinationIndex, 0, removedTask);
+        //sort ข้อมูลทั้งหมด
         const newCard = [...cards];
         newCard[cardSourceIndex] = {
           ...cards[cardSourceIndex],
@@ -76,7 +74,11 @@ function CardList({ boardId, fetch, setFetch }) {
           ...cards[cardDestinationIndex],
           tasks: newDestinationTask,
         };
-        dispatch(updateTaskAsync({ newCard, boardId }));
+        dispatch(updateTaskAsync({ newCard, boardId })).unwrap();
+        // console.log("newCard", newCard);
+        // console.log("newDestinationTask", newDestinationTask);
+        // setCards(newDestinationTask);
+
         setCards(newCard);
       }
     } catch (error) {
@@ -84,7 +86,7 @@ function CardList({ boardId, fetch, setFetch }) {
     }
   };
 
-  const id = uuidv4();
+  // console.log("---cards", cards);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -94,18 +96,18 @@ function CardList({ boardId, fetch, setFetch }) {
         direction={"horizontal"}
         type="card"
       >
-        {(provided, snapshot) => (
+        {(provided) => (
           <div
             {...provided.droppableProps}
             ref={provided.innerRef}
-            className={`flex gap-4  ${snapshot.isDraggingOver && " "} `}
+            className="flex gap-4"
           >
             {cards.map((card, idx) => (
               <Draggable
                 // key={card?.cardId}
-                // draggableId={card?.cardId}
+                draggableId={card?.cardType}
+                // draggableId={card?.cardType}
                 key={card?.id}
-                draggableId={card?.id + ""}
                 // draggableId={uuidv4()}
                 // draggableId="agenda"
                 index={idx}
@@ -119,8 +121,8 @@ function CardList({ boardId, fetch, setFetch }) {
                   >
                     <TaskItem
                       boardId={boardId}
-                      id={card?.cardId + ""}
-                      // cardName={card?.cardName}
+                      id={card?.cardId}
+                      cardName={card?.cardName}
                       cardItem={card}
                       tasks={card?.tasks}
                       cardType={card?.cardType}
@@ -139,72 +141,3 @@ function CardList({ boardId, fetch, setFetch }) {
   );
 }
 export default CardList;
-// ======= Develop2.0
-//   // console.log("cardItems", cardItems);
-
-//   // const [cards, setCards] = useState(cardItems);
-
-//   useEffect(() => {
-//     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
-//     // setCards(cardItems);
-//     // if (cardItems !== null) setCards(cardItems);
-//   }, [fetch]);
-
-//   // useEffect(() => {
-//   //   if (cardItems !== null) setCards(cardItems);
-//   // }, [cardItems]);
-//   return (
-//     <>
-//       <div className="flex flex-row-reverse gap-3 ">
-//         {cardItems && cardItems.length > 0
-//           ? cardItems.map((cardItem, index) => (
-//               <CardColumn
-//                 boardId={boardId}
-//                 key={index}
-//                 cardItem={cardItem}
-//                 fetch={fetch}
-//                 setFetch={setFetch}
-//               />
-//             ))
-//           : "no todo found"}
-//       </div>
-//     </>
-// >>>>>>> origin/develop2.0
-//   );
-// }
-
-// {/* <div className="flex flex-row-reverse gap-3 ">
-// {/* {sortedTodoList && sortedTodoList.length > 0
-//   ? sortedTodoList.map((todo) => <TaskItem key={todo.id} todo={todo} />)
-//   : "no todo found"} */}
-// <TaskItem />
-// </div> */}
-//logic
-// const taskItem = useSelector((state) => state.card.cardItems);
-// console.log(taskItem);
-
-// const sortedTodoList = [...taskItem];
-// sortedTodoList.sort((a, b) => new Date(b.time) - new Date(a.time));
-{
-  /* <div className="flex flex-row gap-5">
-<TaskItem />
-</div> */
-}
-// const newDestinationTask =
-//   source.droppableId !== destination.droppableId
-//     ? [...cards[cardDestinationIndex]?.tasks]
-//     : newSourceTasks;
-// //source task data remove
-// const [removedTask] = newSourceTasks.splice(taskSourceIndex, 1);
-// newDestinationTask.splice(taskDestinationIndex, 0, removedTask);
-// //sort ข้อมูลทั้งหมด
-// const newCard = [...cards];
-// newCard[cardSourceIndex] = {
-//   ...cards[cardSourceIndex],
-//   tasks: newSourceTasks,
-// };
-// newCard[cardDestinationIndex] = {
-//   ...cards[cardDestinationIndex],
-//   tasks: newDestinationTask,
-// };
-// setCards(newCard);

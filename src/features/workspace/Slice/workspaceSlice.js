@@ -39,9 +39,9 @@ export const getWorkspaceMembersAsync = createAsyncThunk(
   "workspace/getWorkspaceMembersAsync",
   async (input, thunkApi) => {
     try {
-      console.log("====== input :", input);
+      // console.log("====== input :", input);
       const res = await workspaceService.getWorkspaceMembers(input);
-      console.log("-------- res :",res.data);
+      // console.log("-------- res :",res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -53,7 +53,7 @@ export const createWorkspaceAndInviteMember = createAsyncThunk(
   "workspace/createWorkspaceAndInviteMember",
   async (input, thunkApi) => {
     try {
-      console.log("input in wp slice", input);
+      // console.log("input in wp slice", input);
       const res = await workspaceService.createWorkspaces(input);
       return res.data;
     } catch (err) {}

@@ -5,13 +5,12 @@ import { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 export default function CardPerLabel() {
-  const { taskLabel } = useSelector((state) => state.card.cardItems);
+  const { taskLabel } = useSelector((state) => state.card.dashBoard);
 
   const [labelData, setLabelData] = useState([]);
   useEffect(() => {
     if (taskLabel) setLabelData(taskLabel);
   }, [taskLabel]);
-  console.log(labelData);
 
   const labels = labelData.map(({ labelName }) => labelName);
   const x = labelData.map(({ taskTotal }) => taskTotal);

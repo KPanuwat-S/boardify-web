@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
-import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
+import { getAllCardsInOneBoardAsync, getDashBoardAsync } from "../features/board/card/Slice/cardSlice";
 // import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
 // import { MeatballsIcon3 } from "../icons";
 
@@ -22,7 +22,6 @@ export default function DashBoard() {
   // );
   const cardItems = useSelector((state) => state.card.cardItems);
   const [chart, setChart] = useState([]);
-  console.log(chart);
 
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(id));

@@ -9,7 +9,7 @@ export default function Card({ boardId }) {
     <>
       <div className="flex gap-3 font-semibold text-blue-950">
         <div>
-          <CardList boardId={boardId} fetch={fetch} setFetch={setFetch} />
+          <CardList boardId={boardId} />
         </div>
         <div>
           <AddCardContainer
