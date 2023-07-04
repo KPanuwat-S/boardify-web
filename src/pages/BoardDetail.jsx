@@ -15,15 +15,15 @@ export default function BoardDetail() {
   // useEffect(() => {
   //   dispatch(getWorkspaceByIdAsync(id));
   // }, []);
-  const allWorkspace = useSelector((state) => state.workspace.workspaces);
-  const thisWorkSpace = allWorkspace.find((el) =>
-    el.Workspace.Boards.find((el) => el.id == id)
-  );
-  console.log("workspace in board", allWorkspace);
-  console.log("this workspace in board", thisWorkSpace);
+  // const allWorkspace = useSelector((state) => state.workspace.workspaces);
+  // const thisWorkSpace = allWorkspace.find((el) =>
+  //   el.Workspace.Boards.find((el) => el.id == id)
+  // );
+  // console.log("workspace in board", allWorkspace);
+  // console.log("this workspace in board", thisWorkSpace);
   return (
     <>
-      <Navbar boardId={id} workspace={thisWorkSpace?.Workspace} />
+      {/* <Navbar boardId={id} workspace={thisWorkSpace?.Workspace} /> */}
       <div className="flex">
         <div className="h-[100vh]">
           <SideBar boardId={id} />

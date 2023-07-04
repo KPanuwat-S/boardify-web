@@ -12,25 +12,28 @@ import { v4 as uuidv4 } from "uuid";
 
 function CardList({ boardId, fetch, setFetch }) {
   const cardItems = useSelector((state) => state.card.cardItems);
+  console.log(cardItems.cards)
   const dispatch = useDispatch();
   // console.log(cardItems);
   const [cards, setCards] = useState([]);
-  // const [fetch, setFetch] = useState(false);
+  console.log("------",cards)
+  const [fetch, setFetch] = useState(false);
 
-  console.log("cards", cards);
-  console.log("cardsItem", cardItems);
+  // console.log("cards", cards);
+  // console.log("cardsItem", cardItems);
 
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId));
-    console.log("cardlist fn running");
+    // console.log("cardlist fn running");
   }, [fetch]);
 
   useEffect(() => {
-    if (cardItems.length > 0) setCards(cardItems);
+    if (cardItems.length > 0) {
+      console.log("........ :", cards)
+      setCards(cardItems.cards)};
   }, [cardItems]);
-
   const onDragEnd = async (result) => {
-    console.log("result from drag end", result);
+    // console.log("result from drag end", result);
     const { destination, source, type } = result;
     try {
       if (!destination) return;
