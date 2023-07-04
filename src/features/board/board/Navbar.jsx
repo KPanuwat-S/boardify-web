@@ -14,10 +14,10 @@ export default function Navbar({ boardId, workspace }) {
     dispatch(getOneBoardAsync(boardId));
   }, [fetch]);
   const boardDetail = useSelector((state) => state.board.board);
-  console.log("boardDetail", boardDetail);
+  // console.log("boardDetail", boardDetail);
 
   const submitBoardName = () => {
-    dispatch()
+    dispatch();
     setIsEdit(false);
     setFetch(!fetch);
   };

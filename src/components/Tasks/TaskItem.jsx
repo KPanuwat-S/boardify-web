@@ -13,15 +13,26 @@ import {
 } from "../../features/board/card/Slice/cardSlice";
 import DropdownTask from "./DropDownTask";
 
-function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId ,cardName}) {
-  // console.log(cardType);
+function TaskItem({
+  id,
+  cardItem,
+  fetch,
+  tasks,
+  cardType,
+  setFetch,
+  boardId,
+  cardName,
+}) {
+  // console.log(tasks);
+
   const dispatch = useDispatch();
   const fetchCards = useSelector((state) => state.card.cardItems);
 
-  const [tasksOfCards, setTaskOfCards] = useState(
-    fetchCards.find((card) => card.id == cardItem.id)?.tasks || tasks
-  );
-
+  // const [tasksOfCards, setTaskOfCards] = useState(
+  //   fetchCards.find((card) => card.id == cardItem.id)?.tasks || tasks
+  // );
+  const [tasksOfCards, setTaskOfCards] = useState(tasks);
+  // console.log(tasksOfCards);
   const [isEdit, setIsEdit] = useState(false);
   // const [cardName, setCardName] = useState(cardItem.name);
 
@@ -33,7 +44,6 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId ,car
     // setCards(fetchCards);
     setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id)?.tasks);
   }, [fetchCards]);
-
 
   const subimitCardName = () => {
     const name = { name: cardName };
@@ -103,7 +113,7 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId ,car
               </div>
             )}
           </div>
-          {tasksOfCards?.map((task, idx) => (
+          {tasks?.map((task, idx) => (
             <Draggable
               key={task?.taskId}
               draggableId={task?.taskType}
