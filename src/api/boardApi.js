@@ -1,6 +1,9 @@
 import axios from "./axios";
 
 export const createBoard = (data) => axios.post(`/boards`, data);
+
+export const editBoardName = (boardId, boardName) => axios.patch(`/boards/board`);
+
 export const getBoardById = (boardId) => axios.get(`/workspaces/${userId}`);
 
 export const getOneBoard = (id) => axios.get(`/boards/board/${id}`);
@@ -14,4 +17,4 @@ export const getTaskById = (taskId) =>
 export const getAllBoardsById = (workspaceId) =>
   axios.get(`/boards/${workspaceId}`);
 
-export const editBoardName = (boardId, boardName) => axios.patch(`/boards/board`);
+export const deleteBoard = (id) => axios.delete(`/boards/deleteboard/${id}`)

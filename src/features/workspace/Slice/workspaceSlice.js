@@ -28,6 +28,7 @@ export const getWorkspaceByIdAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await workspaceService.getWorkspaceById(input);
+      console.log("zzzzzzzz", res);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -67,7 +68,7 @@ export const countMemberWorkspace = createAsyncThunk(
       // console.log("+++++ id : ", id);
       const res = await workspaceService.countMemberWorkspace(id);
       // console.log("--------count", res.data);
-      return res.data
+      return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -88,6 +89,19 @@ export const editWorkspaceNameAsync = createAsyncThunk(
     }
   }
 );
+
+export const deleteWorkspace = createAsyncThunk(
+  "workspace/deleteWorkspace",
+  async (id, thunkApi) => {
+    try {
+      console.log("-------",id);
+      const res = workspaceService.deleteWorkspace(id);
+    } catch (error) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const workspaceSlice = createSlice({
   name: "workspace",
   initialState,
@@ -144,6 +158,9 @@ const workspaceSlice = createSlice({
       })
       .addCase(countMemberWorkspace.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(deleteWorkspace.fulfilled, (state) => {
+        state.error = false;
       }),
 });
 export const { getWorkspaceById } = workspaceSlice.actions;

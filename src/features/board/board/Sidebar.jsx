@@ -3,9 +3,15 @@ import { MeatballsIcon } from "../../../icons";
 
 import AddMemberContainer from "./AddMemberContainer";
 import AddBoardContainer from "./AddBoardContainer";
+import { deleteboard } from "./Slice/boardSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function SideBar({ boardId }) {
   const [hover, setHover] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate() 
 
   const handleMouseOver = () => {
     setHover(true);
@@ -13,6 +19,12 @@ export default function SideBar({ boardId }) {
   const handleMouseOut = () => {
     setHover(false);
   };
+
+  const handleOnClickDelete = (e) => {
+    dispatch(deleteboard(boardId))
+    navigate("/workspace");
+  };
+
   return (
     <>
       <div className="w-[200px] text-gray-500 p-5 flex flex-col gap-5">
@@ -44,6 +56,13 @@ export default function SideBar({ boardId }) {
           )}
         </div>
       </div>
+
+      <button
+        className="flex items-center justify-center gap-1 p-2 text-red-600 bg-red-100 hover:bg-red-600 hover:text-white rounded-[4px] duration-200"
+        onClick={handleOnClickDelete}
+      >
+        <p className="">Delete Board</p>
+      </button>
     </>
   );
 }

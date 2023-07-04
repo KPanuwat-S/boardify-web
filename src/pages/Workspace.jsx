@@ -23,7 +23,7 @@ function Workspace() {
   const workspaces = useSelector((state) => state.workspace.workspaces);
   // console.log("+++++work : ", workspaces.Workspace);
 
-  // console.log("workspaces", workspaces);
+  console.log("workspaces", workspaces);
   return (
     <div className="w-[1280px] mx-auto mt-5">
       <h1 className="font-bold text-gray-400 text-2xl mb-5">Your Workspace</h1>

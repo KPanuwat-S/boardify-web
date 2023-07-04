@@ -8,7 +8,6 @@ export const getWorkspaceMembers = (workspaceId) =>
 export const getWorkspaceById = (workspaceId) =>
   axios.get(`/workspaces/workspace/${workspaceId}`);
 
-export const deleteWorkspace = (workspaceId) => axios.get(``);
 // export const login = (input) => axios.post("/auth/login", input);
 // export const fetchMe = () => axios.get("/auth/me");
 // export const gLogin = (input) => axios.post("/auth/googleLogin", input);
@@ -19,3 +18,5 @@ export const createWorkspaces = (newWorkspace) =>
   axios.post(`/workspaces/`, newWorkspace);
 
 export const countMemberWorkspace = (id) => axios.get(`/workspaces/countMemberWorkspace/${id}`)
+
+export const deleteWorkspace = (id) => axios.delete(`/workspaces/deleteWorkspace/${id}`)
