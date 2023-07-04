@@ -28,7 +28,7 @@ function JoinTaskSideMenu({
 
   const taskItem = useSelector((state) => state.task.taskItem);
   const memberIntasks = useSelector((state) => state.task.membersInTask);
-  const memberAsMe = memberIntasks.findIndex((el) => el.userId == user.id);
+  const memberAsMe = memberIntasks.findIndex((el) => el.userId == user?.id);
 
   const submitJoinTask = () => {
     if (memberAsMe >= 0) return;
