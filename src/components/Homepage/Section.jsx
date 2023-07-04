@@ -56,7 +56,7 @@ function Section() {
         </div>
       </div>
       <div className="mt-24 mb-7">
-        <div className=" ml-8 font-semibold">TRELLO IN ACTION</div>
+        <div className=" ml-8 font-semibold">Boardify IN ACTION</div>
         <div className="ml-8 text-3xl font-semibold">
           Workflows for any project, big or small
         </div>
@@ -73,7 +73,7 @@ function Section() {
             <div className="font-bold ">Project Management</div>
             <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
               Keep tasks in order, deadlines on track, and team members aligned
-              with Trello
+              with Boardify
             </p>
           </div>
         </div>
@@ -83,7 +83,7 @@ function Section() {
             <AnnouncementIcon />
           </div>
           <div className="bg-white h-24 pt-6 pl-3 pb-32  p-4">
-            <div className="font-bold ">Project Management</div>
+            <div className="font-bold ">Meeting</div>
             <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
               Empower your team meetings to be more productive, empowering, and
               dare we say-fun
@@ -98,8 +98,9 @@ function Section() {
           <div className="bg-white h-24 pt-6 pl-3 pb-32  p-4">
             <div className="font-bold ">Onboarding</div>
             <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-              Onboarding to a new company or project is a snap with Trello&aposs
-              visual layout of to-do&aposs, resources, and progress tracking.
+              Onboarding to a new company or project is a snap with
+              Boardify&aposs visual layout of to-do&aposs, resources, and
+              progress tracking.
             </p>
           </div>
         </div>
@@ -111,7 +112,7 @@ function Section() {
           <div className="bg-white h-24 pt-6 pl-3 pb-32  p-4">
             <div className="font-bold ">Task management</div>
             <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-              Use Trello to track, manage, complete, and bring tasks together
+              Use Boardify to track, manage, complete, and bring tasks together
               like pieces of a puzzle, and make your team&aposs projects a
               cohesive success every time.
             </p>

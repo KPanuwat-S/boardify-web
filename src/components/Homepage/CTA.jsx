@@ -8,7 +8,7 @@ function CTA() {
           <div className="bg-blue-600 p-8 md:p-12 lg:px-16 lg:py-24">
             <div className="mx-auto max-w-xl text-center">
               <p className="leading-[48px] text-4xl font-bold text-white text-left">
-                Trello brings all your tasks, teammates, and tools together
+                Boardify brings all your tasks, teammates, and tools together
               </p>
 
               <p className=" hidden text-white/90 sm:mt-4 sm:block">

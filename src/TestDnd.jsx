@@ -117,4 +117,4 @@ const Card = ({ card, index, listId }) => {
   );
 };
 
-export default TrelloClone;
+export default BoardifyClone;
