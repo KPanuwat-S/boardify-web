@@ -86,7 +86,7 @@ export default function DashBoard() {
                     <div>{/* <MeatballsIcon3 /> */}</div>
                   </div>
                   <div className="m-10 mb-[-10px]">
-                    <CardPerLabel chart={chart} />
+                    <CardPerLabel />
                   </div>
                 </div>
               </div>
