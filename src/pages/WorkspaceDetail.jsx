@@ -15,8 +15,9 @@ function WorkspaceDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.board.boards);
-  console.log(boards);
+  console.log('boards',boards);
 
+  
   const [isEdit, setIsEdit] = useState(false);
 
   const [open, setOpen] = useState(false);

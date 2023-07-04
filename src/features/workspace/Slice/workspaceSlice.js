@@ -74,20 +74,6 @@ export const countMemberWorkspace = createAsyncThunk(
   }
 );
 
-export const countMemberWorkspace = createAsyncThunk(
-  "workspace/countMemberWorkspace",
-  async (id, thunkApi) => {
-    try {
-      // console.log("+++++ id : ", id);
-      const res = await workspaceService.countMemberWorkspace(id);
-      // console.log("--------count", res.data);
-      return res.data
-    } catch (error) {
-      return thunkApi.rejectWithValue(err.response.data.message);
-    }
-  }
-);
-
 export const editWorkspaceNameAsync = createAsyncThunk(
   "workspace/editWorkspaceNameAsync",
   async (input, thunkApi) => {

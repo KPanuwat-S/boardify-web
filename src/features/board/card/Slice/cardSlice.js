@@ -47,9 +47,12 @@ export const addCardAsync = createAsyncThunk(
 export const updateCardAsync = createAsyncThunk(
   "card/updateCardAsync",
   async (input, thunkApi) => {
+    // console.log(input)
     try {
-      const { entries, boardId } = input;
-      await cardService.updateCards(entries, boardId);
+      const {entries,boardId} = input
+      console.log(entries,boardId)
+      const res = await cardService.updateCards(entries, boardId);
+      console.log(res)
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -60,7 +63,8 @@ export const updateTaskAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const { newCard, boardId } = input;
-      await cardService.updateTasks(newCard, boardId);
+      const res = await cardService.updateTasks(newCard, boardId);
+      console.log(res.data)
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }

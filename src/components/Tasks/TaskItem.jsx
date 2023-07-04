@@ -13,7 +13,7 @@ import {
 } from "../../features/board/card/Slice/cardSlice";
 import DropdownTask from "./DropDownTask";
 
-function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
+function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId ,cardName}) {
   // console.log(cardType);
   const dispatch = useDispatch();
   const fetchCards = useSelector((state) => state.card.cardItems);
@@ -23,7 +23,7 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
   );
 
   const [isEdit, setIsEdit] = useState(false);
-  const [cardName, setCardName] = useState(cardItem.name);
+  // const [cardName, setCardName] = useState(cardItem.name);
 
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
