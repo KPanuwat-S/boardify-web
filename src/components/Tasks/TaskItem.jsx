@@ -102,6 +102,7 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
                 <i class="fa-regular fa-pen-to-square text-white group-hover:text-gray-400"></i>
               </div>
             )}
+            <i class="fa-regular fa-trash-can text-gray-100 hover:text-gray-200 p-2 rounded-[4px]"></i>
           </div>
           {tasksOfCards?.map((task, idx) => (
             <Draggable
