@@ -7,7 +7,11 @@ import { StrictModeDroppable } from "../../features/board/card/StrictModeItem";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCardsInOneBoardAsync } from "../../features/board/card/Slice/cardSlice";
+import {
+  getAllCardsInOneBoardAsync,
+  updateCardAsync,
+  updateCardNameAsync,
+} from "../../features/board/card/Slice/cardSlice";
 import DropdownTask from "./DropDownTask";
 
 function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
@@ -30,6 +34,17 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
     // setCards(fetchCards);
     setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id)?.tasks);
   }, [fetchCards]);
+
+  const subimitCardName = () => {
+    const name = { name: cardName };
+    const input = {
+      id: cardItem.id,
+      name,
+    };
+    console.log("input submit CardName", input);
+    dispatch(updateCardNameAsync(input));
+    setIsEdit(false);
+  };
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">
       {(provided, snapshot) => (
@@ -58,7 +73,7 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
                 />
                 <div className="font-light flex flex-col gap-2">
                   <button
-                    // onClick={submitEditTitle}
+                    onClick={subimitCardName}
                     className="text-white text-xs bg-blue-600 w-[50px] hover:bg-blue-700 p-1 rounded-[4px]"
                   >
                     Save

@@ -27,7 +27,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   useEffect(() => {}, []);
   const user = useSelector((state) => state.auth.user);
 
-  console.log("user", user);
   const memberIntasks = useSelector((state) => state.task.membersInTask);
   const memberAsMe = memberIntasks.findIndex((el) => el.userId == user.id);
 
@@ -67,7 +66,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   // const [title, setTitle] = useState(taskItem.name || "Title");
   const [title, setTitle] = useState(taskItem.name || "Title");
 
-  console.log("memberAsMe", memberAsMe);
   const [join, setJoin] = useState(false);
   // console.log("taskItem outeside useeeffect", taskItem);
   // console.log("meAsmember", meAsMember);
@@ -96,9 +94,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       data: editTaskItem,
     };
     dispatch(editTaskAsync(input));
-    // setTaskItem((oldObject) => {
-    //   return { ...oldObject, name: title };
-    // });
 
     setFetch(!fetch);
     setTaskItem(editTaskItem);
@@ -111,6 +106,8 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
     day: "numeric",
   };
 
+  const dueDate = new Date(fetchTask?.dueDate).getTime();
+  const nowDate = new Date().getTime();
   return (
     <>
       <div
@@ -143,6 +140,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                         onClick={() => {
                           setIsEdit(true);
                         }}
+                        autoFocus={true}
                       />
                       <div className="font-light flex flex-col gap-2">
                         <button
@@ -183,16 +181,34 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                   </h1> */}
                 </h1>
                 {fetchTask?.dueDate && (
-                  <div className="flex items-center gap-2 p-2 rounded-[4px] bg-blue-100 font-ligt text-xs">
-                    <i class="fa-solid fa-clock-rotate-left text-gray-500"></i>
-                    <p className="">
-                      Due:{" "}
-                      {new Date(fetchTask.dueDate).toLocaleDateString(
-                        "en-US",
-                        dateOptions
-                      )}
-                    </p>
-                  </div>
+                  <>
+                    {nowDate > dueDate ? (
+                      <div className="flex items-center gap-2 p-2 rounded-[4px] bg-red-100 font-ligt text-xs">
+                        <i class="fa-solid fa-clock-rotate-left text-gray-500"></i>
+                        <p className="">
+                          Due:{" "}
+                          {new Date(fetchTask?.dueDate).toLocaleDateString(
+                            "en-US",
+                            dateOptions
+                          )}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 p-2 rounded-[4px] bg-blue-100 font-ligt text-xs">
+                        <i class="fa-solid fa-clock-rotate-left text-gray-500"></i>
+                        <p className="">
+                          Due:{" "}
+                          {new Date(fetchTask.dueDate).toLocaleDateString(
+                            "en-US",
+                            dateOptions
+                          )}
+                        </p>
+                      </div>
+                    )}
+                    {nowDate > dueDate && (
+                      <p className="text-xs text-red-400 font-ligt">Over Due</p>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -220,12 +236,14 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             </div>
           </div>
           <div>
+            {" "}
             <TaskDescription
               setOpenDescription={setOpenDescription}
               openDescription={openDescription}
               taskItem={taskItem}
+              fetch={fetch}
+              setFetch={setFetch}
             />
-
             <ChecklistListItems
               taskItem={taskItem}
               setTaskItem={setTaskItem}

@@ -24,52 +24,6 @@ function CardList({ boardId, fetch, setFetch }) {
   useEffect(() => {
     if (cardItems.length > 0) setCards(cardItems);
   }, [cardItems]);
-  // const MockCards = [
-  //   {
-  //     id: 5,
-  //     name: "card05",
-  //     position: 1,
-  //     cardType: "card-05",
-  //     tasks: [
-  //       {
-  //         taskId: 10,
-  //         taskName: "task5",
-  //         taskDescription: "task5",
-  //         taskPosition: 1,
-  //         labelColor: "green",
-  //         labelDescription: "S",
-  //         taskType: "task-10",
-  //         checkListsTotal: 0,
-  //         checkListsChecked: 0,
-  //         dueDate: "2023-07-31T17:00:00.000Z",
-  //         members: [],
-  //         numberOfFilesAttached: null,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "card06",
-  //     position: 2,
-  //     cardType: "card-06",
-  //     tasks: [
-  //       {
-  //         taskId: 11,
-  //         taskName: "task6",
-  //         taskDescription: "task6",
-  //         taskPosition: 1,
-  //         labelColor: "green",
-  //         labelDescription: "S",
-  //         taskType: "task-11",
-  //         checkListsTotal: 0,
-  //         checkListsChecked: 0,
-  //         dueDate: null,
-  //         members: [],
-  //         numberOfFilesAttached: null,
-  //       },
-  //     ],
-  //   },
-  // ];
 
   const onDragEnd = async (result) => {
     console.log("result from drag end", result);

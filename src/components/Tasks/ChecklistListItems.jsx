@@ -177,7 +177,7 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
           </div>
 
           {addChecklist && (
-            <div className="ml-10">
+            <div className="">
               <input
                 type="text"
                 placeholer="Add checklist"
