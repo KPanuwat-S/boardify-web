@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import MemberItem from "./Member/MemberItem";
-import { useDispatch } from "react-redux";
-import { createWorkspaceAndInviteMember } from "../features/workspace/Slice/workspaceSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createWorkspaceAndInviteMember,
+  getAllWorkSpacesAsync,
+} from "../features/workspace/Slice/workspaceSlice";
+import { useNavigate } from "react-router-dom";
 
 function CreateButton() {
   const dispatch = useDispatch();
@@ -11,6 +15,9 @@ function CreateButton() {
     createrId: "",
     name: "",
   });
+
+  const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
 
   const [memberList, setMemberList] = useState([]);
   const [member, setMember] = useState(null);
@@ -62,8 +69,9 @@ function CreateButton() {
     dispatch(
       createWorkspaceAndInviteMember({ ...createWorkspaceData, members })
     );
+    await dispatch(getAllWorkSpacesAsync(user.id)).unwrap();
     onClose();
-    // setCreateWorkspaceData("");
+    navigate("/workspace");
   };
 
   const submitWorkspace = (e) => {

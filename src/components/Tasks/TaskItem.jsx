@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteCardAsync,
   getAllCardsInOneBoardAsync,
   updateCardAsync,
   updateCardNameAsync,
@@ -44,6 +45,11 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
     console.log("input submit CardName", input);
     dispatch(updateCardNameAsync(input));
     setIsEdit(false);
+  };
+
+  const deleteCard = () => {
+    dispatch(deleteCardAsync(cardItem.id));
+    setFetch(!fetch);
   };
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">
@@ -102,7 +108,12 @@ function TaskItem({ id, cardItem, fetch, tasks, cardType, setFetch, boardId }) {
                 <i class="fa-regular fa-pen-to-square text-white group-hover:text-gray-400"></i>
               </div>
             )}
-            <i class="fa-regular fa-trash-can text-gray-100 hover:text-gray-200 p-2 rounded-[4px]"></i>
+            <div
+              className="p-1 rounded-[4px] hover:bg-gray-100 group "
+              onClick={deleteCard}
+            >
+              <i class="fa-regular fa-trash-can text-gray-100 group-hover:text-gray-400 p-2 rounded-[4px]"></i>
+            </div>
           </div>
           {tasksOfCards?.map((task, idx) => (
             <Draggable

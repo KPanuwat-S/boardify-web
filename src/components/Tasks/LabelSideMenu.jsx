@@ -52,7 +52,7 @@ function LabelSideMenu({
     dispatch(editTaskAsync(input));
     // editTaskAsync ทำให้ข้อมูลหลังบ้านเปลี่ยน
     setTaskItem(editTaskItem);
-    setFetch(!fetch);
+    // setFetch(!fetch);
     // setTaskItem => ทำให้เวลาคลิกแล้ว state ใน edit เปลี่ยน
   };
   console.log("taskItem in label", taskItem);
@@ -119,15 +119,18 @@ function LabelSideMenu({
           >
             Cancel
           </button>
-          <button
-            className="bg-blue-600 text-white py-1 px-5 rounded-[4px]"
-            onClick={() => {
-              setOpen(false);
-              removeLabel();
-            }}
-          >
-            Remove Label
-          </button>
+          <div className="flex gap-2 items-center py-1 px-5 rounded-[4px] border p-1">
+            <i class="fa-regular fa-trash-can text-gray-700"></i>
+            <button
+              className="text-gray-700  "
+              onClick={() => {
+                setOpen(false);
+                removeLabel();
+              }}
+            >
+              Remove
+            </button>
+          </div>
         </div>
       </div>
     )

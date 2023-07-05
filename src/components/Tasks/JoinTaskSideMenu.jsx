@@ -28,14 +28,18 @@ function JoinTaskSideMenu({
 
   const taskItem = useSelector((state) => state.task.taskItem);
   const memberIntasks = useSelector((state) => state.task.membersInTask);
-  const memberAsMe = memberIntasks.findIndex((el) => el.userId == user?.id);
+  const memberAsMe = memberIntasks?.findIndex((el) => el.userId == id);
 
+  console.log("member in task", memberIntasks);
   const submitJoinTask = () => {
     if (memberAsMe >= 0) return;
     const taskId = taskItem.id;
     console.log("taskId", taskId);
     dispatch(addMeToTaskAsync({ taskId }));
     setFetch(!fetch);
+//     const taskMember = taskItem.TaskMembers;
+// const addedTaskMember = new Array(taskMember).push()
+    setTaskItem();
     setOpen(false);
   };
 

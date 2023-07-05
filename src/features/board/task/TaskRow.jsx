@@ -4,7 +4,11 @@ import { PenIcon } from "../../../icons";
 
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
 import { useDispatch, useSelector } from "react-redux";
-import { getOneTaskAsync, removeTaskItem } from "./Slice/taskSlice";
+import {
+  deleteTaskAsync,
+  getOneTaskAsync,
+  removeTaskItem,
+} from "./Slice/taskSlice";
 import cn from "../../../utils/cn";
 
 export default function TaskRow({ fetch, task, cardItem, setFetch }) {
@@ -135,11 +139,16 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
                 </div>
               </div>
             </div>
-            {/* {hover && (
-              <div className="absolute top-5 right-10">
-                <PenIcon />
-              </div>
-            )} */}
+            <div
+              className="group flex items-center hover:bg-green-300 px-2 h-[40px] rounded-[4px]"
+              onClick={(e) => {
+                e.stopPropagation();
+                dispatch(deleteTaskAsync(task.taskId));
+                setFetch(!fetch);
+              }}
+            >
+              <i class="fa-regular text-gray-300 group-hover:text-white fa-circle-check"></i>
+            </div>
           </div>
         </div>
         {open && (

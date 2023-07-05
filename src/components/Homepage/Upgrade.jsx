@@ -2,8 +2,16 @@
 
 import { Link } from "react-router-dom";
 import { BahtIcon } from "../../icons";
+import { useDispatch, useSelector } from "react-redux";
 
 function Upgrade() {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.stripe.data);
+  const handleOnclick = async (priceId) => {
+    console.log("aaaa", priceId);
+    const res = await dispatch(createCheckout({ priceId })).unwrap();
+    window.location.replace(res.url);
+  };
   return (
     <div className="flex  h-[400px] justify-center items-center ">
       <div className="flex flex-col gap-10 items-center  ">
@@ -28,6 +36,9 @@ function Upgrade() {
                   <button
                     type="button"
                     className=" w-[8rem] h-[3rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
+                    onClick={(e) => {
+                      handleOnclick(e.target.name);
+                    }}
                     name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
                   >
                     Get Started
@@ -58,17 +69,16 @@ function Upgrade() {
                 For teams that need to track and visualize multiple projects in
                 several ways, including boards, timelines, calendars, etc.
               </p>
-              <Link to="/login">
-                <div className="flex ">
-                  <button
-                    type="button"
-                    className=" w-[8rem] h-[3rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
-                    name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
-                  >
-                    Get Started
-                  </button>
-                </div>
-              </Link>
+
+              <div className="flex ">
+                <button
+                  type="button"
+                  className=" w-[8rem] h-[3rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
+                  name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
+                >
+                  Get Started
+                </button>
+              </div>
             </div>
           </div>
         </div>

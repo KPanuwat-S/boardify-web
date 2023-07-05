@@ -4,6 +4,7 @@ import RegisterInput from "./RegisterInput";
 import { registerAsync } from "../Slice/authSlice";
 import validateRegister from "../validators/validateRegister";
 import { useDispatch } from "react-redux";
+import { LoginSocialGoogle } from "reactjs-social-login";
 const initialInput = {
   firstName: "",
   lastName: "",
@@ -16,7 +17,8 @@ export default function () {
     initialInput,
     validateRegister
   );
-
+  const clientId =
+    "454033013538-3m4ro3a88tgldk3p2pof8ema4j2aghu0.apps.googleusercontent.com";
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onSubmit = async () => {
@@ -126,18 +128,36 @@ export default function () {
             <span className="w-full text-center text-[11px] text-slate-400">
               OR
             </span>
-            {/* <button className="h-[40px] leading-[40px] bg-white font-bold shadow flex flex-row items-center gap-10">
-              <span className="flex justify-center pl-[10px]">
-                <img
-                  src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.445/static/media/google-logo.e086107b.svg"
-                  alt="google"
-                  className="h-[18px] w-[18px] "
-                />
-              </span>
-              <span>
-                <span>Login </span>
-              </span>
-            </button> */}
+            <div className="flex items-center justify-center">
+              <LoginSocialGoogle
+                client_id={clientId}
+                scope="openid profile email"
+                discoveryDocs="claims_supported"
+                acces_type="offline"
+                onResolve={({ provider, data }) => {
+                  console.log(provider, data);
+                  // console.log(data.email);
+                  dispatch(googleLogin(data));
+                }}
+                onReject={(err) => {
+                  console.log(err);
+                }}
+              >
+                <div
+                  role="button"
+                  className="flex border p-2 rounded-[4px] items-center gap-5 hover:bg-gray-100"
+                >
+                  <div className="w-[30px]">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                  <p className="font-light ">Login with Google</p>
+                </div>
+              </LoginSocialGoogle>
+            </div>
           </form>
         </div>
       </section>

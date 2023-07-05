@@ -65,6 +65,17 @@ export const updateCardNameAsync = createAsyncThunk(
   }
 );
 
+export const deleteCardAsync = createAsyncThunk(
+  "card/deleteCard",
+  async (input, thunkApi) => {
+    try {
+      await cardService.deleteCard(input);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const cardSlice = createSlice({
   name: "card",
   initialState: initialState,
@@ -91,6 +102,9 @@ const cardSlice = createSlice({
       .addCase(addCardAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(deleteCardAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
       }),
 });
 

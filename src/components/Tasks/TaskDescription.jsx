@@ -60,7 +60,7 @@ function TaskDescription({
     };
     dispatch(editTaskAsync(input));
     setEditMode(false);
-    setFetch(!fetch);
+    // setFetch(!fetch);
     setTaskItem(editTaskItem);
   };
 

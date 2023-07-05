@@ -53,6 +53,7 @@ export const deleteTaskAsync = createAsyncThunk(
   "task/deleteTaskAsync",
   async (input, thunkApi) => {
     try {
+      await taskService.deleteTask(input);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -197,6 +198,9 @@ const taskSlice = createSlice({
         state.membersInTask = action.payload;
       })
       .addCase(removeMeFromTaskAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteTaskAsync.fulfilled, (state, action) => {
         state.isLoading = false;
       }),
 });
