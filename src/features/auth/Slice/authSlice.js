@@ -15,6 +15,7 @@ export const registerAsync = createAsyncThunk(
   "auth/registerAsync",
   async (input, thunkApi) => {
     try {
+      console.log("---------", input);
       const res = await authService.register(input);
       // setAccessToken(res.data.accessToken);
       // const fetchMe = await authService.fetchProfile();
@@ -32,7 +33,7 @@ export const login = createAsyncThunk("auth/login", async (input, thunkApi) => {
     const res = await authService.login(input);
     setAccessToken(res.data.accessToken);
     const resFetchMe = await authService.fetchMe();
-    return resFetchMe.data.user;
+    return resFetchMe.user;
   } catch (err) {
     return thunkApi.rejectWithValue(err.response.data.message);
   }
@@ -76,10 +77,12 @@ const authSlice = createSlice({
     builder
 
       .addCase(login.pending, (state, action) => {
+        state.initialLoading = true;
         state.isAuthenticated = false;
         state.loading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
+        state.initialLoading = false;
         state.isAuthenticated = true;
         state.loading = false;
         state.user = action.payload;
@@ -106,6 +109,9 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
       })
+      .addCase(fetchMe.pending, (state) => {
+        state.initialLoading = true;
+      })
       .addCase(fetchMe.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.user = action.payload;
@@ -114,9 +120,6 @@ const authSlice = createSlice({
       .addCase(fetchMe.rejected, (state, action) => {
         state.error = action.payload;
         state.initialLoading = false;
-      })
-      .addCase(fetchMe.pending, (state) => {
-        state.initialLoading = true;
       }),
 });
 

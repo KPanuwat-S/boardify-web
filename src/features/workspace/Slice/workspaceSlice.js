@@ -4,6 +4,7 @@ import * as workspaceService from "../../../api/workspaceApi";
 const initialState = {
   workspaces: [],
   isLoading: false,
+  isLoading2: true,
   error: null,
   members: [],
   oneWorkspace: null,
@@ -94,7 +95,7 @@ export const deleteWorkspace = createAsyncThunk(
   "workspace/deleteWorkspace",
   async (id, thunkApi) => {
     try {
-      console.log("-------",id);
+      console.log("-------", id);
       const res = workspaceService.deleteWorkspace(id);
     } catch (error) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -119,11 +120,11 @@ const workspaceSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(getAllWorkSpacesAsync.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoading2 = true;
       })
       .addCase(getAllWorkSpacesAsync.fulfilled, (state, action) => {
         state.workspaces = action.payload;
-        state.isLoading = false;
+        state.isLoading2 = false;
       })
       .addCase(getAllWorkSpacesAsync.rejected, (state, action) => {
         state.error = action.payload;

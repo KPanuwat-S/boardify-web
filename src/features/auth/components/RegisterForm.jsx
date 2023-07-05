@@ -21,8 +21,9 @@ export default function () {
   const dispatch = useDispatch();
   const onSubmit = async () => {
     try {
+      console.log(input);
       await dispatch(registerAsync(input)).unwrap();
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -123,9 +124,9 @@ export default function () {
                 Register
               </button>
             </div>
-            <span className="w-full text-center text-[11px] text-slate-400">
+            {/* <span className="w-full text-center text-[11px] text-slate-400">
               OR
-            </span>
+            </span> */}
             {/* <button className="h-[40px] leading-[40px] bg-white font-bold shadow flex flex-row items-center gap-10">
               <span className="flex justify-center pl-[10px]">
                 <img

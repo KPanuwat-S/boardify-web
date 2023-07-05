@@ -10,18 +10,18 @@ export default function MemberEventInCard({
 }) {
   const userId = item.userId;
   const workspaceId = +wsId;
-  console.log("ppppppp------", item);
+  // console.log("ppppppp------", item);
   const dispatch = useDispatch();
 
   const data = { workspaceId, userId };
   // console.log(data);
   const getAuthMember = useSelector((state) => state.auth.user);
   const authUserId = getAuthMember.id;
-  console.log("=======", authUserId);
+  // console.log("=======", authUserId);
   const roleMember = { authUserId, workspaceId };
 
   const getRole = useSelector((state) => state.member.memberrole);
-  console.log("----------", getRole.userId);
+  // console.log("----------", getRole.userId);
 
   const leave = () => {
     if (authUserId == getRole.userId && authUserId == userId) {

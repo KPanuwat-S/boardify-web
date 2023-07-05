@@ -308,18 +308,19 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             setTaskItem={setTaskItem}
             taskItem={fetchTask}
           />
-          {fetchTask?.TaskMembers?.length > 0 && (
-            <div className="mt-5">
+       {
+         fetchTask?.TaskMembers?.length > 0 && (
+            <div className=" mt-5">
               <p className=" text-xs mb-1 font-semibold">Assigned To</p>
-              {fetchTask?.TaskMembers?.map((el) => (
+              <div className="grid grid-cols-4 gap-1">{fetchTask?.TaskMembers?.map((el) => (
                 <div className=" flex items-center justify-center text-white bg-blue-400 rounded-full w-[30px] h-[30px]">
                   {el.User.firstName[0].toUpperCase()}
                   {el.User.lastName[0].toUpperCase()}
                 </div>
-              ))}
+              ))}</div>
             </div>
-          )}
-        </div>
+          )}</div>
+       
       </div>
     </>
   );

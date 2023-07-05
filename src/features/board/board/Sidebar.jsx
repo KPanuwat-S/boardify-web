@@ -12,7 +12,7 @@ export default function SideBar({ boardId }) {
   const [hover, setHover] = useState(false);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate() 
+  const navigate = useNavigate();
 
   const handleMouseOver = () => {
     setHover(true);
@@ -22,20 +22,28 @@ export default function SideBar({ boardId }) {
   };
 
   const handleOnClickDelete = (e) => {
-    dispatch(deleteboard(boardId))
+    dispatch(deleteboard(boardId));
     navigate("/workspace");
   };
 
   return (
     <>
-      <div className="w-[200px] text-gray-500 p-5 flex flex-col gap-5 ">
-        <Link to="/boardDetail/:id">
-          <div className="hover:bg-gray-100 cursor-pointer rounded-[4px] p-2 hover:text-blue-600 flex pl-6 ">
-            Cards
-          </div>
-        </Link>
-        <AddMemberContainer />
-        {/* <AddBoardContainer /> */}
+      <div className="w-[200px] h-[790px] text-gray-500 p-5 flex flex-col justify-between gap-5 ">
+        <div>
+          <Link to="/boardDetail/:id">
+            <div className="hover:bg-gray-100 cursor-pointer rounded-[4px] p-2 hover:text-blue-600 flex pl-6 ">
+              Cards
+            </div>
+          </Link>
+          <AddMemberContainer />
+          {/* <AddBoardContainer /> */}
+        </div>
+        <button
+          className="flex items-center pl-6 p-2 text-gray-500 hover:bg-red-600 hover:text-white rounded-[4px] duration-200 cursor-pointer"
+          onClick={handleOnClickDelete}
+        >
+          <p className="">Delete Board</p>
+        </button>
       </div>
       <div>
         <div className=""></div>
@@ -58,13 +66,6 @@ export default function SideBar({ boardId }) {
           )} */}
         </div>
       </div>
-
-      <button
-        className="flex items-center justify-center gap-1 p-2 text-red-600 bg-red-100 hover:bg-red-600 hover:text-white rounded-[4px] duration-200"
-        onClick={handleOnClickDelete}
-      >
-        <p className="">Delete Board</p>
-      </button>
     </>
   );
 }
