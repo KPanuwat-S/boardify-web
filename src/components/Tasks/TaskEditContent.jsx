@@ -15,16 +15,19 @@ import {
 import LeaveTaskSideMenu from "./LeaveTaskSideMenu";
 
 import cn from "../../utils/cn";
+import Loading from "../../components/Loading";
 
 function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   const dispatch = useDispatch();
+  // const isLoadind = useSelector((state) => state.task.isLoading);
 
   useEffect(() => {
     dispatch(getOneTaskAsync(task.taskId));
     dispatch(getMemberInTaskAsync(task.taskId));
+    // dispatch(getOneTaskAsync(taskItem.id));
+    // dispatch(getMemberInTaskAsync(taskItem.id));
   }, [fetch]);
 
-  useEffect(() => {}, []);
   const user = useSelector((state) => state.auth.user);
 
   const memberIntasks = useSelector((state) => state.task.membersInTask);
@@ -62,13 +65,14 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
     }
   );
 
+  console.log("cardItem", cardItem);
   const fetchTask = useSelector((state) => state.task.taskItem);
+  console.log("fetchTask", fetchTask);
   // const [title, setTitle] = useState(taskItem.name || "Title");
   const [title, setTitle] = useState(taskItem.name || "Title");
 
   const [join, setJoin] = useState(false);
-  // console.log("taskItem outeside useeeffect", taskItem);
-  // console.log("meAsmember", meAsMember);
+
   console.log("join", join);
 
   useEffect(() => {
@@ -80,19 +84,21 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   useEffect(() => {
     if (memberIntasks !== undefined) setMemberInTasks(memberIntasks);
   }, [memberIntasks]);
-  console.log("memberAll", memberAll);
 
   const createLabel = (labelId) => {
     const labelObj = { 1: "Urgent", 2: "Important", 3: "Medium", 4: "Low" };
     return labelObj[labelId];
   };
 
+  console.log("task", task);
+
   const submitEditTitle = () => {
-    const editTaskItem = { ...taskItem, name: title };
+    const editTaskItem = { ...taskItem, cardId: cardItem.id, name: title };
     const input = {
       id: taskItem.id,
       data: editTaskItem,
     };
+    console.log("input submit title", input);
     dispatch(editTaskAsync(input));
 
     setFetch(!fetch);
@@ -108,6 +114,10 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
 
   const dueDate = new Date(fetchTask?.dueDate).getTime();
   const nowDate = new Date().getTime();
+  // if (isLoadind) {
+  //   return <Loading></Loading>;
+  // }
+
   return (
     <>
       <div
@@ -171,14 +181,14 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                     </h1>
                   )}
                   {/* <h1
-                    className="px-2 w-[230px]"
-                    onClick={() => {
-                      // setIsEdit(true);
-                      // setTitle(taskItem.name);
-                    }}
-                  >
-                    {taskItem.name}
-                  </h1> */}
+                className="px-2 w-[230px]"
+                onClick={() => {
+                  // setIsEdit(true);
+                  // setTitle(taskItem.name);
+                }}
+              >
+                {taskItem.name}
+              </h1> */}
                 </h1>
                 {fetchTask?.dueDate && (
                   <>
@@ -289,15 +299,15 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             />
           )}
           {/* <DropdownTask
-            label="Join Task"
-            icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
-            Component={JoinTaskSideMenu}
-            cardItem={cardItem}
-            setTaskItem={setTaskItem}
-            taskItem={taskItem}
-            fetch={fetch}
-            setFetch={setFetch}
-          /> */}
+        label="Join Task"
+        icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
+        Component={JoinTaskSideMenu}
+        cardItem={cardItem}
+        setTaskItem={setTaskItem}
+        taskItem={taskItem}
+        fetch={fetch}
+        setFetch={setFetch}
+      /> */}
           <DropdownTask
             setFetch={setFetch}
             fetch={fetch}
@@ -308,19 +318,20 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             setTaskItem={setTaskItem}
             taskItem={fetchTask}
           />
-       {
-         fetchTask?.TaskMembers?.length > 0 && (
+          {fetchTask?.TaskMembers?.length > 0 && (
             <div className=" mt-5">
               <p className=" text-xs mb-1 font-semibold">Assigned To</p>
-              <div className="grid grid-cols-4 gap-1">{fetchTask?.TaskMembers?.map((el) => (
-                <div className=" flex items-center justify-center text-white bg-blue-400 rounded-full w-[30px] h-[30px]">
-                  {el.User.firstName[0].toUpperCase()}
-                  {el.User.lastName[0].toUpperCase()}
-                </div>
-              ))}</div>
+              <div className="grid grid-cols-4 gap-1">
+                {fetchTask?.TaskMembers?.map((el) => (
+                  <div className=" flex items-center justify-center text-white bg-blue-400 rounded-full w-[30px] h-[30px]">
+                    {el.User.firstName[0].toUpperCase()}
+                    {el.User.lastName[0].toUpperCase()}
+                  </div>
+                ))}
+              </div>
             </div>
-          )}</div>
-       
+          )}
+        </div>
       </div>
     </>
   );

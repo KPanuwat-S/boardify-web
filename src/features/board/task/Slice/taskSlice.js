@@ -15,6 +15,7 @@ export const getOneTaskAsync = createAsyncThunk(
   "task/getTaskAsync",
   async (input, thunkApi) => {
     try {
+      console.log("---input", input);
       const res = await taskService.getOneTask(input);
       console.log("res.data", res.data);
       return res.data;
