@@ -1,9 +1,15 @@
 // import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BahtIcon } from "../../icons";
 
 function Upgrade() {
+  const navigate = useNavigate();
+
+  const handleOnClickSubmit = (e) => {
+    navigate("/purchase");
+  };
+
   return (
     <div className="flex  h-[400px] justify-center items-center ">
       <div className="flex flex-col gap-10 items-center  ">
@@ -29,6 +35,7 @@ function Upgrade() {
                     type="button"
                     className=" w-[8rem] h-[3rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
                     name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
+                    onClick={handleOnClickSubmit}
                   >
                     Get Started
                   </button>
@@ -58,17 +65,18 @@ function Upgrade() {
                 For teams that need to track and visualize multiple projects in
                 several ways, including boards, timelines, calendars, etc.
               </p>
-              <Link to="/login">
-                <div className="flex ">
-                  <button
-                    type="button"
-                    className=" w-[8rem] h-[3rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
-                    name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
-                  >
-                    Get Started
-                  </button>
-                </div>
-              </Link>
+              {/* <Link to="/login"> */}
+              <div className="flex ">
+                <button
+                  type="button"
+                  className=" w-[8rem] h-[3rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
+                  name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
+                  onClick={handleOnClickSubmit}
+                >
+                  Get Started
+                </button>
+              </div>
+              {/* </Link> */}
             </div>
           </div>
         </div>

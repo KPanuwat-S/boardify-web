@@ -90,6 +90,7 @@ const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.isAuthenticated = false;
         state.user = action.payload;
+        state.initialLoading = false;
       })
       .addCase(googleLogin.pending, (state, action) => {
         state.isAuthenticated = false;
@@ -105,7 +106,16 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = action.payload;
       })
+      .addCase(logout.pending, (state) => {
+        state.initialLoading = true;
+      })
       .addCase(logout.fulfilled, (state) => {
+        state.initialLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+      })
+      .addCase(logout.rejected, (state) => {
+        state.initialLoading = false;
         state.isAuthenticated = false;
         state.user = null;
       })

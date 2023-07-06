@@ -1,4 +1,6 @@
 export default function MemberInvitationBox({ users, clickSelect, member }) {
+  console.log("--------- users : ",users);
+
   return (
     <div>
       <div className="border border-gray-400 py-1 px-2 rounded-[4px] empty:border-none">

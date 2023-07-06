@@ -5,6 +5,7 @@ const initialState = {
   workspaces: [],
   isLoading: false,
   isLoading2: true,
+  isLoading3: true,
   error: null,
   members: [],
   oneWorkspace: null,
@@ -55,7 +56,7 @@ export const createWorkspaceAndInviteMember = createAsyncThunk(
   "workspace/createWorkspaceAndInviteMember",
   async (input, thunkApi) => {
     try {
-      // console.log("input in wp slice", input);
+      console.log("input in wp slice", input);
       const res = await workspaceService.createWorkspaces(input);
       return res.data;
     } catch (err) {}
@@ -140,13 +141,15 @@ const workspaceSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(getWorkspaceByIdAsync.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoading3 = true;
       })
       .addCase(getWorkspaceByIdAsync.fulfilled, (state, action) => {
         state.oneWorkspace = action.payload;
+        state.isLoading3 = false;
       })
       .addCase(getWorkspaceByIdAsync.rejected, (state, action) => {
         state.error = action.payload;
+        state.isLoading3 = false;
       })
       .addCase(createWorkspaceAndInviteMember.fulfilled, (state, action) => {
         state.isLoading = false;

@@ -3,12 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../features/auth/Slice/authSlice";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 function DropDownProfile() {
   const user = useSelector((state) => state.auth.user);
   const [open, setOpen] = useState(false);
   const dropdownEl = useRef(); //return obj {current: value}
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const loading = useSelector((state) => state.auth.initialLoading);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!dropdownEl.current.contains(e.target)) {
@@ -20,6 +29,7 @@ function DropDownProfile() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
   return (
     <div className="relative z-50" ref={dropdownEl}>
       {/* ref = {current: document.querySelector('.relative')} */}
@@ -49,8 +59,8 @@ function DropDownProfile() {
             <div
               className="flex items-center gap-4 hover:bg-gray-100 p-2 rounded-xl"
               onClick={() => {
-                // navigate("/authenticate");
                 dispatch(logout());
+                navigate("/login");
               }}
             >
               <div className="flex gap-2">

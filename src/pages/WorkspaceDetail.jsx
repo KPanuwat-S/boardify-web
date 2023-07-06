@@ -14,10 +14,13 @@ import AddBoard from "../components/AddBoard";
 function WorkspaceDetail() {
   const [fetch, setFetch] = useState(false);
   const { id } = useParams();
+
   const dispatch = useDispatch();
+
   const boards = useSelector((state) => state.board.boards);
+
   // console.log("boards", boards);
-  console.log("...... :", id);
+  // console.log("...... :", id);
 
   const [isEdit, setIsEdit] = useState(false);
 
