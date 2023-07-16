@@ -24,10 +24,9 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   useEffect(() => {
     dispatch(getOneTaskAsync(task.taskId));
     dispatch(getMemberInTaskAsync(task.taskId));
-    // dispatch(getOneTaskAsync(taskItem.id));
-    // dispatch(getMemberInTaskAsync(taskItem.id));
   }, [fetch]);
 
+  const [isLoading, setIsLoading] = useState(true);
   const user = useSelector((state) => state.auth.user);
 
   const memberIntasks = useSelector((state) => state.task.membersInTask);
@@ -65,18 +64,16 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
     }
   );
 
-  console.log("cardItem", cardItem);
   const fetchTask = useSelector((state) => state.task.taskItem);
-  console.log("fetchTask", fetchTask);
-  // const [title, setTitle] = useState(taskItem.name || "Title");
   const [title, setTitle] = useState(taskItem.name || "Title");
-
-  const [join, setJoin] = useState(false);
-
   useEffect(() => {
     if (fetchTask !== null) {
       setTaskItem(fetchTask);
     }
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
   }, [fetchTask]);
 
   useEffect(() => {
@@ -88,21 +85,44 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
     return labelObj[labelId];
   };
 
-  console.log("task", task);
-
   const submitEditTitle = () => {
     const editTaskItem = { ...taskItem, cardId: cardItem.id, name: title };
     const input = {
       id: taskItem.id,
       data: editTaskItem,
     };
-    console.log("input submit title", input);
-    dispatch(editTaskAsync(input));
 
+    dispatch(editTaskAsync(input));
+    // setIsLoading(!isLoading);
+    // setTimeout(() => {
+    //   setIsLoading(!isLoading);
+    // }, 200);
     setFetch(!fetch);
-    setTaskItem(editTaskItem);
+    // setTaskItem(editTaskItem);
     setIsEdit(false);
   };
+  // const [isDone, setIsDone] = useState(fetchTask?.isDone);
+
+  const submitEditIsDone = () => {
+    const editTaskItem = {
+      ...taskItem,
+      cardId: cardItem.id,
+      isDone: !fetchTask.isDone,
+    };
+    const input = {
+      id: taskItem.id,
+      data: editTaskItem,
+    };
+    dispatch(editTaskAsync(input));
+    // setIsLoading(!isLoading);
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    // }, 300);
+    setFetch(!fetch);
+    // setTaskItem(editTaskItem);
+    setIsEdit(false);
+  };
+
   const dateOptions = {
     weekday: "long",
     year: "numeric",
@@ -112,7 +132,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
 
   const dueDate = new Date(fetchTask?.dueDate).getTime();
   const nowDate = new Date().getTime();
-
+  if (isLoading) return <Loading></Loading>;
   return (
     <>
       <div className="flex w-full mx-auto gap-10 p-5 rounded-[4px]">
@@ -124,7 +144,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
               <div className="flex gap-5 items-center">
                 <i class="fa-solid fa-bars-progress text-gray-500"></i>
                 <h1
-                  className="cursor-pointer  p-2 rounded-[4px]"
+                  className="cursor-pointer p-2 rounded-[4px] h-[50px]"
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
@@ -163,7 +183,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                     </div>
                   ) : (
                     <h1
-                      className="px-2 hover:bg-gray-100"
+                      className="px-2 hover:bg-gray-100 h-[50px]"
                       onClick={() => {
                         setIsEdit(true);
                         setTitle(taskItem.name);
@@ -172,19 +192,10 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                       {taskItem.name}
                     </h1>
                   )}
-                  {/* <h1
-                className="px-2 w-[230px]"
-                onClick={() => {
-                  // setIsEdit(true);
-                  // setTitle(taskItem.name);
-                }}
-              >
-                {taskItem.name}
-              </h1> */}
                 </h1>
                 {fetchTask?.dueDate && (
                   <>
-                    {nowDate > dueDate ? (
+                    {nowDate > dueDate && !fetchTask?.isDone ? (
                       <div className="flex items-center gap-2 p-2 rounded-[4px] bg-red-100 font-ligt text-xs">
                         <i class="fa-solid fa-clock-rotate-left text-gray-500"></i>
                         <p className="">
@@ -207,15 +218,34 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                         </p>
                       </div>
                     )}
-                    {nowDate > dueDate && (
+                    {nowDate > dueDate && !fetchTask?.isDone && (
                       <p className="text-xs text-red-400 font-ligt">Over Due</p>
                     )}
                   </>
                 )}
               </div>
+
+              <button
+                onClick={() => {
+                  submitEditIsDone();
+                }}
+                className={cn(
+                  fetchTask?.isDone
+                    ? "bg-green-200 hover:bg-green-300"
+                    : " bg-gray-100 hover:bg-gray-200",
+                  "flex group  items-center justify-center gap-2 p-2 rounded-[4px]"
+                )}
+              >
+                <div className="flex items-center justify-center h-4 w-4 bg-white rounded-[4px]">
+                  {fetchTask?.isDone && (
+                    <i class="fa-solid fa-check text-gray-400"></i>
+                  )}
+                </div>
+                <p className="text-xs">Done</p>
+              </button>
             </div>
             {/* <p className="font-light text-[14px]">In Card: {cardItem.name}</p> */}
-            <div className="mt-5 flex gap-5">
+            <div className="mt-5 flex gap-5 h-[50px]">
               {taskItem.labelId && (
                 <div>
                   <p className="font-light text-xs mb-1">Labels</p>

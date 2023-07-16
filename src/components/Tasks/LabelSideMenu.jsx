@@ -37,7 +37,7 @@ function LabelSideMenu({
     };
     dispatch(editTaskAsync(input));
 
-    setTaskItem(editTaskItem);
+    // setTaskItem(editTaskItem);
     setFetch(!fetch);
   };
 

@@ -44,7 +44,7 @@ function DateSideMenu({
 
     dispatch(editTaskAsync(input));
     dispatch(getOneTaskAsync(taskItem.id));
-    setTaskItem(editTaskItem);
+    // setTaskItem(editTaskItem);
     setFetch(!fetch);
     setOpen(false);
   };

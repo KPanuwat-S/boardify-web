@@ -161,6 +161,11 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
                 </Modal>
               </>
             }
+            {task.isDone && (
+              <div className="mt-10 flex items-center justify-center bg-green-300 h-5 w-5 p-1 rounded-full">
+                <i class="fa-regular fa-circle-check text-white fa-xs"></i>
+              </div>
+            )}
           </div>
         </div>
         {open && (

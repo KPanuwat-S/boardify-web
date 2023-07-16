@@ -33,24 +33,11 @@ function TaskDescription({
     ],
   };
 
+  useEffect(() => {
+    setDescription(taskItem?.description);
+  }, [editMode]);
+
   const dispatch = useDispatch();
-
-  const submitEditTitle = () => {
-    const editTaskItem = { ...taskItem, name: title };
-    const input = {
-      id: taskItem.id,
-      data: editTaskItem,
-    };
-    dispatch(editTaskAsync(input));
-    // setTaskItem((oldObject) => {
-    //   return { ...oldObject, name: title };
-    // });
-
-    setFetch(!fetch);
-    console.log("fetch", fetch);
-    setTaskItem(editTaskItem);
-    setIsEdit(false);
-  };
 
   const handleEditDescription = () => {
     const editTaskItem = { ...taskItem, description };
@@ -71,12 +58,11 @@ function TaskDescription({
 
   const onEditMode = (
     <>
-      {" "}
       <div className="flex flex-col gap-2 ">
         <div className="w-[500px]">
           <ReactQuill
             theme="snow"
-            value={description || taskItem?.description}
+            value={description}
             onChange={setDescription}
             className="editor-input"
             modules={modules}

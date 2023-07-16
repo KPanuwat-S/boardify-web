@@ -61,7 +61,6 @@ export const deleteTaskAsync = createAsyncThunk(
   }
 );
 
-
 export const addChecklistAsync = createAsyncThunk(
   "task/addChecklistAsync",
   async (input, thunkApi) => {
@@ -177,6 +176,9 @@ const taskSlice = createSlice({
       .addCase(editTaskAsync.pending, (state, action) => {
         state.isLoading = true;
       })
+      .addCase(editTaskAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
       .addCase(addChecklistAsync.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -198,6 +200,7 @@ const taskSlice = createSlice({
       })
       .addCase(getMemberInTaskAsync.fulfilled, (state, action) => {
         state.membersInTask = action.payload;
+        state.isLoading = false;
       })
       .addCase(removeMeFromTaskAsync.fulfilled, (state, action) => {
         state.isLoading = false;
