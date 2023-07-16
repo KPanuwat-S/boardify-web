@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getBoardByIdAsync } from "./Slice/boardSlice";
 import { getOneBoardAsync } from "./Slice/boardSlice";
-export default function Navbar({ boardId, workspace }) {
+export default function Navbar({ boardId, board }) {
   const dispatch = useDispatch();
   const [fetch, setFetch] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   // // console.log("workspace in nav", workspace);
   useEffect(() => {
     dispatch(getOneBoardAsync(boardId));
-  }, [fetch]);
+  }, []);
   const boardDetail = useSelector((state) => state.board.board);
   // console.log("boardDetail", boardDetail);
 
@@ -22,7 +22,12 @@ export default function Navbar({ boardId, workspace }) {
     setFetch(!fetch);
   };
 
-  const [boardName, setBoardName] = useState(boardDetail?.name);
+  useEffect(() => {
+    setBoardName(board?.name);
+  }, [board]);
+
+  const [boardName, setBoardName] = useState(board?.name);
+  console.log("board", board);
   return (
     <>
       {/* MENU*/}
@@ -74,7 +79,7 @@ export default function Navbar({ boardId, workspace }) {
                 setIsEdit(true);
               }}
             >
-              {boardName}
+              {board?.name ?? boardName}
             </div>
           )}
         </div>

@@ -18,8 +18,8 @@ function AddTask({ setOpenModal, cardItem, tasksOfCards, fetch, setFetch }) {
     console.log("tasksOfCards", tasksOfCards);
     const input = {
       cardId: cardItem.id,
-      // task: { taskName: taskName, position: tasksOfCards?.length || 0 },
-      task: { taskName: taskName, position: 5 },
+      task: { taskName: taskName, position: tasksOfCards?.length + 1 || 1 },
+      // task: { taskName: taskName },
     };
     console.log("input in submit task", input);
     dispatch(addTaskAsync(input));

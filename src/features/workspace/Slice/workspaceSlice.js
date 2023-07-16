@@ -29,7 +29,7 @@ export const getWorkspaceByIdAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await workspaceService.getWorkspaceById(input);
-      console.log("zzzzzzzz", res);
+
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);

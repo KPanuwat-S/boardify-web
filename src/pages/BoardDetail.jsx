@@ -7,23 +7,21 @@ import CardTest from "../features/board/card/CardTest";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getWorkspaceByIdAsync } from "../features/workspace/Slice/workspaceSlice";
+import { getOneBoardAsync } from "../features/board/board/Slice/boardSlice";
 
 export default function BoardDetail() {
   const { id } = useParams();
-  // console.log("id", id);
+  console.log("id in bdt", id);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getWorkspaceByIdAsync(id));
-  // }, []);
-  // const allWorkspace = useSelector((state) => state.workspace.workspaces);
-  // const thisWorkSpace = allWorkspace.find((el) =>
-  //   el.Workspace.Boards.find((el) => el.id == id)
-  // );
-  // console.log("workspace in board", allWorkspace);
-  // console.log("this workspace in board", thisWorkSpace);
+  useEffect(() => {
+    dispatch(getOneBoardAsync(id));
+  }, []);
+  const board = useSelector((state) => state.board.board);
+  console.log("board", board);
+
   return (
     <>
-      <Navbar boardId={id} />
+      <Navbar boardId={id} board={board} />
       <div className="flex">
         <div className="h-[100vh]">
           <SideBar boardId={id} />
