@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-
+const modalContentStyle = {
+  maxHeight: "620px",
+  overflowY: "auto",
+  overflowX: "visible",
+  paddingRight: "0.5rem", // Add some padding to prevent content from touching the edge
+  marginRight: "-0.5rem", // Compensate for the padding
+};
 export default function Modal({ title, children, width = 27, open, onClose }) {
   return createPortal(
     <>
@@ -10,10 +16,11 @@ export default function Modal({ title, children, width = 27, open, onClose }) {
           <div className="fixed  inset-0 bg-white opacity-70 z-20"></div>
 
           {/* <div className="fixed inset-0 z-30 " onMouseUp={onClose}> */}
-          <div
+          {/* <div
             className="overflow-scroll fixed inset-0 z-50 "
             onMouseUp={onClose}
-          >
+          > */}
+          <div className=" fixed inset-0 z-50 " onMouseUp={onClose}>
             <div className="flex justify-center items-center min-h-full p-4">
               <div
                 style={{ maxWidth: `${width}rem` }}
@@ -34,7 +41,12 @@ export default function Modal({ title, children, width = 27, open, onClose }) {
                     &#10005;
                   </div>
                 </div>
-                <div className=" ">{children}</div>
+                {/* <div className="overflow-y-scroll overflow-x-visible">
+                  <div className="max-h-[540px] ">{children}</div>
+                </div> */}
+                <div style={modalContentStyle}>
+                  <div>{children}</div>
+                </div>
               </div>
             </div>
           </div>

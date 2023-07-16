@@ -14,7 +14,7 @@ function MyProfile() {
     dispatch(fetchMyproject());
   }, [dispatch]); // adding dispatch to the dependencies
 
-  const items = useSelector((state) => state.projects);
+  const items = useSelector((state) => state.projects.projects);
   console.log("items", items);
 
   function onSelectionChange(e) {
@@ -84,14 +84,14 @@ function MyProfile() {
             </div>
           </Link>
         </div>
-        {items.projects.length > 0 &&
-          items.projects.map((item, index) => {
+        {/* {items?.length > 0 &&
+          items?.map((item, index) => {
             return (
               <div className="w-[1280px] mx-auto rounded-xl" key={index}>
                 <MyprofileComponent data={item} />
               </div>
             );
-          })}
+          })} */}
       </div>
     </div>
   );

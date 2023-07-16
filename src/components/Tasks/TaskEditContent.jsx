@@ -93,15 +93,11 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
     };
 
     dispatch(editTaskAsync(input));
-    // setIsLoading(!isLoading);
-    // setTimeout(() => {
-    //   setIsLoading(!isLoading);
-    // }, 200);
+
     setFetch(!fetch);
-    // setTaskItem(editTaskItem);
+
     setIsEdit(false);
   };
-  // const [isDone, setIsDone] = useState(fetchTask?.isDone);
 
   const submitEditIsDone = () => {
     const editTaskItem = {
@@ -114,12 +110,9 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       data: editTaskItem,
     };
     dispatch(editTaskAsync(input));
-    // setIsLoading(!isLoading);
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    // }, 300);
+
     setFetch(!fetch);
-    // setTaskItem(editTaskItem);
+
     setIsEdit(false);
   };
 
@@ -135,7 +128,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   if (isLoading) return <Loading></Loading>;
   return (
     <>
-      <div className="flex w-full mx-auto gap-10 p-5 rounded-[4px]">
+      <div className=" flex w-full  gap-10 p-5 rounded-[4px]">
         {/* Right */}
 
         <div className="flex flex-col gap-5 flex-1 ">
@@ -282,12 +275,40 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
               fetch={fetch}
               setFetch={setFetch}
             />
+            {/* comment */}
+            <div className="flex flex-col gap-5">
+              <div className="flex items-center gap-5 mt-10">
+                <i class="fa-regular fa-comment"></i>
+                <p>Comment</p>
+              </div>
+              <div className="bg-gray-100 rounded-full w-full min-h-[10px] flex items-center px-5 py-2">
+                <p className="text-gray-500">Write a comment...</p>
+              </div>
+              <div>
+                <div className="flex gap-2">
+                  <div className="bg-blue-400 h-10 w-10 rounded-full "></div>
+                  <div className="bg-gray-50 w-full p-2 rounded-[4px]">
+                    {taskItem?.Comments?.map((el) => {
+                      return (
+                        <div>
+                          <p className="text-blue-600">
+                            {el.User.firstName + el.User.lastName}
+                          </p>
+                          <p>{el.comment}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="flex w-[150px] flex-col gap-2">
           <DropdownTask
             width="w-[420px]"
+            x
             label="Due Date"
             icon={<i class="fa-regular fa-clock ml-2"></i>}
             Component={DateSideMenu}
@@ -345,10 +366,28 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
               <p className=" text-xs mb-1 font-semibold">Assigned To</p>
               <div className="grid grid-cols-4 gap-1">
                 {fetchTask?.TaskMembers?.map((el) => (
-                  <div className=" flex items-center justify-center text-white bg-blue-400 rounded-full w-[30px] h-[30px]">
-                    {el.User.firstName[0].toUpperCase()}
-                    {el.User.lastName[0].toUpperCase()}
-                  </div>
+                  <>
+                    <div
+                      className="group relative flex items-center justify-center"
+                      role="button"
+                    >
+                      <div className=" flex items-center justify-center text-white bg-blue-400 rounded-full w-[30px] h-[30px]">
+                        {el.User.firstName[0].toUpperCase()}
+                        {el.User.lastName[0].toUpperCase()}
+                      </div>
+                      <div className="shadow-md absolute top-[40px] right-[-47px] opacity-0 group-hover:opacity-100 text-xs bg-gray-100 p-2 rounded-[4px]">
+                        <i class="fa-solid fa-caret-up absolute top-[-6px] right-[60px] text-gray-100"></i>
+                        <div>
+                          {el.User.firstName[0].toUpperCase() +
+                            el.User.lastName.slice(1) +
+                            " "}
+                          {el.User.lastName[0].toUpperCase() +
+                            el.User.lastName.slice(1)}
+                        </div>
+                        <div>{el.User.email}</div>
+                      </div>
+                    </div>
+                  </>
                 ))}
               </div>
             </div>
