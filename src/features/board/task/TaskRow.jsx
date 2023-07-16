@@ -4,45 +4,22 @@ import { PenIcon } from "../../../icons";
 
 import TaskEditContent from "../../../components/Tasks/TaskEditContent";
 import { useDispatch, useSelector } from "react-redux";
-import { getOneTaskAsync, removeTaskItem } from "./Slice/taskSlice";
+import {
+  deleteTaskAsync,
+  getOneTaskAsync,
+  removeTaskItem,
+} from "./Slice/taskSlice";
 import cn from "../../../utils/cn";
 
 export default function TaskRow({ fetch, task, cardItem, setFetch }) {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
 
-  const mockData = {
-    label: 1,
-    name: "Mock task",
-    date: "27-7-65",
-    checkLists: 10,
-    checkListsChecked: 1,
-    members: ["panuwat", "Laksami"],
-    attachment: true,
-    comments: 2,
-  };
+  const [openDeleteTask, setOpenDeleteTask] = useState(false);
 
   const dispatch = useDispatch();
 
-  const handleMouseOver = () => {
-    setHover(true);
-  };
-
-  const handleMouseOut = () => {
-    setHover(false);
-  };
   const user = useSelector((state) => state.auth.user);
-
-  // console.log("task in task row", task);
-  // useEffect(() => {
-  //   dispatch(getOneTaskAsync(task.taskId)).unwrap();
-  // }, []);
-
-  // const taskFromCardSlice = useSelector((state) => state.card.cardItems);
-  // const taskFromCardSlice2 = taskFromCardSlice.map((el) => el.tasks);
-  // console.log("taskFromCardSlice2", taskFromCardSlice2);
-
-  // const fetchTask = useSelector((state) => state.task.taskItem);
 
   const [taskItem, setTaskItem] = useState(
     task || {
@@ -67,24 +44,16 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
     }
   );
 
-  // useEffect(() => {
-  //   if (fetchTask !== null) setTaskItem(fetchTask);
-  // }, [fetchTask]);
-
-  // useEffect(() => {
-  //   dispatch(getOneTaskAsync(task.taskId)).unwrap();
-  // }, [fetch]);
-
-  // console.log("task item", taskItem);
-  // console.log("fetch", fetch);
-  // console.log("task in taskrow", task);
+  const deleteTaskHandler = () => {
+    dispatch(deleteTaskAsync(task.taskId));
+    setOpenDeleteTask(false);
+    setFetch(!fetch);
+  };
   return (
     taskItem && (
       <div>
         <div
           className=" flex cursor-pointer relative"
-          // onMouseOver={handleMouseOver}
-          // onMouseOut={handleMouseOut}
           onClick={() => {
             setOpen(true);
           }}
@@ -96,18 +65,18 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
                   <div
                     className={cn(
                       task.labelColor == "red"
-                        ? "bg-red-500"
+                        ? "bg-red-400"
                         : task.labelColor == "blue"
-                        ? "bg-blue-600"
+                        ? "bg-blue-400"
                         : task.labelColor == "yellow"
-                        ? "bg-yellow-500"
-                        : "bg-green-500",
+                        ? "bg-yellow-400"
+                        : "bg-green-400",
                       "w-10 h-2 rounded-full"
                     )}
                   ></div>
                 )}
               </div>
-              <p className="font-light text-s">{task.taskName}</p>
+              <p className="font-light text-s w-[180px]">{task.taskName}</p>
 
               <div className="w-100 h-10 flex items-end gap-5 text-gray-600">
                 {task?.dueDate && (
@@ -135,20 +104,70 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
                 </div>
               </div>
             </div>
-            {/* {hover && (
-              <div className="absolute top-5 right-10">
-                <PenIcon />
-              </div>
-            )} */}
+
+            {
+              <>
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenDeleteTask(true);
+                  }}
+                  className="hover:bg-gray-300 group  py-1 px-2 rounded-xl absolute top-5 right-8"
+                >
+                  <i class="fa-regular group-hover:text-white text-gray-300 fa-trash-can fa-sm"></i>
+                </div>
+                <Modal
+                  title="Delete Task"
+                  open={openDeleteTask}
+                  width={20}
+                  onClose={(e) => {
+                    e.stopPropagation();
+                    setOpenDeleteTask(false);
+                    setFetch(!fetch);
+                  }}
+                >
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <p>Do you want to delete this task?</p>
+                    <div className="bg-gray-100 flex items-center gap-5 px-5 py-3 rounded-[4px] mt-5">
+                      <i class="fa-regular fa-file"></i>
+                      <p className="font-semibold">{task?.taskName}</p>
+                    </div>
+                    <div
+                      className="flex gap-5 mt-10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      <button
+                        onClick={deleteTaskHandler}
+                        className="text-gray-500 border hover:bg-gray-200 p-2 rounded-[4px]"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => {
+                          setOpenDeleteTask(false);
+                        }}
+                        className="hover:bg-blue-700 bg-blue-600 p-2 text-white rounded-[4px]"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </Modal>
+              </>
+            }
           </div>
         </div>
         {open && (
           <Modal
-            title="Create Task"
+            title="Edit Task"
             open={() => {
               setOpen(true);
-              //
-              // setFetch(!fetch);
             }}
             width={50}
             onClose={() => {

@@ -54,11 +54,14 @@ export const deleteTaskAsync = createAsyncThunk(
   "task/deleteTaskAsync",
   async (input, thunkApi) => {
     try {
+      await taskService.deleteTask(input);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
   }
 );
+
+// export const deleteCardAsync
 
 export const addChecklistAsync = createAsyncThunk(
   "task/addChecklistAsync",

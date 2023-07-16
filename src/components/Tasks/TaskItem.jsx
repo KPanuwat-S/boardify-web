@@ -12,6 +12,7 @@ import {
   updateCardNameAsync,
 } from "../../features/board/card/Slice/cardSlice";
 import DropdownTask from "./DropDownTask";
+import Modal from "../Modal";
 
 function TaskItem({
   id,
@@ -21,20 +22,16 @@ function TaskItem({
   cardType,
   setFetch,
   boardId,
-  cardName,
+  // cardName,
 }) {
-  // console.log(tasks);
-
   const dispatch = useDispatch();
   const fetchCards = useSelector((state) => state.card.cardItems);
 
-  // const [tasksOfCards, setTaskOfCards] = useState(
-  //   fetchCards.find((card) => card.id == cardItem.id)?.tasks || tasks
-  // );
   const [tasksOfCards, setTaskOfCards] = useState(tasks);
   // console.log(tasksOfCards);
   const [isEdit, setIsEdit] = useState(false);
-  // const [cardName, setCardName] = useState(cardItem.name);
+  const [cardName, setCardName] = useState(cardItem.name);
+  const [openDeleteCard, setOpenDeleteCard] = useState(false);
 
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
@@ -51,10 +48,16 @@ function TaskItem({
       id: cardItem.id,
       name,
     };
-    console.log("input submit CardName", input);
+
     dispatch(updateCardNameAsync(input));
     setIsEdit(false);
   };
+
+  const deleteTaskHandler = () => {
+    dispatch(deleteCardAsync(cardItem.id));
+    setOpenDeleteTask(false);
+    setFetch(!fetch)
+  }
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">
       {(provided, snapshot) => (
@@ -112,7 +115,63 @@ function TaskItem({
                 <i class="fa-regular fa-pen-to-square text-white group-hover:text-gray-400"></i>
               </div>
             )}
-            <i class="fa-regular fa-trash-can text-gray-100 hover:text-gray-200 p-2 rounded-[4px]"></i>
+
+            {
+              <>
+                <div
+                  onClick={() => {
+                    setOpenDeleteCard(true);
+                  }}
+                  className="flex group items-center justify-center px-2 hover:bg-gray-200 rounded-xl"
+                >
+                  <i class="fa-regular fa-trash-can text-gray-200 hover:text-gray-200 group-hover:text-white"></i>
+                </div>
+
+                <Modal
+                  title="Delete Card"
+                  open={openDeleteCard}
+                  width={20}
+                  onClose={(e) => {
+                    e.stopPropagation();
+                    setOpenDeleteCard(false);
+                    setFetch(!fetch);
+                  }}
+                >
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <p>Do you want to delete this card?</p>
+                    <div className="bg-gray-100 flex items-center gap-5 px-5 py-3 rounded-[4px] mt-5">
+                      <i class="fa-regular fa-folder"></i>
+                      <p className="font-semibold">{cardItem?.name}</p>
+                    </div>
+                    <div
+                      className="flex gap-5 mt-10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      <button
+                        // onClick={deleteTaskHandler}
+                        className="text-gray-500 border hover:bg-gray-200 p-2 rounded-[4px]"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => {
+                          // setOpenDeleteCard(false);
+                        }}
+                        className="hover:bg-blue-700 bg-blue-600 p-2 text-white rounded-[4px]"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </Modal>
+              </>
+            }
           </div>
           {tasks?.map((task, idx) => (
             <Draggable

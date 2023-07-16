@@ -73,8 +73,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
 
   const [join, setJoin] = useState(false);
 
-  console.log("join", join);
-
   useEffect(() => {
     if (fetchTask !== null) {
       setTaskItem(fetchTask);
@@ -114,16 +112,10 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
 
   const dueDate = new Date(fetchTask?.dueDate).getTime();
   const nowDate = new Date().getTime();
-  // if (isLoadind) {
-  //   return <Loading></Loading>;
-  // }
 
   return (
     <>
-      <div
-        className="flex w-full mx-auto gap-10 p-5 rounded-[4px]"
-        // onClick={submitEditTitle}
-      >
+      <div className="flex w-full mx-auto gap-10 p-5 rounded-[4px]">
         {/* Right */}
 
         <div className="flex flex-col gap-5 flex-1 ">
@@ -230,12 +222,12 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
                   <div
                     className={cn(
                       taskItem.labelId == 1
-                        ? "bg-red-500"
+                        ? "bg-red-400"
                         : taskItem.labelId == 2
-                        ? "bg-blue-600"
+                        ? "bg-blue-400"
                         : taskItem.labelId == 3
-                        ? "bg-yellow-500"
-                        : "bg-green-500",
+                        ? "bg-yellow-400"
+                        : "bg-green-400",
                       "  rounded-full w-20 text-center text-white font-light text-xs"
                     )}
                   >

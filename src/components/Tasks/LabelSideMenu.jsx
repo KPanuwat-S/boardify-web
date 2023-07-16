@@ -16,10 +16,10 @@ function LabelSideMenu({
   fetch,
 }) {
   const mockLabelsData = [
-    { id: 1, description: "Urgent", color: "#ca3521" },
-    { id: 2, description: "Important", color: "#0b66e4" },
-    { id: 3, description: "Medium", color: "#e1b205" },
-    { id: 4, description: "Low", color: "#4cce97" },
+    { id: 1, description: "Urgent" },
+    { id: 2, description: "Important" },
+    { id: 3, description: "Medium" },
+    { id: 4, description: "Low" },
   ];
   const dispatch = useDispatch();
   const taskItem = useSelector((state) => state.task.taskItem);
@@ -36,10 +36,9 @@ function LabelSideMenu({
       data: editTaskItem,
     };
     dispatch(editTaskAsync(input));
-    // editTaskAsync ทำให้ข้อมูลหลังบ้านเปลี่ยน
+
     setTaskItem(editTaskItem);
     setFetch(!fetch);
-    // setTaskItem => ทำให้เวลาคลิกแล้ว state ใน edit เปลี่ยน
   };
 
   const removeLabel = () => {
@@ -50,16 +49,14 @@ function LabelSideMenu({
       data: editTaskItem,
     };
     dispatch(editTaskAsync(input));
-    // editTaskAsync ทำให้ข้อมูลหลังบ้านเปลี่ยน
     setTaskItem(editTaskItem);
     setFetch(!fetch);
-    // setTaskItem => ทำให้เวลาคลิกแล้ว state ใน edit เปลี่ยน
   };
-  console.log("taskItem in label", taskItem);
+
   return (
     open && (
       <div
-        className="flex flex-col gap- absolute z-50 bg-white border rounded-[4px] shadow-lg p-2"
+        className="flex flex-col gap-5 w-[350px] absolute z-50 bg-white border rounded-[4px] shadow-lg p-2"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -88,13 +85,13 @@ function LabelSideMenu({
                   key={el.key}
                   className={cn(
                     el.id == 1
-                      ? "bg-red-500"
+                      ? "bg-red-400"
                       : el.id == 2
-                      ? "bg-blue-600"
+                      ? "bg-blue-400"
                       : el.id == 3
-                      ? "bg-yellow-500"
-                      : "bg-green-500",
-                    "h-3 w-10 rounded-[4px]"
+                      ? "bg-yellow-400"
+                      : "bg-green-400",
+                    "h-3 w-[80px] rounded-[4px]"
                   )}
                 ></div>
               </div>
@@ -120,13 +117,13 @@ function LabelSideMenu({
             Cancel
           </button>
           <button
-            className="bg-blue-600 text-white py-1 px-5 rounded-[4px]"
+            className="flex items-center jutify-between gap-2 border text-gray-400 py-1 px-3 rounded-[4px] hover:bg-gray-100"
             onClick={() => {
               setOpen(false);
               removeLabel();
             }}
           >
-            Remove Label
+            <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
       </div>
