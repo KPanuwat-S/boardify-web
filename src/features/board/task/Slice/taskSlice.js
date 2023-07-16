@@ -61,7 +61,6 @@ export const deleteTaskAsync = createAsyncThunk(
   }
 );
 
-// export const deleteCardAsync
 
 export const addChecklistAsync = createAsyncThunk(
   "task/addChecklistAsync",

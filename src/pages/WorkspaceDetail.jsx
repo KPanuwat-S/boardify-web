@@ -15,12 +15,11 @@ function WorkspaceDetail() {
   const [fetch, setFetch] = useState(false);
   const { id } = useParams();
 
+  console.log("id", id);
+
   const dispatch = useDispatch();
 
   const boards = useSelector((state) => state.board.boards);
-
-  // console.log("boards", boards);
-  // console.log("...... :", id);
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -29,8 +28,6 @@ function WorkspaceDetail() {
   const workspace = useSelector((state) => state.workspace.oneWorkspace);
   const [workspaceName, setWorkspaceName] = useState(workspace?.name);
   console.log("workspace", workspace);
-  // console.log("baords", boards);
-  // console.log("workspaceid", id);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,7 +35,7 @@ function WorkspaceDetail() {
     dispatch(getWorkspaceMembersAsync(id));
     dispatch(getWorkspaceByIdAsync(id));
     // console.log("useeffect run");
-  }, [fetch]);
+  }, []);
 
   const sugmitEditWorkspaceName = (e) => {
     e.preventDefault();
@@ -65,7 +62,7 @@ function WorkspaceDetail() {
                 <input
                   className="px-2 outline outline-blue-600"
                   type="text"
-                  value={workspaceName}
+                  value={workspaceName ?? workspace?.name}
                   onChange={(e) => {
                     setWorkspaceName(e.target.value);
                   }}
@@ -101,7 +98,7 @@ function WorkspaceDetail() {
                 className="group flex  items-center gap-5 text-gray-600 hover:bg-gray-100 p-2 rounded-[4px]"
               >
                 <h2 className="font-semibold text-blue-600 text-xl flex-1">
-                  {workspaceName}
+                  {workspaceName ?? workspace?.name}
                 </h2>
                 <i class="fa-regular fa-pen-to-square text-white group-hover:text-gray-400"></i>
               </div>

@@ -17,7 +17,6 @@ export const getAllWorkSpacesAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await workspaceService.getWorkspace(input);
-      // console.log("get all workspaces", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -112,9 +111,6 @@ const workspaceSlice = createSlice({
       state.oneWorkspace = state.workspaces.find(
         (el) => el.workspaceId == action.payload
       );
-      // console.log(
-      //   state.workspaces.find((el) => el.Workspace.id == action.payload)
-      // );
     },
   },
 

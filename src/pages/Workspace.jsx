@@ -35,16 +35,25 @@ function Workspace() {
   return (
     <div className="w-[1280px] mx-auto mt-5">
       <h1 className="font-bold text-gray-400 text-2xl mb-5">Your Workspace</h1>
-      {workspaces.map((el, index) => {
-        return (
-          <WorkspaceComponent
-            key={el.Workspace}
-            workspace={el.Workspace}
-            boards={el.Workspace.Boards}
-            countmember={el.count}
-          />
-        );
-      })}
+      {workspaces.length > 0 ? (
+        workspaces.map((el, index) => {
+          return (
+            <WorkspaceComponent
+              key={el.Workspace}
+              workspace={el.Workspace}
+              boards={el.Workspace.Boards}
+              countmember={el.count}
+            />
+          );
+        })
+      ) : (
+        <div className="flex items-center justify-center mt-10">
+          <div className="bg-gray-100 rounded-[4px] p-5 text-gray-500 flex items-center justify-center gap-5 h-[240px] w-2/3">
+            <i class="fa-solid fa-border-top-left fa-2xl"></i>
+            <p>Empty workspace</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

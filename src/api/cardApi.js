@@ -16,3 +16,5 @@ export const updateTasks = (data, boardId) =>
 
 export const updateCardName = (name, id) =>
   axios.patch(`/boards/cards/card/${id}`, name);
+
+export const deleteCard = (id) => axios.delete(`/boards/cards/${id}`);

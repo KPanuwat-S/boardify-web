@@ -1,5 +1,5 @@
 export default function MemberInvitationBox({ users, clickSelect, member }) {
-  console.log("--------- users : ",users);
+  console.log("--------- users : ", users);
 
   return (
     <div>
@@ -16,8 +16,12 @@ export default function MemberInvitationBox({ users, clickSelect, member }) {
             );
           })
           .map((el) => (
-            <div onClick={() => clickSelect(el)}>
-              <div key={el.id}>
+            <div
+              role="button"
+              onClick={() => clickSelect(el)}
+              className="font-light hover:bg-gray-100 p-2 rounded-[4px] my-1"
+            >
+              <div key={el.id} className="font-bold">
                 {el.firstName} {el.lastName}
               </div>
               <div>{el.email}</div>

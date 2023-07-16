@@ -2,17 +2,17 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 // import { StrictModeDroppable as Droppable } from "../../help/StrictModeDroppable";
 import AddTaskContainer from "../../features/board/task/AddTaskContainer";
 import TaskRow from "../../features/board/task/TaskRow";
-import { MeatballsIcon2 } from "../../icons";
+
 import { StrictModeDroppable } from "../../features/board/card/StrictModeItem";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteCardAsync,
   getAllCardsInOneBoardAsync,
-  updateCardAsync,
   updateCardNameAsync,
 } from "../../features/board/card/Slice/cardSlice";
-import DropdownTask from "./DropDownTask";
 import Modal from "../Modal";
+import Loading from "../Loading";
 
 function TaskItem({
   id,
@@ -24,11 +24,12 @@ function TaskItem({
   boardId,
   // cardName,
 }) {
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const fetchCards = useSelector((state) => state.card.cardItems);
 
   const [tasksOfCards, setTaskOfCards] = useState(tasks);
-  // console.log(tasksOfCards);
+
   const [isEdit, setIsEdit] = useState(false);
   const [cardName, setCardName] = useState(cardItem.name);
   const [openDeleteCard, setOpenDeleteCard] = useState(false);
@@ -38,7 +39,6 @@ function TaskItem({
   }, [fetch]);
 
   useEffect(() => {
-    // setCards(fetchCards);
     setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id)?.tasks);
   }, [fetchCards]);
 
@@ -55,9 +55,18 @@ function TaskItem({
 
   const deleteTaskHandler = () => {
     dispatch(deleteCardAsync(cardItem.id));
-    setOpenDeleteTask(false);
-    setFetch(!fetch)
-  }
+
+    setFetch(!fetch);
+    // window.location.reload();
+    setOpenDeleteCard(false);
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  }, []);
+
+  if (isLoading) return <Loading></Loading>;
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">
       {(provided, snapshot) => (
@@ -154,14 +163,14 @@ function TaskItem({
                       }}
                     >
                       <button
-                        // onClick={deleteTaskHandler}
+                        onClick={deleteTaskHandler}
                         className="text-gray-500 border hover:bg-gray-200 p-2 rounded-[4px]"
                       >
                         Delete
                       </button>
                       <button
                         onClick={() => {
-                          // setOpenDeleteCard(false);
+                          setOpenDeleteCard(false);
                         }}
                         className="hover:bg-blue-700 bg-blue-600 p-2 text-white rounded-[4px]"
                       >

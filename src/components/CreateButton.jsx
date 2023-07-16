@@ -4,7 +4,12 @@ import MemberItem from "./Member/MemberItem";
 import { useDispatch, useSelector } from "react-redux";
 import { createWorkspaceAndInviteMember } from "../features/workspace/Slice/workspaceSlice";
 import MemberInvitationBox from "../features/member/components/MemberInvitationBox";
-import { addMemberAsnyc, clearMember, searchAddMember, searchUser } from "../features/member/slice/memberSlice";
+import {
+  addMemberAsnyc,
+  clearMember,
+  searchAddMember,
+  searchUser,
+} from "../features/member/slice/memberSlice";
 
 function CreateButton() {
   const dispatch = useDispatch();
@@ -23,8 +28,7 @@ function CreateButton() {
   const [member, setMember] = useState("");
   const [searchValue, setSearchValue] = useState("");
 
-  console.log("pppppppppp",{value: searchValue});
-
+  console.log("pppppppppp", { value: searchValue });
 
   const [index, setIndex] = useState(1);
 
@@ -67,13 +71,6 @@ function CreateButton() {
     });
   };
 
-  // const addMember = (e) => {
-  //   e.preventDefault();
-  //   if (member !== "") {
-  //     setMemberList([...memberList, member]);
-  //   }
-  //   setMember("");
-  // };
   const addMember = async (e) => {
     try {
       e.preventDefault();
@@ -92,29 +89,14 @@ function CreateButton() {
 
   const submitInput = async (e) => {
     e.preventDefault();
-
-    // const memberAll = memberList;
-    // const data = { workspaceId: workspaceId, memberAll };
-    // await dispatch(addMemberAsnyc(data)).unwrap();
-    // setMember("");
-    // setMemberList([]);
-    // setFetch(!fetchDelete);
-    // dispatch(clearMember()).unwrap();
-
     console.log("data", createWorkspaceData);
     e.stopPropagation();
-    // setOpen(false);
     console.log("submit data", { ...createWorkspaceData, members });
     dispatch(
       createWorkspaceAndInviteMember({ ...createWorkspaceData, members })
     );
     onClose();
-    // setCreateWorkspaceData("");
-  };
-
-  const submitWorkspace = (e) => {
-    //  e.preventDefault()
-    console.log(createWorkspaceData);
+    window.location.reload();
   };
 
   const memberHandler = (e) => {
@@ -211,7 +193,7 @@ function CreateButton() {
             </div>
 
             <button
-              className="font-light rounded-full w-10 h-6 hover:text-white border border-gray-100 hover:bg-blue-600"
+              className="font-light rounded-full w-10 h-10 hover:text-white border border-gray-100 hover:bg-blue-600"
               onClick={addMember}
             >
               <i className="fa-solid fa-plus"></i>
@@ -232,6 +214,7 @@ function CreateButton() {
                     e.preventDefault();
                     deleteMemberHandler(idx);
                   }}
+                  className="border hover:bg-gray-100 rounded-full h-10 w-10"
                 >
                   <i class="fa-regular fa-trash-can text-gray-400"></i>
                 </button>
