@@ -7,8 +7,11 @@ import Navbar from "../features/board/board/Navbar";
 import SideBar from "../features/board/board/Sidebar";
 // import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
 import { MeatballsIcon3 } from "../icons";
+import { useParams } from "react-router-dom";
 
-export default function DashBoard() {
+export default function Dashboard() {
+  const { id } = useParams();
+  console.log("id", id);
   return (
     <>
       <div>
