@@ -92,7 +92,7 @@ export default function MemberInvitation({
   useEffect(() => {
     console.log("memberList", memberList);
   }, [memberList]);
-  
+
   return (
     <form onSubmit={submitInput} className="overflow-visible">
       <div className="flex flex-col gap-2">
@@ -125,7 +125,7 @@ export default function MemberInvitation({
           </div>
 
           <button
-            className="font-light rounded-full w-10 h-6 hover:text-white border border-gray-100 hover:bg-blue-600"
+            className="font-light rounded-full w-10 h-10 hover:text-white border border-gray-100 hover:bg-blue-600"
             onClick={addMember}
           >
             <i className="fa-solid fa-plus"></i>
@@ -146,6 +146,7 @@ export default function MemberInvitation({
                   e.preventDefault();
                   deleteMemberHandler(idx);
                 }}
+                className="border hover:bg-gray-100 rounded-full h-10 w-10"
               >
                 <i class="fa-regular fa-trash-can text-gray-400"></i>
               </button>

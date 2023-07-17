@@ -16,11 +16,9 @@ const initialState = {
 export const searchUser = createAsyncThunk(
   "member/searchUser",
   async (value, thunkApi) => {
-    // console.log(value);
     try {
       const res = await memberService.searchUser(value);
       // console.log("kkkk", res.userdata);
-      // console.log(res);
       return res.data;
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data.message);

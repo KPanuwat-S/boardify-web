@@ -30,9 +30,9 @@ export default function DropdownTask({
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-  const modalStyle = ` absolute bg-white ${width} right-0 top-0 translate-y-1 `;
+  // const modalStyle = `absolute bg-white ${width} right-0 top-0 translate-y-1 `;
   return (
-    <div className="relative " ref={dropdownEl}>
+    <div className="" ref={dropdownEl}>
       {/* ref = {current: document.querySelector('.relative')} */}
       <div
         role="button"

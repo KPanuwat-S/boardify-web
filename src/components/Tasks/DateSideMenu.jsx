@@ -44,7 +44,7 @@ function DateSideMenu({
 
     dispatch(editTaskAsync(input));
     dispatch(getOneTaskAsync(taskItem.id));
-    setTaskItem(editTaskItem);
+    // setTaskItem(editTaskItem);
     setFetch(!fetch);
     setOpen(false);
   };
@@ -158,15 +158,15 @@ function DateSideMenu({
           >
             Cancel
           </button>
-          <div className="py-1 px-2 flex gap-2 items-center justify-center rounded-[4px] border border-gray-300 hover:bg-gray-300">
-            <i class="fa-regular fa-trash-can"></i>
+          <div className="py-1 px-3 flex gap-2 items-center justify-center rounded-[4px] border border-gray-300 hover:bg-gray-200 text-gray-400">
             <button
               onClick={() => {
                 setOpen(false);
                 submitDate("");
               }}
             >
-              Remove
+              {" "}
+              <i class="fa-regular fa-trash-can"></i>
             </button>
           </div>
         </div>

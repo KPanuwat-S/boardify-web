@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBoardsInWorkspaceAsync } from "../features/board/board/Slice/boardSlice";
 import {
+  deleteWorkspace,
   editWorkspaceNameAsync,
   getWorkspaceByIdAsync,
   getWorkspaceMembersAsync,
@@ -13,11 +14,13 @@ import AddBoard from "../components/AddBoard";
 function WorkspaceDetail() {
   const [fetch, setFetch] = useState(false);
   const { id } = useParams();
-  const dispatch = useDispatch();
-  const boards = useSelector((state) => state.board.boards);
-  console.log('boards',boards);
 
-  
+  console.log("id", id);
+
+  const dispatch = useDispatch();
+
+  const boards = useSelector((state) => state.board.boards);
+
   const [isEdit, setIsEdit] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -25,14 +28,14 @@ function WorkspaceDetail() {
   const workspace = useSelector((state) => state.workspace.oneWorkspace);
   const [workspaceName, setWorkspaceName] = useState(workspace?.name);
   console.log("workspace", workspace);
-  console.log("baords", boards);
-  console.log("workspaceid", id);
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(getAllBoardsInWorkspaceAsync(id));
     dispatch(getWorkspaceMembersAsync(id));
     dispatch(getWorkspaceByIdAsync(id));
-    console.log("useeffect run");
-  }, [fetch]);
+    // console.log("useeffect run");
+  }, []);
 
   const sugmitEditWorkspaceName = (e) => {
     e.preventDefault();
@@ -42,6 +45,12 @@ function WorkspaceDetail() {
     setIsEdit(false);
     setFetch(true);
   };
+
+  const handleOnClickDelete = (e) => {
+    dispatch(deleteWorkspace(id));
+    navigate("/workspace");
+  };
+
   return (
     <div className="w-[1280px] mx-auto mt-5">
       <div className=" ">
@@ -53,7 +62,7 @@ function WorkspaceDetail() {
                 <input
                   className="px-2 outline outline-blue-600"
                   type="text"
-                  value={workspaceName}
+                  value={workspaceName ?? workspace?.name}
                   onChange={(e) => {
                     setWorkspaceName(e.target.value);
                   }}
@@ -89,16 +98,20 @@ function WorkspaceDetail() {
                 className="group flex  items-center gap-5 text-gray-600 hover:bg-gray-100 p-2 rounded-[4px]"
               >
                 <h2 className="font-semibold text-blue-600 text-xl flex-1">
-                  {workspaceName}
+                  {workspaceName ?? workspace?.name}
                 </h2>
                 <i class="fa-regular fa-pen-to-square text-white group-hover:text-gray-400"></i>
               </div>
             )}
           </div>
           <div className="flex gap-5 items-center mt-2">
-            <div className="flex items-center justify-center gap-1 p-2 bg-gray-100 hover:bg-gray-200 rounded-[4px] duration-200">
+            <div
+              className="flex items-center justify-center gap-1 p-2 bg-gray-100 hover:bg-gray-200 rounded-[4px] duration-200"
+              role="button"
+              onClick={() => navigate(`/member/${id}`)}
+            >
               <i class="fa-regular fa-user text-gray-500 w-5"></i>
-              <p className="text-gray-500">Member ({members.length})</p>
+              <p className="text-gray-500">Member ({workspace?.count})</p>
             </div>
             <button
               onClick={() => {
@@ -114,6 +127,12 @@ function WorkspaceDetail() {
               >
                 <AddBoard workspaceId={id} onSuccess={() => setOpen(false)} />
               </Modal>
+            </button>
+            <button
+              className="flex items-center justify-center gap-1 p-2 text-red-600 bg-red-100 hover:bg-red-600 hover:text-white rounded-[4px] duration-200"
+              onClick={handleOnClickDelete}
+            >
+              <p className="">Delete Workspace</p>
             </button>
           </div>
         </div>

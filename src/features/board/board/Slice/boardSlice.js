@@ -97,6 +97,18 @@ export const getTaskByIdAsync = createAsyncThunk(
 //   }
 // );
 
+export const deleteboard = createAsyncThunk(
+  "board/deleteboard",
+  async (id, thunkApi) => {
+    try {
+      console.log("hhhh", id);
+      await boardService.deleteBoard(id);
+    } catch (error) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const boardSlice = createSlice({
   name: "board",
   initialState: initialState,
@@ -137,6 +149,9 @@ const boardSlice = createSlice({
       .addCase(getOneBoardAsync.fulfilled, (state, action) => {
         state.board = action.payload;
       }),
+  // .addCase(deleteboard.fulfilled, (state, action) => {
+  //   state.error = action.payload;
+  // })
 });
 
 // export const { addCard } = cardSlice.actions;

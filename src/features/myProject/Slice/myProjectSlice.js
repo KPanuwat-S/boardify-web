@@ -5,7 +5,7 @@ export const fetchMyproject = createAsyncThunk(
   "projects/fetchProjects",
   async (sortBy = "") => {
     console.log(sortBy);
-    console.log("---1111111111");
+
     const response = await getMyproject(sortBy);
     return response.data;
   }

@@ -15,6 +15,7 @@ export const getOneTaskAsync = createAsyncThunk(
   "task/getTaskAsync",
   async (input, thunkApi) => {
     try {
+      console.log("---input", input);
       const res = await taskService.getOneTask(input);
       console.log("res.data", res.data);
       return res.data;
@@ -53,6 +54,7 @@ export const deleteTaskAsync = createAsyncThunk(
   "task/deleteTaskAsync",
   async (input, thunkApi) => {
     try {
+      await taskService.deleteTask(input);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -174,6 +176,9 @@ const taskSlice = createSlice({
       .addCase(editTaskAsync.pending, (state, action) => {
         state.isLoading = true;
       })
+      .addCase(editTaskAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
       .addCase(addChecklistAsync.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -195,6 +200,7 @@ const taskSlice = createSlice({
       })
       .addCase(getMemberInTaskAsync.fulfilled, (state, action) => {
         state.membersInTask = action.payload;
+        state.isLoading = false;
       })
       .addCase(removeMeFromTaskAsync.fulfilled, (state, action) => {
         state.isLoading = false;

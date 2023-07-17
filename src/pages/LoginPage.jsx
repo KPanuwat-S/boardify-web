@@ -6,25 +6,27 @@ import { useDispatch } from "react-redux";
 import { googleLogin } from "../features/auth/Slice/authSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { LoginSocialGoogle } from "reactjs-social-login";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
   const clientId =
     "454033013538-3m4ro3a88tgldk3p2pof8ema4j2aghu0.apps.googleusercontent.com";
+
   const [profile, setProfile] = useState(null);
 
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientId: clientId,
-        scope: "",
-      });
-    };
-    gapi.load("client:auth2", initClient);
-  }, []);
+  // useEffect(() => {
+  //   const initClient = () => {
+  //     gapi.client.init({
+  //       clientId: clientId,
+  //       scope: "",
+  //     });
+  //   };
+  //   gapi.load("client:auth2", initClient);
+  // }, []);
 
   const onSuccess = (res) => {
-    setProfile(res.profileObj);
     dispatch(googleLogin(res));
     console.log("onSuccessFn working", res);
   };
@@ -42,7 +44,7 @@ export default function LoginPage() {
       <div className=" flex justify-center items-center gap-5 mt-5">
         {/* <img
           className="w-[60px]"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Antu_trello.svg/256px-Antu_trello.svg.png"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Antu_Boardify.svg/256px-Antu_Boardify.svg.png"
         /> */}
         <i class="fa-brands fa-flipboard text-blue-600 fa-2xl"></i>
         <div className="text-4xl ">Boardify</div>
@@ -62,6 +64,34 @@ export default function LoginPage() {
 
           {/* GOOGLE lOGIN */}
           <div className="">
+            <LoginSocialGoogle
+              client_id={clientId}
+              scope="openid profile email"
+              discoveryDocs="claims_supported"
+              acces_type="offline"
+              onResolve={({ provider, data }) => {
+                console.log(provider, data);
+                // console.log(data.email);
+                dispatch(googleLogin(data));
+              }}
+              onReject={(err) => {
+                console.log(err);
+              }}
+            >
+              <div
+                role="button"
+                className="flex border p-2 rounded-[4px] items-center gap-5 hover:bg-gray-100"
+              >
+                <div className="w-[30px]">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png"
+                    alt=""
+                    srcset=""
+                  />
+                </div>
+                <p className="font-light ">Login with Google</p>
+              </div>
+            </LoginSocialGoogle>
             {/* {profile ? ( */}
             {/* <div> */}
             {/* <h3>User Logged in</h3>

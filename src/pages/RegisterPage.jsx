@@ -12,7 +12,7 @@ export default function RegisterPage() {
       <div className=" flex justify-center items-center gap-5 mt-5">
         {/* <img
           className="w-[60px]"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Antu_trello.svg/256px-Antu_trello.svg.png"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Antu_Boardify.svg/256px-Antu_Boardify.svg.png"
         /> */}
         <i class="fa-brands fa-flipboard text-blue-600 fa-2xl"></i>
         <div className="text-4xl ">Boardify</div>

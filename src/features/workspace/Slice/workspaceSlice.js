@@ -4,6 +4,8 @@ import * as workspaceService from "../../../api/workspaceApi";
 const initialState = {
   workspaces: [],
   isLoading: false,
+  isLoading2: true,
+  isLoading3: true,
   error: null,
   members: [],
   oneWorkspace: null,
@@ -16,7 +18,6 @@ export const getAllWorkSpacesAsync = createAsyncThunk(
     console.log(input);
     try {
       const res = await workspaceService.getWorkspace(input);
-      // console.log("get all workspaces", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -29,6 +30,7 @@ export const getWorkspaceByIdAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await workspaceService.getWorkspaceById(input);
+
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -54,7 +56,7 @@ export const createWorkspaceAndInviteMember = createAsyncThunk(
   "workspace/createWorkspaceAndInviteMember",
   async (input, thunkApi) => {
     try {
-      // console.log("input in wp slice", input);
+      console.log("input in wp slice", input);
       const res = await workspaceService.createWorkspaces(input);
       return res.data;
     } catch (err) {}
@@ -89,6 +91,19 @@ export const editWorkspaceNameAsync = createAsyncThunk(
     }
   }
 );
+
+export const deleteWorkspace = createAsyncThunk(
+  "workspace/deleteWorkspace",
+  async (id, thunkApi) => {
+    try {
+      console.log("-------", id);
+      const res = workspaceService.deleteWorkspace(id);
+    } catch (error) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const workspaceSlice = createSlice({
   name: "workspace",
   initialState,
@@ -97,20 +112,17 @@ const workspaceSlice = createSlice({
       state.oneWorkspace = state.workspaces.find(
         (el) => el.workspaceId == action.payload
       );
-      // console.log(
-      //   state.workspaces.find((el) => el.Workspace.id == action.payload)
-      // );
     },
   },
 
   extraReducers: (builder) =>
     builder
       .addCase(getAllWorkSpacesAsync.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoading2 = true;
       })
       .addCase(getAllWorkSpacesAsync.fulfilled, (state, action) => {
         state.workspaces = action.payload;
-        state.isLoading = false;
+        state.isLoading2 = false;
       })
       .addCase(getAllWorkSpacesAsync.rejected, (state, action) => {
         state.error = action.payload;
@@ -126,13 +138,15 @@ const workspaceSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(getWorkspaceByIdAsync.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoading3 = true;
       })
       .addCase(getWorkspaceByIdAsync.fulfilled, (state, action) => {
         state.oneWorkspace = action.payload;
+        state.isLoading3 = false;
       })
       .addCase(getWorkspaceByIdAsync.rejected, (state, action) => {
         state.error = action.payload;
+        state.isLoading3 = false;
       })
       .addCase(createWorkspaceAndInviteMember.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -145,6 +159,9 @@ const workspaceSlice = createSlice({
       })
       .addCase(countMemberWorkspace.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(deleteWorkspace.fulfilled, (state) => {
+        state.error = false;
       }),
 });
 export const { getWorkspaceById } = workspaceSlice.actions;

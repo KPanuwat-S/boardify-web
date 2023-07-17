@@ -43,7 +43,7 @@ function AddBoard({ workspaceId, onSuccess }) {
         />
       </div>
       <form onSubmit={createBoardHanlder}>
-        <div className="flex flex-col  gap-2">
+        <div className="flex flex-col p-5 gap-2">
           <label htmlFor="workspaceName">Board name</label>
           <input
             className="border border-gray-400 p-2 rounded-[4px]"

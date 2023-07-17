@@ -11,7 +11,7 @@ import RedirectIfAuthenticated from "../features/auth/components/RedirectIfAuthe
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import MemberPage from "../pages/MemberPage";
-import DashBoard from "../pages/DashBoard";
+import Dashboard from "../pages/Dashboard";
 // import Task from "../components/Tasks/TaskEditContent";
 import WelcomingPage from "../pages/WelcomingPage";
 import MyProfile from "../pages/MyProfile";
@@ -35,7 +35,7 @@ function Router() {
         // { path: "/homepage", element: <Homepage /> },
         // { path: "/workspace", element: <Workspace /> },
         { path: "/boards", element: <Boards /> },
-        { path: "/dashboard/:id", element: <DashBoard /> },
+        // { path: "/dashboard/:id", element: <DashBoard /> },
         { path: "/boardDetail/:id", element: <BoardDetail /> },
         { path: "/workspaceDetail/:id", element: <WorkspaceDetail /> },
         // { path: "/login", element: <LoginPage /> },
@@ -44,7 +44,7 @@ function Router() {
         { path: "/register", element: <RegisterPage /> },
         { path: "/welcoming", element: <WelcomingPage /> },
         { path: "/board", element: <Boards /> },
-        { path: "/dashboard/:id", element: <DashBoard /> },
+        { path: "/dashboard/:id", element: <Dashboard /> },
 
         { path: "/myProfile", element: <MyProfile /> },
         { path: "/purchase", element: <PurchasePage /> },

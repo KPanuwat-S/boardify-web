@@ -182,9 +182,10 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
                 type="text"
                 placeholer="Add checklist"
                 name="checklist"
-                className=" mt-5 py-1 border border-gray-400 rounded-[4px] px-2"
+                className="w-full mt-5 py-1 border border-gray-400 rounded-[4px] px-2"
                 value={listItem}
                 onChange={checklistHandler}
+                autoFocus
               />
               <div className="flex gap-5 mt-2">
                 <button

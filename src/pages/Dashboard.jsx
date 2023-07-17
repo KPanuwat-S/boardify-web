@@ -7,11 +7,23 @@ import Navbar from "../features/board/board/Navbar";
 import SideBar from "../features/board/board/Sidebar";
 // import { getAllCardsInOneBoardAsync } from "../features/board/card/Slice/cardSlice";
 import { MeatballsIcon3 } from "../icons";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOneBoardAsync } from "../features/board/board/Slice/boardSlice";
 
-export default function DashBoard() {
+export default function Dashboard() {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getOneBoardAsync(id));
+  }, []);
+  const board = useSelector((state) => state.board.board);
   return (
     <>
-      <div>{/* <Navbar boardId={id} /> */}</div>
+      <div>
+        <Navbar boardId={id} />
+      </div>
       <div className="flex">
         <div className="h-[100vh]">
           <SideBar />
