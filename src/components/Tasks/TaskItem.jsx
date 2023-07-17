@@ -57,7 +57,7 @@ function TaskItem({
     dispatch(deleteCardAsync(cardItem.id));
 
     setFetch(!fetch);
-    // window.location.reload();
+    window.location.reload();
     setOpenDeleteCard(false);
   };
   useEffect(() => {
