@@ -10,7 +10,7 @@ import cn from "../../../utils/cn";
 export default function TaskRow({ fetch, task, cardItem, setFetch }) {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
-
+  console.log(task);
   const mockData = {
     label: 1,
     name: "Mock task",

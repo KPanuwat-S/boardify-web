@@ -20,11 +20,11 @@ export const getAllCardsInOneBoardAsync = createAsyncThunk(
   }
 );
 export const getDashBoardAsync = createAsyncThunk(
-  "card/getdashBoardAsync",
+  "card/getDashBoardAsync",
   async (input, thunkApi) => {
     try {
       const res = await cardService.getAllDashBoard(input);
-      console.log("getAllCardsInOneBoardAsync", res);
+      console.log("getAllCardsInOneBoardAsync", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);

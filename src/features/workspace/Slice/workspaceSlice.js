@@ -13,6 +13,7 @@ const initialState = {
 export const getAllWorkSpacesAsync = createAsyncThunk(
   "workspace/getAllWorkSpacesAsync",
   async (input, thunkApi) => {
+    console.log(input);
     try {
       const res = await workspaceService.getWorkspace(input);
       // console.log("get all workspaces", res.data);
@@ -67,7 +68,7 @@ export const countMemberWorkspace = createAsyncThunk(
       // console.log("+++++ id : ", id);
       const res = await workspaceService.countMemberWorkspace(id);
       // console.log("--------count", res.data);
-      return res.data
+      return res.data;
     } catch (error) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
