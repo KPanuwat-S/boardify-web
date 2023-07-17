@@ -16,7 +16,7 @@ export default function AddTaskContainer({
     <>
       <div>
         <div
-          className="rounded-xl h-fit p-3 mx-5 my-2  hover:bg-gray-100 rounded-md flex font-light items-center gap-2 text-gray-400 cursor-pointer hover:text-blue-600"
+          className="rounded-xl h-fit p-3 mx-5 my-2  hover:bg-gray-100  flex font-light items-center gap-2 text-gray-400 cursor-pointer hover:text-blue-600"
           onClick={() => {
             setOpenModal(true);
           }}
