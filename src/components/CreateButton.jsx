@@ -75,7 +75,6 @@ function CreateButton() {
     try {
       e.preventDefault();
       await dispatch(searchAddMember({ value: member })).unwrap;
-
       setMember("");
     } catch (error) {
       console.log(error);
@@ -92,6 +91,7 @@ function CreateButton() {
     console.log("data", createWorkspaceData);
     e.stopPropagation();
     console.log("submit data", { ...createWorkspaceData, members });
+
     dispatch(
       createWorkspaceAndInviteMember({ ...createWorkspaceData, members })
     );
