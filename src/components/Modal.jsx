@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { createPortal } from "react-dom";
 const modalContentStyle = {
   maxHeight: "620px",
+  maxWidth: "1000px",
   overflowY: "auto",
   overflowX: "visible",
   paddingRight: "0.5rem", // Add some padding to prevent content from touching the edge
