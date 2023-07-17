@@ -91,9 +91,12 @@ function CreateButton() {
     e.preventDefault();
     console.log("data", createWorkspaceData);
     e.stopPropagation();
-    console.log("submit data", { ...createWorkspaceData, members });
+    console.log("submit data", { ...createWorkspaceData, members: memberList });
     dispatch(
-      createWorkspaceAndInviteMember({ ...createWorkspaceData, members })
+      createWorkspaceAndInviteMember({
+        ...createWorkspaceData,
+        members: memberList,
+      })
     );
     onClose();
     window.location.reload();
