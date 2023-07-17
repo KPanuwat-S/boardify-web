@@ -15,9 +15,9 @@ export const getOneTaskAsync = createAsyncThunk(
   "task/getTaskAsync",
   async (input, thunkApi) => {
     try {
-      console.log("---input", input);
+      // console.log("---input", input);
       const res = await taskService.getOneTask(input);
-      console.log("res.data", res.data);
+      // console.log("res.data", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -41,8 +41,8 @@ export const editTaskAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await taskService.editTask(input.id, input.data);
-      console.log("editTaskAsync fn running");
-      console.log("res in edittask async fn", res);
+      // console.log("editTaskAsync fn running");
+      // console.log("res in edittask async fn", res);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -108,7 +108,7 @@ export const getMemberInTaskAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await taskService.getAllMembersInTask(input);
-      console.log("res get member", res);
+      // console.log("res get member", res);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -133,7 +133,7 @@ const taskSlice = createSlice({
   initialState: initialState,
   reducers: {
     editTask: (state, action) => {
-      console.log("taskSlice", action.payload);
+      // console.log("taskSlice", action.payload);
       state.taskItem = action.payload;
     },
     getChecklist: (state, action) => {
@@ -146,7 +146,7 @@ const taskSlice = createSlice({
       state.taskItem = {};
     },
     removeMeFromTask: (state, action) => {
-      console.log("action", action.payload);
+      // console.log("action", action.payload);
       state.membersInTask = state.membersInTask.filter(
         (el) => el.userId !== action.payload
       );

@@ -40,7 +40,7 @@ export default function MemberInvitation({
 
   useEffect(() => {
     const memberIndex = memberList.findIndex((el) => el.id == members.id);
-    console.log("members", members, "members");
+    // console.log("members", members, "members");
     if (members?.id && memberIndex == -1) {
       setMemberList([...memberList, members]);
     }
@@ -90,7 +90,7 @@ export default function MemberInvitation({
   };
 
   useEffect(() => {
-    console.log("memberList", memberList);
+    // console.log("memberList", memberList);
   }, [memberList]);
 
   return (

@@ -37,7 +37,7 @@ function JoinTaskSideMenu({
   const submitJoinTask = () => {
     if (memberAsMe >= 0) return;
     const taskId = taskItem.id;
-    console.log("taskId", taskId);
+    // console.log("taskId", taskId);
     dispatch(addMeToTaskAsync({ taskId }));
     setFetch(!fetch);
     setOpen(false);

@@ -66,7 +66,7 @@ function TaskItem({
     }, 300);
   }, []);
 
-  console.log("tasks", tasks);
+  // console.log("tasks", tasks);
   if (isLoading) return <Loading></Loading>;
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">

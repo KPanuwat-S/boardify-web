@@ -11,13 +11,13 @@ import { getOneBoardAsync } from "../features/board/board/Slice/boardSlice";
 
 export default function BoardDetail() {
   const { id } = useParams();
-  console.log("id in bdt", id);
+  // console.log("id in bdt", id);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOneBoardAsync(id));
   }, []);
   const board = useSelector((state) => state.board.board);
-  console.log("board", board);
+  // console.log("board", board);
 
   return (
     <>

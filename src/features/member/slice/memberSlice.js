@@ -33,7 +33,7 @@ export const searchAddMember = createAsyncThunk(
       // console.log(value);
       const res = await memberService.searchAddMember(value);
       // console.log("sssss",res);
-      console.log(res.data);
+      // console.log(res.data);
       return res.data[0];
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data.message);
@@ -55,7 +55,7 @@ export const addMemberAsnyc = createAsyncThunk(
   "member/addMemberAsnyc",
   async (value, thunkApi) => {
     try {
-      console.log("addMember slice", value);
+      // console.log("addMember slice", value);
       const res = await memberService.addMember(value);
       return res.data;
     } catch (error) {
@@ -70,7 +70,7 @@ export const getMemberAsync = createAsyncThunk(
     try {
       // console.log(".......memberSlice", id);
       const res = await memberService.getMemberWorkspace(id);
-      console.log("....result : ", res);
+      // console.log("....result : ", res);
       return res.data;
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data.message);
@@ -94,10 +94,10 @@ export const getMemberRole = createAsyncThunk(
   "member/getMemberRole",
   async (id, thunkApi) => {
     try {
-      console.log("id : ", id);
+      // console.log("id : ", id);
       const res = await memberService.getMemberRole(id);
-      console.log("slice---- :", res);
-      return res.data
+      // console.log("slice---- :", res);
+      return res.data;
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data.message);
     }

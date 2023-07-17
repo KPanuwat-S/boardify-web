@@ -14,7 +14,7 @@ export const createBoardAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await boardService.createBoard(input);
-      console.log("createboard async");
+      // console.log("createboard async");
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -28,7 +28,7 @@ export const getAllBoardsInWorkspaceAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await boardService.getAllBoardsById(input);
-      console.log("res", res);
+      // console.log("res", res);
       return res.data.payload;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -101,7 +101,7 @@ export const deleteboard = createAsyncThunk(
   "board/deleteboard",
   async (id, thunkApi) => {
     try {
-      console.log("hhhh", id);
+      // console.log("hhhh", id);
       await boardService.deleteBoard(id);
     } catch (error) {
       return thunkApi.rejectWithValue(err.response.data.message);

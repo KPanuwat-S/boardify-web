@@ -10,32 +10,32 @@ export default function MemberEventInCard({
 }) {
   const userId = item.userId;
   const workspaceId = +wsId;
-  console.log("ppppppp------", item);
+  // console.log("ppppppp------", item);
   const dispatch = useDispatch();
 
   const data = { workspaceId, userId };
   // console.log(data);
   const getAuthMember = useSelector((state) => state.auth.user);
   const authUserId = getAuthMember.id;
-  console.log("=======", authUserId);
+  // console.log("=======", authUserId);
   const roleMember = { authUserId, workspaceId };
 
   const getRole = useSelector((state) => state.member.memberrole);
-  console.log("----------", getRole.userId);
+  // console.log("----------", getRole.userId);
 
   const leave = () => {
     if (authUserId == getRole.userId && authUserId == userId) {
       return true;
     }
   };
-  console.log("leave.......", leave());
+  // console.log("leave.......", leave());
 
   useEffect(() => {
     dispatch(getMemberRole(roleMember));
   }, []);
 
   const handleOnClickToDelete = async (e) => {
-    console.log("1 2 3 4 5 Test");
+    // console.log("1 2 3 4 5 Test");
     await dispatch(deleteMemberWorkspace(data)).unwrap();
     // await dispatch(getMemberAsync(wsId));
     setFetch(!fetchDelete);

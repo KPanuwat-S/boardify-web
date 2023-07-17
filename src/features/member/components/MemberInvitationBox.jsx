@@ -1,5 +1,5 @@
 export default function MemberInvitationBox({ users, clickSelect, member }) {
-  console.log("--------- users : ", users);
+  // console.log("--------- users : ", users);
 
   return (
     <div>

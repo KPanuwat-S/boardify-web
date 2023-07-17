@@ -28,11 +28,11 @@ export default function LoginPage() {
 
   const onSuccess = (res) => {
     dispatch(googleLogin(res));
-    console.log("onSuccessFn working", res);
+    // console.log("onSuccessFn working", res);
   };
 
   const onFailure = (res) => {
-    console.log("fail", res);
+    // console.log("fail", res);
   };
 
   const logOut = () => {
@@ -70,7 +70,7 @@ export default function LoginPage() {
               discoveryDocs="claims_supported"
               acces_type="offline"
               onResolve={({ provider, data }) => {
-                console.log(provider, data);
+                // console.log(provider, data);
                 // console.log(data.email);
                 dispatch(googleLogin(data));
               }}

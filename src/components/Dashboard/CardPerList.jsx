@@ -14,9 +14,9 @@ export default function CardPerList() {
 
   const dispatch = useDispatch();
   const cardItems = useSelector((state) => state.card.cardItems);
-  // console.log("cardItems in card list", cardItems);
+  console.log("cardItems in card list", cardItems);
   const [chart, setChart] = useState([]);
-  // console.log(chart);
+  console.log(chart);
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(id));
     dispatch(getDashBoardAsync(id));
@@ -32,7 +32,7 @@ export default function CardPerList() {
   const dataTask = chart.map((card) => ({
     id: card.id,
     cardName: card.name,
-    // taskTotal: card.taskTotal,
+    taskTotal: card.taskTotal,
   }));
 
   const labels = dataTask.map(({ cardName }) => cardName);

@@ -21,8 +21,8 @@ export default function AddCardContainer({ boardId, fetch, setFetch }) {
       data: { name: cardName },
       boardId: boardId,
     };
-    console.log("input", input);
-    console.log("runinng---");
+    // console.log("input", input);
+    // console.log("runinng---");
     // if (cardName) {
     await dispatch(addCardAsync(input)).unwrap();
     setCardName("");

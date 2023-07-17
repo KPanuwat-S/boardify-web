@@ -36,7 +36,7 @@ function MemberPage() {
   // console.log("workspace in mem", workspace);
 
   const memberInCard = useSelector((state) => state.member.showmembercard);
-  console.log(memberInCard);
+  // console.log(memberInCard);
 
   return (
     <div className="w-[1280px] mx-auto my-2">

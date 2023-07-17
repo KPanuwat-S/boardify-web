@@ -7,7 +7,7 @@ function CheckListSideMenu({ open, setOpen, task, setTaskItem }) {
 
   const [checklistName, setChecklistName] = useState("");
   const taskItem = useSelector((state) => state.task.taskItem);
-  console.log("task item in checklist", taskItem);
+  // console.log("task item in checklist", taskItem);
   const handleChecklistName = (e) => {
     e.preventDefault();
     setChecklistName(e.target.value);
@@ -16,7 +16,7 @@ function CheckListSideMenu({ open, setOpen, task, setTaskItem }) {
     e.preventDefault();
     const editTaskItem = { ...taskItem, checklistName };
     const input = setOpen(false);
-    console.log("submitChecklistName");
+    // console.log("submitChecklistName");
   };
   return (
     open && (
@@ -28,7 +28,7 @@ function CheckListSideMenu({ open, setOpen, task, setTaskItem }) {
       >
         <h2 className="text-center mb-2">Add Checklist</h2>
         <hr />
-          {/* <input
+        {/* <input
             type="text"
             placeHolder="Checklist Name"
             className="my-2 p-2 border w-full"

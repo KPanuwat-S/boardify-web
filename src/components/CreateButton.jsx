@@ -21,14 +21,14 @@ function CreateButton() {
   });
 
   const users = useSelector((state) => state.member.userdata);
-  console.log("lllllll", users);
+  // console.log("lllllll", users);
   const members = useSelector((state) => state.member.memberdata);
 
   const [memberList, setMemberList] = useState([]);
   const [member, setMember] = useState("");
   const [searchValue, setSearchValue] = useState("");
 
-  console.log("pppppppppp", { value: searchValue });
+  // console.log("pppppppppp", { value: searchValue });
 
   const [index, setIndex] = useState(1);
 
@@ -48,14 +48,14 @@ function CreateButton() {
 
   useEffect(() => {
     const memberIndex = memberList.findIndex((el) => el.id == members.id);
-    console.log("members", members, "members");
+    // console.log("members", members, "members");
     if (members?.id && memberIndex == -1) {
       setMemberList([...memberList, members]);
     }
   }, [members]);
 
   useEffect(() => {
-    console.log("memberList", memberList);
+    // console.log("memberList", memberList);
   }, [memberList]);
 
   const onClose = () => {
@@ -84,14 +84,14 @@ function CreateButton() {
 
   const checkMemberList = (e) => {
     e.preventDefault();
-    console.log("memberList fir", memberList);
+    // console.log("memberList fir", memberList);
   };
 
   const submitInput = async (e) => {
     e.preventDefault();
-    console.log("data", createWorkspaceData);
+    // console.log("data", createWorkspaceData);
     e.stopPropagation();
-    console.log("submit data", { ...createWorkspaceData, members });
+    // console.log("submit data", { ...createWorkspaceData, members });
     dispatch(
       createWorkspaceAndInviteMember({ ...createWorkspaceData, members })
     );
@@ -102,7 +102,7 @@ function CreateButton() {
   const memberHandler = (e) => {
     setMember(e.target.value);
     setSearchValue(e.target.value);
-    console.log("-+-+-+-+-+-+-", e.target.value);
+    // console.log("-+-+-+-+-+-+-", e.target.value);
   };
 
   const deleteMemberHandler = (id) => {
@@ -129,7 +129,7 @@ function CreateButton() {
       </div>
       <form
         action={() => {
-          console.log("test");
+          // console.log("test");
         }}
       >
         <div className="flex flex-col gap-2">
