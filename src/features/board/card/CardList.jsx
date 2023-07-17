@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {
+  clearCard,
   getAllCardsInOneBoardAsync,
   updateCardAsync,
   updateTaskAsync,
@@ -10,25 +11,26 @@ import { StrictModeDroppable } from "./StrictModeItem";
 import TaskItem from "../../../components/Tasks/TaskItem";
 
 function CardList({ boardId }) {
-  const cardItems = useSelector((state) => state.card.cardItems);
   const dispatch = useDispatch();
 
   const [cards, setCards] = useState([]);
-  // console.log("3333333333", cards);
   const [fetch, setFetch] = useState(false);
-  // console.log("cards", cards);
-  useEffect(() => {
-    dispatch(getAllCardsInOneBoardAsync(boardId));
-    // setCards(cardItems);
-    // console.log("cardlist fn running");
-  }, [fetch]);
 
   useEffect(() => {
+    dispatch(getAllCardsInOneBoardAsync(boardId));
+  }, [fetch]);
+  useEffect(() => {
+    dispatch(getAllCardsInOneBoardAsync(boardId));
+  }, []);
+
+  const cardItems = useSelector((state) => state.card.cardItems);
+  useEffect(() => {
     if (cardItems.length > 0) setCards(cardItems);
+    // window.location.reload();
+    // if (cardItems.length == 0) window.location.reload();
   }, [cardItems]);
 
   const onDragEnd = async (result) => {
-    // console.log("result from drag end", result);
     const { destination, source, type } = result;
     try {
       if (!destination) return;
@@ -41,7 +43,6 @@ function CardList({ boardId }) {
         const entries = [...cards];
         const [removed] = entries.splice(source.index, 1);
         entries.splice(destination.index, 0, removed);
-        // dispatch(updateCardAsync({ entries, boardId }));
         dispatch(updateCardAsync({ entries, boardId })).unwrap();
         setCards(entries);
       }

@@ -14,7 +14,6 @@ export default function BoardDetail() {
   // console.log("id in bdt", id);
   const dispatch = useDispatch();
   useEffect(() => {
-    
     dispatch(getOneBoardAsync(id));
   }, []);
   const board = useSelector((state) => state.board.board);

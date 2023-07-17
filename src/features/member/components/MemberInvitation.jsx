@@ -27,7 +27,7 @@ export default function MemberInvitation({
   useEffect(() => {
     const id = setTimeout(() => {
       dispatch(searchUser({ value: searchValue }));
-    }, 2000);
+    }, 200);
 
     return () => {
       clearTimeout(id);

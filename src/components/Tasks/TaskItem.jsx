@@ -7,6 +7,7 @@ import { StrictModeDroppable } from "../../features/board/card/StrictModeItem";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearCard,
   deleteCardAsync,
   getAllCardsInOneBoardAsync,
   updateCardNameAsync,
@@ -35,9 +36,13 @@ function TaskItem({
   const [openDeleteCard, setOpenDeleteCard] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllCardsInOneBoardAsync(boardId)).unwrap();
+    dispatch(getAllCardsInOneBoardAsync(boardId));
   }, [fetch]);
 
+  useEffect(() => {
+    dispatch(clearCard());
+    dispatch(getAllCardsInOneBoardAsync(boardId));
+  }, []);
   useEffect(() => {
     setTaskOfCards(fetchCards.find((card) => card.id == cardItem.id)?.tasks);
   }, [fetchCards]);
@@ -55,18 +60,17 @@ function TaskItem({
 
   const deleteTaskHandler = () => {
     dispatch(deleteCardAsync(cardItem.id));
-
     setFetch(!fetch);
     window.location.reload();
     setOpenDeleteCard(false);
   };
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
   }, []);
 
-  // console.log("tasks", tasks);
   if (isLoading) return <Loading></Loading>;
   return (
     <StrictModeDroppable droppableId={cardType} key={id} type="task">

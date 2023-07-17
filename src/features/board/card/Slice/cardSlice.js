@@ -95,12 +95,25 @@ export const deleteCardAsync = createAsyncThunk(
     }
   }
 );
+export const clearCard = createAsyncThunk(
+  "card/clearCard",
+  async (input, thunkApi) => {
+    try {
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 const cardSlice = createSlice({
   name: "card",
   initialState: initialState,
   extraReducers: (builder) =>
     builder
+      .addCase(clearCard.fulfilled, (state, action) => {
+        state.cardItems = [];
+      })
       .addCase(getAllCardsInOneBoardAsync.pending, (state, action) => {
+        state.cardItems = [];
         state.isLoading = true;
       })
       .addCase(getAllCardsInOneBoardAsync.fulfilled, (state, action) => {

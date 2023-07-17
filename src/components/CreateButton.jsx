@@ -39,7 +39,7 @@ function CreateButton() {
   useEffect(() => {
     const id = setTimeout(() => {
       dispatch(searchUser({ value: searchValue }));
-    }, 2000);
+    }, 200);
 
     return () => {
       clearTimeout(id);
@@ -75,7 +75,6 @@ function CreateButton() {
     try {
       e.preventDefault();
       await dispatch(searchAddMember({ value: member })).unwrap;
-
       setMember("");
     } catch (error) {
       console.log(error);
