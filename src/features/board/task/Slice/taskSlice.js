@@ -92,6 +92,7 @@ export const deleteChecklistAsync = createAsyncThunk(
   }
 );
 
+// Membership
 export const addMeToTaskAsync = createAsyncThunk(
   "task/addMemberToTaskAsync",
   async (input, thunkApi) => {
@@ -122,6 +123,40 @@ export const removeMeFromTaskAsync = createAsyncThunk(
     try {
       await taskService.removeMeFromTask(input);
       // return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+// Comment
+export const addCommentAsync = createAsyncThunk(
+  "task/addCommentAsync",
+  async (input, thunkApi) => {
+    try {
+      await taskService.addComment(input);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const editCommentAsync = createAsyncThunk(
+  "task/editCommentAsync",
+  async (input, thunkApi) => {
+    try {
+      await taskService.editComment(input);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const deleteCommentAsync = createAsyncThunk(
+  "task/deleteCommentAsync",
+  async (input, thunkApi) => {
+    try {
+      await taskService.deleteComment(input);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -206,6 +241,7 @@ const taskSlice = createSlice({
         state.isLoading = false;
       }),
 });
+
 export const {
   removeMeFromTask,
   editTask,

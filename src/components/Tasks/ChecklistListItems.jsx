@@ -18,15 +18,11 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
   const [addChecklist, setAddCheckList] = useState(false);
   const [list, setList] = useState("");
 
-  console.log("taskitem", taskItem);
   const fetchTask = useSelector((state) => state.task.taskItem);
-  console.log("fetchTask", fetchTask);
-  console.log("list", list);
+
   useEffect(() => {
     if (fetchTask !== null) setList(fetchTask.ChecklistItems);
   }, [fetchTask]);
-
-  console.log("fetchTask", fetchTask);
 
   const checklistHandler = (e) => {
     e.preventDefault();
@@ -41,8 +37,6 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
       isChecked: false,
       taskId: taskItem.id,
     };
-    // console.log("checklistobj", checklistObject);
-    console.log("task item in submit handler", taskItem);
     const editTaskItem = {
       ...taskItem,
       ChecklistItems: [...list, checklistObject],
@@ -53,19 +47,12 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
     dispatch(addChecklistAsync(checklistObject));
     setTaskItem(editTaskItem);
     setListItem("");
-    // setFetch(!fetch);
-    console.log("checklistObject", checklistObject);
-    // const input = { id: taskItem.id, data: editTaskItem };
-
-    //จริงๆ จะต้องแก้ไข task.checklist.list โดยทำ dispatch สำหรับ add list โดยเฉพาะ
     setAddCheckList(false);
   };
 
   const submitEditChecklistItem = (id) => {
     const editItem = list.find((el) => el.id === id);
     const newEditItem = { ...editItem, isChecked: !editItem.isChecked };
-    console.log("newEditItem", newEditItem);
-    console.log("list", list);
 
     dispatch(editChecklistAsync(newEditItem));
     setList((oldList) => {
@@ -74,27 +61,17 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
         if (el.id === id) return newEditItem;
         else return el;
       });
-      // const isCheckIsTrue = list.filter((el) => el.isChecked == true);
-      // const progressPercentage = (isCheckIsTrue.length / list.length) * 100;
-      // setPercent(Math.round(progressPercentage));
+
       return newList2;
     });
-    // setFetch(!fetch);
   };
 
   const deleteChecklistItem = (id) => {
     const filteredItems = list.filter((el) => el.id !== id);
     dispatch(deleteChecklistAsync(id));
-    // console.log("id from delete checklist item", id);
     setList(filteredItems);
-    // setFetch(!fetch);
   };
-  // const [percent, setPercent] = useState(0);
-  // useEffect(() => {
-  //   const isCheckIsTrue = list.filter((el) => el.isChecked == true);
-  //   const progressPercentage = (isCheckIsTrue.length / list.length) * 100;
-  //   setPercent(Math.round(progressPercentage));
-  // }, [list]);
+
   return (
     <div>
       <div className="flex gap-5 items-center mt-5">

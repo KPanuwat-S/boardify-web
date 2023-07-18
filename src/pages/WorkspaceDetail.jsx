@@ -36,14 +36,15 @@ function WorkspaceDetail() {
     dispatch(getWorkspaceByIdAsync(id));
     // console.log("useeffect run");
   }, []);
-
+  console.log("workspace", workspace);
   const sugmitEditWorkspaceName = (e) => {
     e.preventDefault();
     const workspaceEdit = { name: workspaceName };
     const input = { workspaceId: id, workspaceName: workspaceEdit };
     dispatch(editWorkspaceNameAsync(input));
     setIsEdit(false);
-    setFetch(true);
+    setFetch(!fetch);
+    window.location.reload();
   };
 
   const handleOnClickDelete = (e) => {
@@ -62,7 +63,7 @@ function WorkspaceDetail() {
                 <input
                   className="px-2 outline outline-blue-600"
                   type="text"
-                  value={workspaceName ?? workspace?.name}
+                  value={workspaceName}
                   onChange={(e) => {
                     setWorkspaceName(e.target.value);
                   }}
@@ -93,17 +94,18 @@ function WorkspaceDetail() {
                 onClick={(e) => {
                   setIsEdit(true);
                   e.stopPropagation();
-                  // setTitle(.name);
+                  setWorkspaceName(workspace?.name);
                 }}
                 className="group flex  items-center gap-5 text-gray-600 hover:bg-gray-100 p-2 rounded-[4px]"
               >
                 <h2 className="font-semibold text-blue-600 text-xl flex-1">
-                  {workspaceName ?? workspace?.name}
+                  {workspace?.name}
                 </h2>
                 <i class="fa-regular fa-pen-to-square text-white group-hover:text-gray-400"></i>
               </div>
             )}
           </div>
+
           <div className="flex gap-5 items-center mt-2">
             <div
               className="flex items-center justify-center gap-1 p-2 bg-gray-100 hover:bg-gray-200 rounded-[4px] duration-200"

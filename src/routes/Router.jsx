@@ -45,7 +45,7 @@ function Router() {
         { path: "/welcoming", element: <WelcomingPage /> },
         { path: "/board", element: <Boards /> },
         { path: "/dashboard/:id", element: <Dashboard /> },
-
+        {path:"/myWork/:id", element:<MyWork></MyWork> }
         { path: "/myProfile", element: <MyProfile /> },
         { path: "/purchase", element: <PurchasePage /> },
         { path: "/success", element: <SuccessPage /> },

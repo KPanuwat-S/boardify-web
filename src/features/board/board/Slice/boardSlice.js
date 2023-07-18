@@ -36,7 +36,6 @@ export const getAllBoardsInWorkspaceAsync = createAsyncThunk(
   }
 );
 export const getBoardByIdAsync = createAsyncThunk(
-  //get board by id async
   "board/getBoardAsync",
   async (input, thunkApi) => {
     try {

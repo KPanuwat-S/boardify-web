@@ -30,6 +30,7 @@ function CardList({ boardId }) {
     // if (cardItems.length == 0) window.location.reload();
   }, [cardItems]);
 
+
   const onDragEnd = async (result) => {
     const { destination, source, type } = result;
     try {

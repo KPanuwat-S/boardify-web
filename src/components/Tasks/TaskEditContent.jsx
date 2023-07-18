@@ -16,11 +16,10 @@ import LeaveTaskSideMenu from "./LeaveTaskSideMenu";
 
 import cn from "../../utils/cn";
 import Loading from "../../components/Loading";
+import Comment from "./Comment";
 
 function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   const dispatch = useDispatch();
-  // const isLoadind = useSelector((state) => state.task.isLoading);
-
   useEffect(() => {
     dispatch(getOneTaskAsync(task.taskId));
     dispatch(getMemberInTaskAsync(task.taskId));
@@ -30,14 +29,11 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   const user = useSelector((state) => state.auth.user);
 
   const memberIntasks = useSelector((state) => state.task.membersInTask);
-  const memberAsMe = memberIntasks.findIndex((el) => el.userId == user.id);
+  const memberAsMe = memberIntasks.findIndex((el) => el.userId == user?.id);
 
   const [openDescription, setOpenDescription] = useState(false);
-  const [openDropDown, setOpenDropDown] = useState(false);
 
   const [isEdit, setIsEdit] = useState(false);
-  const [check, setCheck] = useState(false);
-  const [add, setAdd] = useState(false);
 
   const [memberAll, setMemberInTasks] = useState([]);
 
@@ -70,7 +66,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
     if (fetchTask !== null) {
       setTaskItem(fetchTask);
     }
-
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
@@ -93,9 +88,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
     };
 
     dispatch(editTaskAsync(input));
-
     setFetch(!fetch);
-
     setIsEdit(false);
   };
 
@@ -110,9 +103,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       data: editTaskItem,
     };
     dispatch(editTaskAsync(input));
-
     setFetch(!fetch);
-
     setIsEdit(false);
   };
 
@@ -275,33 +266,12 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
               fetch={fetch}
               setFetch={setFetch}
             />
-            {/* comment */}
-            <div className="flex flex-col gap-5">
-              <div className="flex items-center gap-5 mt-10">
-                <i class="fa-regular fa-comment"></i>
-                <p>Comment</p>
-              </div>
-              <div className="bg-gray-100 rounded-full w-full min-h-[10px] flex items-center px-5 py-2">
-                <p className="text-gray-500">Write a comment...</p>
-              </div>
-              <div>
-                <div className="">
-                  {taskItem?.Comments?.map((el) => {
-                    return (
-                      <div className="flex gap-5">
-                        <div className="bg-blue-400 h-[50px] w-[50px] rounded-full"></div>
-                        <div className="bg-gray-50 w-[500px] px-5 py-2 rounded-[4px]">
-                          <p className="text-blue-600">
-                            {el.User.firstName + el.User.lastName}
-                          </p>
-                          <p>{el.comment}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
+            <Comment
+              taskItem={taskItem}
+              setTaskItem={setTaskItem}
+              fetch={fetch}
+              setFetch={setFetch}
+            ></Comment>
           </div>
         </div>
 

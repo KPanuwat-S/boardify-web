@@ -13,12 +13,14 @@ export default function BoardDetail() {
   const { id } = useParams();
   console.log("id in bdt", id);
   const dispatch = useDispatch();
+
+  const board = useSelector((state) => state.board.board);
+  console.log("board", board);
   useEffect(() => {
     dispatch(getOneBoardAsync(id));
   }, []);
-  const board = useSelector((state) => state.board.board);
-  console.log("board", board);
 
+  console.log("board", board);
   return (
     <>
       <Navbar boardId={id} board={board} />

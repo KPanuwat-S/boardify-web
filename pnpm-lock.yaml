@@ -46,6 +46,9 @@ dependencies:
   react-chartjs-2:
     specifier: ^5.2.0
     version: 5.2.0(chart.js@4.3.0)(react@18.2.0)
+  react-collapse:
+    specifier: ^5.1.1
+    version: 5.1.1(react@18.2.0)
   react-dnd:
     specifier: ^16.0.1
     version: 16.0.1(@types/react@18.0.37)(react@18.2.0)
@@ -2381,6 +2384,14 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       chart.js: 4.3.0
+      react: 18.2.0
+    dev: false
+
+  /react-collapse@5.1.1(react@18.2.0):
+    resolution: {integrity: sha512-k6cd7csF1o9LBhQ4AGBIdxB60SUEUMQDAnL2z1YvYNr9KoKr+nDkhN6FK7uGaBd/rYrYfrMpzpmJEIeHRYogBw==}
+    peerDependencies:
+      react: '>=16.3.0'
+    dependencies:
       react: 18.2.0
     dev: false
 

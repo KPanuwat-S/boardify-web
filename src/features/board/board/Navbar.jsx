@@ -86,7 +86,7 @@ export default function Navbar({ boardId, board }) {
 
         {/* </Link> */}
         <div className="flex justify-end gap-10 flex-1">
-          <Link>
+          {/* <Link>
             <div className="btn btn-ghost normal-case hover:text-blue-600">
               Table
             </div>
@@ -95,6 +95,9 @@ export default function Navbar({ boardId, board }) {
             <div className="btn btn-ghost normal-case hover:text-blue-600">
               Calendar
             </div>
+          </Link> */}
+          <Link to={`/myWork/${boardId}`}>
+            
           </Link>
 
           <Link to={`/dashboard/${boardId}`}>
