@@ -8,7 +8,7 @@ export default function CardPerMember() {
   const { taskMemberData } = useSelector((state) => state.card.dashBoard);
 
   const [memberData, setMemberData] = useState([]);
-  // console.log(taskMemberData);
+
   useEffect(() => {
     if (taskMemberData) setMemberData(taskMemberData);
   }, [taskMemberData]);

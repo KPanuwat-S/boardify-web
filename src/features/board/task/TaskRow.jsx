@@ -15,16 +15,7 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
 
-  // const mockData = {
-  //   label: 1,
-  //   name: "Mock task",
-  //   date: "27-7-65",
-  //   checkLists: 10,
-  //   checkListsChecked: 1,
-  //   members: ["panuwat", "Laksami"],
-  //   attachment: true,
-  //   comments: 2,
-  // };
+  const [openDeleteTask, setOpenDeleteTask] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -185,8 +176,8 @@ export default function TaskRow({ fetch, task, cardItem, setFetch }) {
             }}
             width={50}
             onClose={() => {
-              // console.log("close");
-              // console.log("fetch", fetch);
+              console.log("close");
+              console.log("fetch", fetch);
               setOpen(false);
               setFetch(!fetch);
               dispatch(removeTaskItem());

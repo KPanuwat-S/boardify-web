@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export default function CardPerLabel() {
   const { taskLabel } = useSelector((state) => state.card.dashBoard);
   const [labelData, setLabelData] = useState([]);
-  // console.log(labelData);
+  console.log(labelData);
   useEffect(() => {
     if (taskLabel) setLabelData(taskLabel);
   }, [taskLabel]);
