@@ -7,12 +7,12 @@ import { useSelector } from "react-redux";
 export default function CardPerLabel() {
   const { taskLabel } = useSelector((state) => state.card.dashBoard);
   const [labelData, setLabelData] = useState([]);
-  console.log(labelData);
   useEffect(() => {
     if (taskLabel) setLabelData(taskLabel);
   }, [taskLabel]);
+  console.log("task--------------label", labelData);
 
-  const labels = labelData.map(({ description }) => description);
+  const labels = labelData.map(({ labelName }) => labelName);
   const x = labelData.map(({ taskTotal }) => taskTotal);
 
   const data = {
@@ -24,7 +24,7 @@ export default function CardPerLabel() {
         borderColor: "rgb(255, 99, 132)",
         barPercentage: 0.8,
 
-        // categoryPercentage: 1,
+        categoryPercentage: 1,
         data: x, //[5,10,20]
       },
     ],

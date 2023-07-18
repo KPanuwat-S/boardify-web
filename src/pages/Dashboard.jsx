@@ -25,7 +25,7 @@ export default function Dashboard() {
       </div>
       <div className="flex">
         <div className="h-[100vh]">
-          <SideBar />
+          <SideBar boardId={id} />
         </div>
         {/* ///// */}
         <div className="m-9  max-h-[450px]  ">

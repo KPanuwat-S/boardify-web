@@ -14,9 +14,9 @@ export default function CardPerList() {
 
   const dispatch = useDispatch();
   const cardItems = useSelector((state) => state.card.cardItems);
-  console.log("cardItems in card list", cardItems);
+  // console.log("cardItems in card list", cardItems);
   const [chart, setChart] = useState([]);
-  console.log(chart);
+  // console.log(chart);
   useEffect(() => {
     dispatch(getAllCardsInOneBoardAsync(id));
     dispatch(getDashBoardAsync(id));
