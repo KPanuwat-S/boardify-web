@@ -111,6 +111,71 @@ export const deleteboard = createAsyncThunk(
 const boardSlice = createSlice({
   name: "board",
   initialState: initialState,
+  reducers: {
+    sortBoard: (state, action) => {
+      if (action.payload == "a-z") {
+        state.boards.sort((a, b) => {
+          const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+
+          return 0;
+        });
+      }
+      if (action.payload == "z-a") {
+        state.boards.sort((a, b) => {
+          const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+          if (nameB < nameA) {
+            return -1;
+          }
+          if (nameB > nameA) {
+            return 1;
+          }
+
+          return 0;
+        });
+      }
+      if (action.payload == "last-created") {
+        state.boards.sort((a, b) => {
+          const createdA = a.createdAt; // ignore upper and lowercase
+          const createdB = b.createdAt; // ignore upper and lowercase
+          if (createdA > createdB) {
+            return -1;
+          }
+          if (createdA < createdB) {
+            return 1;
+          }
+
+          return 0;
+        });
+      }
+      if (action.payload == "sort") {
+        state.boards.sort((a, b) => {
+          const createdA = a.createdAt; // ignore upper and lowercase
+          const createdB = b.createdAt; // ignore upper and lowercase
+          if (createdA < createdB) {
+            return -1;
+          }
+          if (createdA > createdB) {
+            return 1;
+          }
+
+          return 0;
+        });
+      }
+    },
+    searchBoard: (state, action) => {
+      state.boards = state.boards.filter((board) =>
+        board.name.toLowerCase().includes(action.payload.toLowerCase())
+      );
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(createBoardAsync.pending, (state, action) => {
@@ -155,5 +220,5 @@ const boardSlice = createSlice({
   // })
 });
 
-// export const { addCard } = cardSlice.actions;
+export const { sortBoard, searchBoard } = boardSlice.actions;
 export default boardSlice.reducer;

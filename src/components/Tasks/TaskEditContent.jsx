@@ -17,12 +17,14 @@ import LeaveTaskSideMenu from "./LeaveTaskSideMenu";
 import cn from "../../utils/cn";
 import Loading from "../../components/Loading";
 import Comment from "./Comment";
+import AssignTaskToMember from "./AssignTaskToMember";
 
 function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOneTaskAsync(task.taskId));
     dispatch(getMemberInTaskAsync(task.taskId));
+    dispatch(getWorkspaceMembersAsync(board.workspaceId));
   }, [fetch]);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -34,8 +36,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   const [openDescription, setOpenDescription] = useState(false);
 
   const [isEdit, setIsEdit] = useState(false);
-
-  const [memberAll, setMemberInTasks] = useState([]);
 
   const [taskItem, setTaskItem] = useState(
     useSelector((state) => state.task.taskItem) || {
@@ -70,10 +70,6 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       setIsLoading(false);
     }, 300);
   }, [fetchTask]);
-
-  useEffect(() => {
-    if (memberIntasks !== undefined) setMemberInTasks(memberIntasks);
-  }, [memberIntasks]);
 
   const createLabel = (labelId) => {
     const labelObj = { 1: "Urgent", 2: "Important", 3: "Medium", 4: "Low" };
@@ -303,7 +299,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             <DropdownTask
               label="Join Task"
               icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
-              Component={JoinTaskSideMenu}
+              Component={AssignTaskToMember}
               cardItem={cardItem}
               setTaskItem={setTaskItem}
               taskItem={taskItem}
@@ -311,16 +307,16 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
               setFetch={setFetch}
             />
           )}
-          {/* <DropdownTask
-        label="Join Task"
-        icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
-        Component={JoinTaskSideMenu}
-        cardItem={cardItem}
-        setTaskItem={setTaskItem}
-        taskItem={taskItem}
-        fetch={fetch}
-        setFetch={setFetch}
-      /> */}
+          <DropdownTask
+            label="Join Task"
+            icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
+            Component={JoinTaskSideMenu}
+            cardItem={cardItem}
+            setTaskItem={setTaskItem}
+            taskItem={taskItem}
+            fetch={fetch}
+            setFetch={setFetch}
+          />
           <DropdownTask
             setFetch={setFetch}
             fetch={fetch}

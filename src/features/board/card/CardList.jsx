@@ -10,7 +10,7 @@ import { DragDropContext, Draggable } from "react-beautiful-dnd";
 import { StrictModeDroppable } from "./StrictModeItem";
 import TaskItem from "../../../components/Tasks/TaskItem";
 
-function CardList({ boardId }) {
+function CardList({ boardId, user = null }) {
   const dispatch = useDispatch();
 
   const [cards, setCards] = useState([]);
@@ -26,10 +26,7 @@ function CardList({ boardId }) {
   const cardItems = useSelector((state) => state.card.cardItems);
   useEffect(() => {
     if (cardItems.length > 0) setCards(cardItems);
-    // window.location.reload();
-    // if (cardItems.length == 0) window.location.reload();
   }, [cardItems]);
-
 
   const onDragEnd = async (result) => {
     const { destination, source, type } = result;

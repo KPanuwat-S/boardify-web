@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { countMemberWorkspace, getWorkspaceMembersAsync } from "../features/workspace/Slice/workspaceSlice";
+import {
+  countMemberWorkspace,
+  getWorkspaceMembersAsync,
+} from "../features/workspace/Slice/workspaceSlice";
 import { useState } from "react";
 function WorkspaceComponent({ workspace, boards, countmember }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getWorkspaceMembersAsync(workspace.id));
-    dispatch(countMemberWorkspace(workspace.id))
+    dispatch(countMemberWorkspace(workspace.id));
   }, []);
   // dispatch(getWorkspaceMembersAsync(workspace.id));
 
@@ -51,6 +54,9 @@ function WorkspaceComponent({ workspace, boards, countmember }) {
                 <div className="mx-5">
                   <i class="fa-solid fa-table-columns text-gray-800"></i>
                   <p>{el.name}</p>
+                  <p className="mt-10 text-xs font-light text-gray-500">
+                    Created at: {new Date(el.createdAt).toDateString()}
+                  </p>
                 </div>
               </div>
             </Link>

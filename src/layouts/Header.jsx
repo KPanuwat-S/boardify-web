@@ -9,7 +9,7 @@ function Header() {
   return (
     <>
       {" "}
-      <div className="flex w-[1480px] mx-auto py-3 ]">
+      <div className="flex w-[1480px] mx-auto py-3 ] sticky top-0 bg-white backdrop-filter backdrop-blur-sm bg-opacity-70 z-50">
         <div className="flex-1">
           <div className="flex items-center gap-5 justify-start">
             <Link to="/">

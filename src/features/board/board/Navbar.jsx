@@ -27,7 +27,7 @@ export default function Navbar({ boardId, board }) {
   }, [board]);
 
   const [boardName, setBoardName] = useState(board?.name);
-  console.log("board", board);
+  console.log("boardId", boardId);
   return (
     <>
       {/* MENU*/}
@@ -86,19 +86,21 @@ export default function Navbar({ boardId, board }) {
 
         {/* </Link> */}
         <div className="flex justify-end gap-10 flex-1">
-          {/* <Link>
+          <Link>
             <div className="btn btn-ghost normal-case hover:text-blue-600">
               Table
             </div>
           </Link>
-          <Link>
+          {/* <Link>
             <div className="btn btn-ghost normal-case hover:text-blue-600">
               Calendar
             </div>
           </Link> */}
-          <Link to={`/myWork/${boardId}`}>
-            
-          </Link>
+          {/* <Link to={`/myWork/${boardId}`}>
+            <div className="btn btn-ghost normal-case hover:text-blue-600">
+              My Work
+            </div>
+          </Link> */}
 
           <Link to={`/dashboard/${boardId}`}>
             <div className="btn btn-ghost normal-case hover:text-blue-600">

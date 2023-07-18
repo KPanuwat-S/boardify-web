@@ -24,31 +24,34 @@ export default function PurchasePage() {
   };
 
   return (
-    <div className="flex  h-[400px] justify-center items-center">
-      <div className="flex flex-col gap-10 items-center ">
-        <div>
-          <div className="card w-[400px] bg-base-100 shadow-xl ">
-            <div className="card-body items-center text-start gap-8 ">
-              <div className="font-bold text-lg ">Premium</div>
-              <p>
-                Get Premium on boardify today for comment feature make
-                communication in the team more effective
-              </p>
-              <div className="card-actions">
-                <button
-                  type="button"
-                  className="w-[5rem] h-[2rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
-                  onClick={(e) => {
-                    handleOnclick(e.target.name);
-                  }}
-                  name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
-                >
-                  Buy
-                </button>
-              </div>
+    <div className="relative flex flex-col  h-screen justify-center items-center">
+      {/* <div className="relative flex flex-col gap-10 items-start "> */}
+      <div>
+        <div className=" card w-[400px] bg-base-100 shadow-xl ">
+          <div className="card-body items-center text-start gap-8 ">
+            <div className="font-bold text-lg ">Premium</div>
+            <p>
+              Get Premium on boardify today for comment feature make
+              communication in the team more effective
+            </p>
+            <div className="card-actions">
+              <button
+                type="button"
+                className="w-[6rem] h-[3rem] border hover:bg-blue-700 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
+                onClick={(e) => {
+                  handleOnclick(e.target.name);
+                }}
+                name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
+              >
+                Buy
+              </button>
             </div>
           </div>
         </div>
+      </div>
+      {/* </div> */}
+      <div className="w-[600px] mt-10">
+        <img src="src/assets/Project_74-12.jpg" alt="" />
       </div>
     </div>
   );

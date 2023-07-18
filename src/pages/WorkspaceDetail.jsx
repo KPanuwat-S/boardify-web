@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBoardsInWorkspaceAsync } from "../features/board/board/Slice/boardSlice";
+import {
+  getAllBoardsInWorkspaceAsync,
+  searchBoard,
+  sortBoard,
+} from "../features/board/board/Slice/boardSlice";
 import {
   deleteWorkspace,
   editWorkspaceNameAsync,
@@ -25,18 +29,20 @@ function WorkspaceDetail() {
 
   const [open, setOpen] = useState(false);
   const members = useSelector((state) => state.workspace.members);
-  const workspace = useSelector((state) => state.workspace.oneWorkspace);
-  const [workspaceName, setWorkspaceName] = useState(workspace?.name);
-  console.log("workspace", workspace);
+  // const [boards, setBoards] = useState(board);
   const navigate = useNavigate();
-
+  const workspace = useSelector((state) => state.workspace.oneWorkspace);
+  // const [workspace, setWorSpace] = useState(workspaces);
+  const [workspaceName, setWorkspaceName] = useState(workspace?.name);
   useEffect(() => {
     dispatch(getAllBoardsInWorkspaceAsync(id));
     dispatch(getWorkspaceMembersAsync(id));
     dispatch(getWorkspaceByIdAsync(id));
+    // setWorSpace(workspaces);
+    // setBoards(board);
     // console.log("useeffect run");
   }, []);
-  console.log("workspace", workspace);
+
   const sugmitEditWorkspaceName = (e) => {
     e.preventDefault();
     const workspaceEdit = { name: workspaceName };
@@ -51,10 +57,68 @@ function WorkspaceDetail() {
     dispatch(deleteWorkspace(id));
     navigate("/workspace");
   };
+  const [search, setSearch] = useState("");
+  // const [sort, setSort] = useState("");
+  const sortHandler = (sortQuery) => {
+    dispatch(sortBoard(sortQuery));
+  };
+  const searchHandler = (searchParams) => {
+    console.log("searchParams", searchParams);
+  };
+  const [searchLength, setSearchLength] = useState(Infinity);
+  useEffect(() => {
+    const length = search.length;
+    if (length < searchLength) {
+      dispatch(getAllBoardsInWorkspaceAsync(id));
+      setSearchLength(length);
+    }
+    setSearchLength(length);
+    const timeout = setTimeout(() => {
+      dispatch(searchBoard(search));
+    }, 300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [search]);
 
   return (
     <div className="w-[1280px] mx-auto mt-5">
       <div className=" ">
+        <div className="flex gap-5">
+          <div
+            className="group bg-gray-50 p-2 max-w-[200px] rounded-2xl hover:bg-gray-100"
+            role="button"
+          >
+            <select
+              role="button"
+              name=""
+              id=""
+              className="bg-gray-50 group-hover:bg-gray-100 w-full"
+              onChange={(e) => {
+                sortHandler(e.target.value);
+              }}
+            >
+              <option value="sort">Sort</option>
+              <option value="a-z">Sort By Name: A-Z</option>
+              <option value="z-a">Sort By Name: Z-A</option>
+              <option value="last-created">Last Created</option>
+            </select>
+          </div>
+          <div className="relative group  rounded-2xl w-[200px]">
+            <i class="text-gray-500  absolute left-3 top-[11px] group-hover:opacity-100 opacity-0 duration-500 fa-solid fa-magnifying-glass"></i>
+            <input
+              className="hover:bg-gray-100 bg-gray-50 px-10 py-2 rounded-2xl"
+              type="text"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              placeholder="Search"
+            />
+          </div>
+        </div>
+
         <div className="flex justify-between">
           <div className="flex items-center gap-5">
             <i class="fa-solid fa-chart-simple text-blue-600"></i>
@@ -140,14 +204,34 @@ function WorkspaceDetail() {
         </div>
         <hr className="mt-2" />
       </div>
+      {boards.length == 0 && (
+        <>
+          {" "}
+          <div className="flex items-center justify-center mt-10">
+            <div className="bg-gray-100 rounded-[4px] p-5 text-gray-500 flex items-center justify-center gap-5 h-[240px] w-2/3">
+              <i class="fa-solid fa-border-top-left fa-2xl"></i>
+              <p>Empty Board</p>
+            </div>
+          </div>
+        </>
+      )}
       <div className="mt-5 grid grid-cols-5 gap-5">
-        {boards.map((el) => {
+        {boards?.map((el) => {
+          console.log(el);
           return (
             <Link to={`/boardDetail/${el.id}`}>
-              <div className="flex items-center w-[240px] h-[120px] bg-gray-100 rounded-[4px] hover:bg-gray-200 duration-300">
+              <div className="relative overflow-hidden flex  z-50 items-center w-[240px] h-[120px] bg-gray-100 rounded-[4px] duration-300">
+                <div className="absolute  w-full h-full bg-black/20 flex items-center justify-center -left-20 hover:left-0 duration-300 opacity-0 hover:opacity-100">
+                  <div className="absolute right-10">
+                    <i class="fa-solid fa-arrow-right-to-bracket text-white"></i>
+                  </div>
+                </div>
                 <div className="mx-5">
                   <i class="fa-solid fa-table-columns text-gray-800"></i>
                   <p>{el.name}</p>
+                  <p className="mt-10 text-xs font-light text-gray-500">
+                    Created at: {new Date(el.createdAt).toDateString()}
+                  </p>
                 </div>
               </div>
             </Link>

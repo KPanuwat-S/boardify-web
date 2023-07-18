@@ -20,6 +20,8 @@ import TaskEditContent from "../components/Tasks/TaskEditContent";
 
 import PurchasePage from "../pages/PurchasePage";
 import SuccessPage from "../pages/SuccessPage";
+import MyWork from "../pages/MyWorks";
+
 function Router() {
   const router = createBrowserRouter([
     {
@@ -45,7 +47,7 @@ function Router() {
         { path: "/welcoming", element: <WelcomingPage /> },
         { path: "/board", element: <Boards /> },
         { path: "/dashboard/:id", element: <Dashboard /> },
-        {path:"/myWork/:id", element:<MyWork></MyWork> }
+        { path: "/myWork/:id", element: <MyWork></MyWork> },
         { path: "/myProfile", element: <MyProfile /> },
         { path: "/purchase", element: <PurchasePage /> },
         { path: "/success", element: <SuccessPage /> },
