@@ -49,7 +49,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       dueDate: "",
       attachmentId: "",
       labelId: "",
-      userId: user.id,
+      userId: user?.id,
       Label: {
         description: "",
         color: "",
@@ -59,7 +59,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
       TaskMembers: [],
       Attachment: {
         file: "",
-        userId: user.id,
+        userId: user?.id,
       },
     }
   );
