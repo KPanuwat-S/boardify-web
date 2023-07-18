@@ -27,7 +27,7 @@ export default function Navbar({ boardId, board }) {
   }, [board]);
 
   const [boardName, setBoardName] = useState(board?.name);
-  console.log("board", board);
+  // console.log("board", board);
   return (
     <>
       {/* MENU*/}

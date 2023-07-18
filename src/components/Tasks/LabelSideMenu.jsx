@@ -42,7 +42,7 @@ function LabelSideMenu({
 
   const removeLabel = () => {
     const editTaskItem = { ...taskItem, labelId: null, Label: null };
-    console.log("editTaskItem label", editTaskItem);
+    // console.log("editTaskItem label", editTaskItem);
     const input = {
       id: taskItem.id,
       data: editTaskItem,

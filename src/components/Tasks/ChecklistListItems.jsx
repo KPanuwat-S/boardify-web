@@ -18,15 +18,15 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
   const [addChecklist, setAddCheckList] = useState(false);
   const [list, setList] = useState("");
 
-  console.log("taskitem", taskItem);
+  // console.log("taskitem", taskItem);
   const fetchTask = useSelector((state) => state.task.taskItem);
-  console.log("fetchTask", fetchTask);
-  console.log("list", list);
+  // console.log("fetchTask", fetchTask);
+  // console.log("list", list);
   useEffect(() => {
     if (fetchTask !== null) setList(fetchTask.ChecklistItems);
   }, [fetchTask]);
 
-  console.log("fetchTask", fetchTask);
+  // console.log("fetchTask", fetchTask);
 
   const checklistHandler = (e) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
       taskId: taskItem.id,
     };
     // console.log("checklistobj", checklistObject);
-    console.log("task item in submit handler", taskItem);
+    // console.log("task item in submit handler", taskItem);
     const editTaskItem = {
       ...taskItem,
       ChecklistItems: [...list, checklistObject],
@@ -54,7 +54,7 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
     setTaskItem(editTaskItem);
     setListItem("");
     // setFetch(!fetch);
-    console.log("checklistObject", checklistObject);
+    // console.log("checklistObject", checklistObject);
     // const input = { id: taskItem.id, data: editTaskItem };
 
     //จริงๆ จะต้องแก้ไข task.checklist.list โดยทำ dispatch สำหรับ add list โดยเฉพาะ
@@ -64,8 +64,8 @@ function ChecklistListItems({ taskItem, setTaskItem, fetch, setFetch }) {
   const submitEditChecklistItem = (id) => {
     const editItem = list.find((el) => el.id === id);
     const newEditItem = { ...editItem, isChecked: !editItem.isChecked };
-    console.log("newEditItem", newEditItem);
-    console.log("list", list);
+    // console.log("newEditItem", newEditItem);
+    // console.log("list", list);
 
     dispatch(editChecklistAsync(newEditItem));
     setList((oldList) => {

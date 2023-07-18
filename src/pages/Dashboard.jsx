@@ -21,15 +21,15 @@ export default function Dashboard() {
   return (
     <>
       <div>
-        <Navbar boardId={id} board={board} />
+        <Navbar boardId={id} />
       </div>
       <div className="flex">
-        <div className="h-[100vh] bg-black">
+        <div className="h-[100vh]">
           <SideBar />
         </div>
         {/* ///// */}
         <div className="m-9  max-h-[450px]  ">
-          <div className=" p-8 bg-[#f5f5f5] flex gap-3 max-h-[480px] rounded-lg overflow-y-auto overflow-x-hidden ">
+          <div className="  bg-[#f5f5f5] flex gap-3  rounded-lg overflow-y-auto overflow-x-hidden ">
             <div className="flex  flex-col gap-3">
               <div className="w-[560px] bg-white border-solid border-[1px] rounded-xl shadow-inner  ">
                 <div className="p-8 ">
@@ -39,7 +39,7 @@ export default function Dashboard() {
                       <i class="fa-solid fa-ellipsis"></i>
                     </div>
                   </div>
-                  <div className="m-10 mb-[-10px]">
+                  <div className=" mb-[-10px]">
                     <CardPerList />
                   </div>
                 </div>
@@ -52,7 +52,7 @@ export default function Dashboard() {
                       <i class="fa-solid fa-ellipsis"></i>
                     </div>
                   </div>
-                  <div className="m-10 mb-[-10px]">
+                  <div className="mb-[-10px]">
                     <CardPerMember />
                   </div>
                 </div>
@@ -68,7 +68,7 @@ export default function Dashboard() {
                       <i class="fa-solid fa-ellipsis"></i>
                     </div>
                   </div>
-                  <div className="m-10 mb-[-10px]">
+                  <div className=" mb-[-10px]">
                     <CardPerDueDate />
                   </div>
                 </div>
@@ -81,7 +81,7 @@ export default function Dashboard() {
                       <i class="fa-solid fa-ellipsis"></i>
                     </div>
                   </div>
-                  <div className="m-10 mb-[-10px]">
+                  <div className=" mb-[-10px]">
                     <CardPerLabel />
                   </div>
                 </div>

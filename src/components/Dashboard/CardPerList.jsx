@@ -1,25 +1,29 @@
 // import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCardsInOneBoardAsync } from "../../features/board/card/Slice/cardSlice";
+import {
+  getAllCardsInOneBoardAsync,
+  getDashBoardAsync,
+} from "../../features/board/card/Slice/cardSlice";
 import Chart from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-export default function CardPerList({ chart }) {
+export default function CardPerList() {
   const { id } = useParams();
 
-  // const dispatch = useDispatch();
-  // const cardItems = useSelector((state) => state.card.cardItems);
-  // console.log("cardItems in card list", cardItems);
-  // const [chart, setChart] = useState([]);
-  // console.log(chart);
-  // useEffect(() => {
-  //   dispatch(getAllCardsInOneBoardAsync(id));
-  // }, []);
-  // useEffect(() => {
-  //   if (cardItems.length > 0) setChart(cardItems);
-  // }, [cardItems]);
+  const dispatch = useDispatch();
+  const cardItems = useSelector((state) => state.card.cardItems);
+  console.log("cardItems in card list", cardItems);
+  const [chart, setChart] = useState([]);
+  console.log(chart);
+  useEffect(() => {
+    dispatch(getAllCardsInOneBoardAsync(id));
+    dispatch(getDashBoardAsync(id));
+  }, []);
+  useEffect(() => {
+    if (cardItems.length > 0) setChart(cardItems);
+  }, [cardItems]);
 
   if (!chart) {
     return <div>Loading...</div>;
@@ -28,7 +32,7 @@ export default function CardPerList({ chart }) {
   const dataTask = chart.map((card) => ({
     id: card.id,
     cardName: card.name,
-    // taskTotal: card.taskTotal,
+    taskTotal: card.taskTotal,
   }));
 
   const labels = dataTask.map(({ cardName }) => cardName);

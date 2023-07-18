@@ -12,7 +12,7 @@ const CardTest = ({ boardId }) => {
 
   const onDragEnd = (result) => {
     const { destination, source, type } = result;
-    console.log(result, " result");
+    // console.log(result, " result");
 
     if (!destination) return;
     if (

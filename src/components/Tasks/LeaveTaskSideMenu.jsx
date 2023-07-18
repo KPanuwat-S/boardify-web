@@ -35,7 +35,7 @@ function LeaveTaskSideMenu({
 
   // console.log("task in leave task", taskItem.id);
   const submitLeaveTask = () => {
-    console.log("task id in leave", taskItem);
+    // console.log("task id in leave", taskItem);
     dispatch(removeMeFromTaskAsync(taskItem.id));
     setFetch(!fetch);
     setOpen(false);

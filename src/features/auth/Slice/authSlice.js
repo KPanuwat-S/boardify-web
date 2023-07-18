@@ -15,7 +15,7 @@ export const registerAsync = createAsyncThunk(
   "auth/registerAsync",
   async (input, thunkApi) => {
     try {
-      console.log("---------", input);
+      // console.log("---------", input);
       const res = await authService.register(input);
       // setAccessToken(res.data.accessToken);
       // const fetchMe = await authService.fetchProfile();
@@ -29,7 +29,7 @@ export const registerAsync = createAsyncThunk(
 
 export const login = createAsyncThunk("auth/login", async (input, thunkApi) => {
   try {
-    console.log(input);
+    // console.log(input);
     const res = await authService.login(input);
     setAccessToken(res.data.accessToken);
     const resFetchMe = await authService.fetchMe();
@@ -42,11 +42,11 @@ export const login = createAsyncThunk("auth/login", async (input, thunkApi) => {
 export const googleLogin = createAsyncThunk(
   "auth/googleLogin",
   async (input, thunkApi) => {
-    console.log("google login", input);
+    // console.log("google login", input);
 
     try {
       const res = await authService.gLogin({ data: input });
-      console.log("res.data", res.data);
+      // console.log("res.data", res.data);
       setAccessToken(res.data.accessToken);
       const resFetchMe = await authService.fetchMe();
       return resFetchMe.data.user;

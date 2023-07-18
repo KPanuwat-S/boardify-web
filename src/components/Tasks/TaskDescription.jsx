@@ -13,11 +13,11 @@ function TaskDescription({
   fetch,
   setFetch,
 }) {
-  console.log("taskItem in des---", taskItem);
+  // console.log("taskItem in des---", taskItem);
   const [description, setDescription] = useState(taskItem?.description);
   // const [editMode, setEditMode] = useState(!!taskItem.description);
   const [editMode, setEditMode] = useState(false);
-  console.log("editmode", editMode);
+  // console.log("editmode", editMode);
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],

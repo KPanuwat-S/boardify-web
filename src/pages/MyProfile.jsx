@@ -15,7 +15,7 @@ function MyProfile() {
   }, [dispatch]); // adding dispatch to the dependencies
 
   const items = useSelector((state) => state.projects.projects);
-  console.log("items", items);
+  // console.log("items", items);
 
   function onSelectionChange(e) {
     const sortDirection = e.target.value;

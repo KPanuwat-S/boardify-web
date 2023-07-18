@@ -15,7 +15,7 @@ function WorkspaceDetail() {
   const [fetch, setFetch] = useState(false);
   const { id } = useParams();
 
-  console.log("id", id);
+  // console.log("id", id);
 
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ function WorkspaceDetail() {
   const members = useSelector((state) => state.workspace.members);
   const workspace = useSelector((state) => state.workspace.oneWorkspace);
   const [workspaceName, setWorkspaceName] = useState(workspace?.name);
-  console.log("workspace", workspace);
+  // console.log("workspace", workspace);
   const navigate = useNavigate();
 
   useEffect(() => {

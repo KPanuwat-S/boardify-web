@@ -4,7 +4,7 @@ import { getMyproject } from "../../../api/myProjectApi";
 export const fetchMyproject = createAsyncThunk(
   "projects/fetchProjects",
   async (sortBy = "") => {
-    console.log(sortBy);
+    // console.log(sortBy);
 
     const response = await getMyproject(sortBy);
     return response.data;

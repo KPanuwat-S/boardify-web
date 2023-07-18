@@ -20,11 +20,11 @@ export const getAllCardsInOneBoardAsync = createAsyncThunk(
   }
 );
 export const getDashBoardAsync = createAsyncThunk(
-  "card/getdashBoardAsync",
+  "card/getDashBoardAsync",
   async (input, thunkApi) => {
     try {
       const res = await cardService.getAllDashBoard(input);
-      console.log("getAllCardsInOneBoardAsync", res);
+      // console.log("getAllCardsInOneBoardAsync", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -52,7 +52,7 @@ export const updateCardAsync = createAsyncThunk(
       const { entries, boardId } = input;
       // console.log(entries, boardId);
       const res = await cardService.updateCards(entries, boardId);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -64,9 +64,9 @@ export const updateTaskAsync = createAsyncThunk(
     try {
       const { newCard, boardId } = input;
       // console.log(newCard, boardId);
-      console.log(newCard);
+      // console.log(newCard);
       const res = await cardService.updateTasks(newCard, boardId);
-      console.log(res.data);
+      // console.log(res.data);
       // return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);

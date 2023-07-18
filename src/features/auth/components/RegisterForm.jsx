@@ -21,7 +21,7 @@ export default function () {
   const dispatch = useDispatch();
   const onSubmit = async () => {
     try {
-      console.log(input);
+      // console.log(input);
       await dispatch(registerAsync(input)).unwrap();
       navigate("/");
     } catch (error) {

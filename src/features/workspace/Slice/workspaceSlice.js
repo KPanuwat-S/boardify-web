@@ -15,6 +15,7 @@ const initialState = {
 export const getAllWorkSpacesAsync = createAsyncThunk(
   "workspace/getAllWorkSpacesAsync",
   async (input, thunkApi) => {
+    console.log(input);
     try {
       const res = await workspaceService.getWorkspace(input);
       return res.data;
@@ -80,7 +81,7 @@ export const editWorkspaceNameAsync = createAsyncThunk(
   "workspace/editWorkspaceNameAsync",
   async (input, thunkApi) => {
     try {
-      console.log("input in edit workspace name", input);
+      // console.log("input in edit workspace name", input);
       const res = await workspaceService.editWorkspaceName(
         input.workspaceId,
         input.workspaceName
@@ -95,7 +96,7 @@ export const deleteWorkspace = createAsyncThunk(
   "workspace/deleteWorkspace",
   async (id, thunkApi) => {
     try {
-      console.log("-------", id);
+      // console.log("-------", id);
       const res = workspaceService.deleteWorkspace(id);
     } catch (error) {
       return thunkApi.rejectWithValue(err.response.data.message);

@@ -21,7 +21,7 @@ export const addMeToTask = (data) =>
   axios.post(`boards/tasks/members/me`, data);
 
 export const removeMeFromTask = (data) => {
-  console.log("data in task api", data);
+  // console.log("data in task api", data);
   return axios.delete(`boards/tasks/members/me/${data}`);
 };
 

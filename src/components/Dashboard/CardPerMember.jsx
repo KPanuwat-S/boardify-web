@@ -5,8 +5,10 @@ import { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 export default function CardPerMember() {
-  const {taskMemberData} = useSelector((state) => state.card.dashBoard);
+  const { taskMemberData } = useSelector((state) => state.card.dashBoard);
+
   const [memberData, setMemberData] = useState([]);
+
   useEffect(() => {
     if (taskMemberData) setMemberData(taskMemberData);
   }, [taskMemberData]);

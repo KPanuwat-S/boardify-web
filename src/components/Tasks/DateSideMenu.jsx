@@ -30,8 +30,8 @@ function DateSideMenu({
   // const tasksOfCards = cards.find((card) => card.id == cardItem.id).tasks;
 
   // tasks of cards = array of task in a card
-  console.log("taskItem", taskItem);
-  console.log("task prop", task);
+  // console.log("taskItem", taskItem);
+  // console.log("task prop", task);
   // console.log("tasksofcard", tasksOfCards);
   const submitDate = (date) => {
     const editTaskItem = { ...taskItem, dueDate: date };
@@ -144,7 +144,7 @@ function DateSideMenu({
           <button
             className="bg-blue-600 text-white py-1 px-5 rounded-[4px]"
             onClick={() => {
-              console.log("selectdate", selectDate.toDate().toDateString());
+              // console.log("selectdate", selectDate.toDate().toDateString());
               submitDate(selectDate.toDate().toDateString());
             }}
           >

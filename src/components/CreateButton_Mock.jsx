@@ -43,22 +43,22 @@ function CreateButton() {
 
   const checkMemberList = (e) => {
     e.preventDefault();
-    console.log("memberList fir", memberList);
+    // console.log("memberList fir", memberList);
   };
 
   const submitInput = async (e) => {
     e.preventDefault();
     const members = memberList;
-    console.log("memedsa", members);
+    // console.log("memedsa", members);
     setCreateWorkspaceData((prev) => {
       const data = { ...prev };
-      console.log("testmembers", { ...data, members });
+      // console.log("testmembers", { ...data, members });
       return { ...data, members };
     });
-    console.log("data", createWorkspaceData);
+    // console.log("data", createWorkspaceData);
     e.stopPropagation();
     // setOpen(false);
-    console.log("submit data", { ...createWorkspaceData, members });
+    // console.log("submit data", { ...createWorkspaceData, members });
     dispatch(
       createWorkspaceAndInviteMember({ ...createWorkspaceData, members })
     );
@@ -68,7 +68,7 @@ function CreateButton() {
 
   const submitWorkspace = (e) => {
     //  e.preventDefault()
-    console.log(createWorkspaceData);
+    // console.log(createWorkspaceData);
   };
 
   const memberHandler = (e) => {
@@ -95,7 +95,7 @@ function CreateButton() {
       </div>
       <form
         action={() => {
-          console.log("test");
+          // console.log("test");
         }}
       >
         <div className="flex flex-col  gap-2">
