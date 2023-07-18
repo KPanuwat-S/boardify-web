@@ -160,6 +160,7 @@ export default function MemberInvitation({
             onClick={submitInput}
             type="submit"
             value="Complete"
+            role="button"
           />
         </div>
       </div>
