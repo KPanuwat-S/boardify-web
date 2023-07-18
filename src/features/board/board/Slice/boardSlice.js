@@ -132,11 +132,12 @@ const boardSlice = createSlice({
         state.isLoading = false;
         state.boards = action.payload;
       })
-      
+
       .addCase(getAllBoardsInWorkspaceAsync.rejected, (state, action) => {
         state.error = action.payload;
       })
       .addCase(getBoardByIdAsync.pending, (state, action) => {
+        // state.board = {};
         state.isLoading = true;
       })
       .addCase(getBoardByIdAsync.fulfilled, (state, action) => {
