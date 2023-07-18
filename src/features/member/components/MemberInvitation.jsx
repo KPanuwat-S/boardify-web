@@ -156,7 +156,7 @@ export default function MemberInvitation({
 
         <div className="flex gap-5 items-center justify-center mt-4 pb-4">
           <input
-            className="w-[120px] bg-blue-600 rounded-[4px] mb-5 p-2 text-white"
+            className="w-[120px] bg-blue-600 rounded-[4px] mb-5 p-2 text-white cursor-pointer"
             onClick={submitInput}
             type="submit"
             value="Complete"
