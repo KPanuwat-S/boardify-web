@@ -30,7 +30,7 @@ export default function SideBar({ boardId }) {
     <>
       <div className="w-[200px] h-[790px] text-gray-500 p-5 flex flex-col justify-between gap-5 ">
         <div>
-          <Link to="/boardDetail/:id">
+          <Link to={`/boardDetail/${boardId}`}>
             <div className="hover:bg-gray-100 cursor-pointer rounded-[4px] p-2 hover:text-blue-600 flex pl-6 ">
               Cards
             </div>
