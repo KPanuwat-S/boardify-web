@@ -21,7 +21,7 @@ export default function Dashboard() {
   return (
     <>
       <div>
-        <Navbar boardId={id} />
+        <Navbar boardId={id} board={board} />
       </div>
       <div className="flex">
         <div className="h-[100vh]">
