@@ -2,7 +2,7 @@ import axios from "./axios";
 
 // CRidD Task
 export const addTask = (cardId, task) =>
-  axios.post(`boards/tasks/${cardId}`, task);
+  axios.post(`boards/tasks/task/${cardId}`, task);
 export const getOneTask = (taskId) => axios.get(`boards/tasks/${taskId}`);
 export const getTask = () => axios.get(``);
 export const editTask = (taskId, editData) =>
@@ -22,7 +22,8 @@ export const addMeToTask = (input) =>
   axios.post(`boards/tasks/members/me`, input);
 export const removeMeFromTask = (input) =>
   axios.delete(`boards/tasks/members/me/${input}`);
-
+export const addMemberToTask = (input) =>
+  axios.post(`boards/tasks/members/member`, input);
 export const getAllMembersInTask = (input) =>
   axios.get(`boards/tasks/members/all/${input}`);
 

@@ -104,6 +104,17 @@ export const addMeToTaskAsync = createAsyncThunk(
   }
 );
 
+export const addMemberToTaskAsync = createAsyncThunk(
+  "task/addMemberToTaskAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await taskService.addMemberToTask(input);
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 export const getMemberInTaskAsync = createAsyncThunk(
   "task/getMemberInTaskAsync",
   async (input, thunkApi) => {

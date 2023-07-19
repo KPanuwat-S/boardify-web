@@ -24,14 +24,14 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
   useEffect(() => {
     dispatch(getOneTaskAsync(task.taskId));
     dispatch(getMemberInTaskAsync(task.taskId));
-    dispatch(getWorkspaceMembersAsync(board.workspaceId));
   }, [fetch]);
 
   const [isLoading, setIsLoading] = useState(true);
   const user = useSelector((state) => state.auth.user);
 
   const memberIntasks = useSelector((state) => state.task.membersInTask);
-  const memberAsMe = memberIntasks.findIndex((el) => el.userId == user?.id);
+  console.log("memberintas", memberIntasks);
+  const memberAsMe = memberIntasks?.findIndex((el) => el.userId == user?.id);
 
   const [openDescription, setOpenDescription] = useState(false);
 
@@ -109,7 +109,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
     month: "long",
     day: "numeric",
   };
-
+  console.log("memberAsme", memberAsMe);
   const dueDate = new Date(fetchTask?.dueDate).getTime();
   const nowDate = new Date().getTime();
   if (isLoading) return <Loading></Loading>;
@@ -299,7 +299,7 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             <DropdownTask
               label="Join Task"
               icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
-              Component={AssignTaskToMember}
+              Component={JoinTaskSideMenu}
               cardItem={cardItem}
               setTaskItem={setTaskItem}
               taskItem={taskItem}
@@ -308,9 +308,9 @@ function TaskEditContent({ open, task, cardItem, setFetch, fetch }) {
             />
           )}
           <DropdownTask
-            label="Join Task"
-            icon={<i class="fa-solid fa-arrow-left ml-2"></i>}
-            Component={JoinTaskSideMenu}
+            label="Asign To"
+            icon={<i class="fa-regular fa-user ml-2"></i>}
+            Component={AssignTaskToMember}
             cardItem={cardItem}
             setTaskItem={setTaskItem}
             taskItem={taskItem}

@@ -125,7 +125,10 @@ function Comment({ taskItem, fetch, setFetch, setTaskItem }) {
           {taskItem?.Comments?.map((el, idx) => {
             return (
               <div className="flex gap-5">
-                <div className="bg-blue-400 h-[50px] w-[50px] rounded-full"></div>
+                <div className="bg-blue-200 h-[50px] w-[50px] rounded-full flex items-center justify-center text-white">
+                  {" "}
+                  {el.User.firstName[0] + el.User.lastName[0]}
+                </div>
                 <div className="bg-gray-50 w-[500px] px-5 py-2 rounded-xl">
                   <div className="flex justify-between">
                     <p className="text-blue-600">

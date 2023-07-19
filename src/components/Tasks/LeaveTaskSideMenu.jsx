@@ -4,6 +4,7 @@ import MemberItem from "../Member/MemberItem";
 
 import {
   addMeToTaskAsync,
+  getMemberInTaskAsync,
   getOneTaskAsync,
   removeMeFromTask,
   removeMeFromTaskAsync,
@@ -37,8 +38,10 @@ function LeaveTaskSideMenu({
   const submitLeaveTask = () => {
     console.log("task id in leave", taskItem);
     dispatch(removeMeFromTaskAsync(taskItem.id));
+    dispatch(getMemberInTaskAsync(taskItem.id));
     setFetch(!fetch);
     setOpen(false);
+    // window.location.reload();
   };
 
   return (

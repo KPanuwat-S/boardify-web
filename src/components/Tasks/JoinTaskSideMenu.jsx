@@ -25,10 +25,6 @@ function JoinTaskSideMenu({
   const { firstName, lastName, email, id } = useSelector(
     (state) => state.auth.user
   );
-  // const data = useSelector(
-  //   (state) => state.auth.user
-  // );
-  // console.log("------- :", data);
 
   const taskItem = useSelector((state) => state.task.taskItem);
   const memberIntasks = useSelector((state) => state.task.membersInTask);
@@ -40,6 +36,7 @@ function JoinTaskSideMenu({
     console.log("taskId", taskId);
     dispatch(addMeToTaskAsync({ taskId }));
     setFetch(!fetch);
+    
     setOpen(false);
   };
 

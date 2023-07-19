@@ -81,7 +81,7 @@ function WorkspaceDetail() {
       clearTimeout(timeout);
     };
   }, [search]);
-
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   return (
     <div className="w-[1280px] mx-auto mt-5">
       <div className=" ">
@@ -106,7 +106,7 @@ function WorkspaceDetail() {
             </select>
           </div>
           <div className="relative group  rounded-2xl w-[200px]">
-            <i class="text-gray-500  absolute left-3 top-[11px] group-hover:opacity-100 opacity-0 duration-500 fa-solid fa-magnifying-glass"></i>
+            <i class="text-gray-500  absolute left-3 top-[11px] group-hover:opacity-70 group-hover:scale-125 opacity-30 duration-500 fa-solid fa-magnifying-glass"></i>
             <input
               className="hover:bg-gray-100 bg-gray-50 px-10 py-2 rounded-2xl"
               type="text"
@@ -123,7 +123,7 @@ function WorkspaceDetail() {
           <div className="flex items-center gap-5">
             <i class="fa-solid fa-chart-simple text-blue-600"></i>
             {isEdit ? (
-              <div className="flex gap-2">
+              <div className="flex gap-2 mt-5">
                 <input
                   className="px-2 outline outline-blue-600"
                   type="text"
@@ -160,7 +160,7 @@ function WorkspaceDetail() {
                   e.stopPropagation();
                   setWorkspaceName(workspace?.name);
                 }}
-                className="group flex  items-center gap-5 text-gray-600 hover:bg-gray-100 p-2 rounded-[4px]"
+                className="group flex  items-center gap-5 text-gray-600 hover:bg-gray-100 p-2 rounded-[4px] mt-5"
               >
                 <h2 className="font-semibold text-blue-600 text-xl flex-1">
                   {workspace?.name}
@@ -196,10 +196,45 @@ function WorkspaceDetail() {
             </button>
             <button
               className="flex items-center justify-center gap-1 p-2 text-red-600 bg-red-100 hover:bg-red-600 hover:text-white rounded-[4px] duration-200"
-              onClick={handleOnClickDelete}
+              onClick={() => {
+                setOpenDeleteModal(true);
+              }}
             >
               <p className="">Delete Workspace</p>
             </button>
+            {/* handleOnClickDelete */}
+            <Modal
+              title="Delete Workspace"
+              open={openDeleteModal}
+              onClose={() => {
+                setOpenDeleteModal(false);
+              }}
+              width={30}
+            >
+              <div className="mb-5">Do you want to delete this workspace</div>
+              <div className="flex gap-5 items-center bg-gray-100 rounded-[4px] px-3 mb-10">
+                <i class="fa-solid fa-cubes fa-xl text-gray-300"></i>
+                <div className="font-semibold py-2 ">{workspaceName}</div>
+              </div>
+
+              <div className="flex gap-5 items-center justify-center">
+                {" "}
+                <button
+                  className="hover:bg-gray-200 bg-gray-100 px-3 py-2 rounded-[4px] duration-300"
+                  onClick={handleOnClickDelete}
+                >
+                  Delete
+                </button>
+                <button
+                  className="hover:bg-blue-700 bg-blue-600 px-3 py-2 text-white rounded-[4px] duration-300"
+                  onClick={() => {
+                    setOpenDeleteModal(false);
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </Modal>
           </div>
         </div>
         <hr className="mt-2" />
