@@ -120,12 +120,12 @@ function WorkspaceDetail() {
         </div>
 
         <div className="flex justify-between">
-          <div className="flex items-center gap-5">
-            <i class="fa-solid fa-chart-simple text-blue-600"></i>
+          <div className="flex items-center justify-center gap-2">
+            <i class="fa-solid fa-chart-simple text-blue-600 mb-[-15px]"></i>
             {isEdit ? (
               <div className="flex gap-2 mt-5">
                 <input
-                  className="px-2 outline outline-blue-600"
+                  className="animate-pulse bg-gray-200 min-w-[300px] font-semibold"
                   type="text"
                   value={workspaceName}
                   onChange={(e) => {
@@ -135,6 +135,7 @@ function WorkspaceDetail() {
                     setIsEdit(true);
                     e.stopPropagation();
                   }}
+                  autoFocus
                 />
                 <div className="font-light flex flex-col gap-2">
                   <button
@@ -160,9 +161,9 @@ function WorkspaceDetail() {
                   e.stopPropagation();
                   setWorkspaceName(workspace?.name);
                 }}
-                className="group flex  items-center gap-5 text-gray-600 hover:bg-gray-100 p-2 rounded-[4px] mt-5"
+                className="cursor-pointer group flex items-center gap-5 text-gray-600 hover:bg-gray-100 p-2 rounded-[4px] mt-5"
               >
-                <h2 className="font-semibold text-blue-600 text-xl flex-1">
+                <h2 className="font-semibold text-blue-600 text-xl flex-1 px-2">
                   {workspace?.name}
                 </h2>
                 <i class="fa-regular fa-pen-to-square text-white group-hover:text-gray-400"></i>
@@ -209,12 +210,14 @@ function WorkspaceDetail() {
               onClose={() => {
                 setOpenDeleteModal(false);
               }}
-              width={30}
+              width={25}
             >
               <div className="mb-5">Do you want to delete this workspace</div>
-              <div className="flex gap-5 items-center bg-gray-100 rounded-[4px] px-3 mb-10">
+              <div className="flex gap-5 items-center bg-gray-100 rounded-[4px] px-3 mb-10 ">
                 <i class="fa-solid fa-cubes fa-xl text-gray-300"></i>
-                <div className="font-semibold py-2 ">{workspaceName}</div>
+                <div className="font-semibold py-2 ">
+                  {workspace.name ?? workspaceName}
+                </div>
               </div>
 
               <div className="flex gap-5 items-center justify-center">

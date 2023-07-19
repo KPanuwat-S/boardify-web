@@ -33,7 +33,7 @@ function Upgrade() {
                 <div className="flex mt-12">
                   <button
                     type="button"
-                    className=" w-[8rem] h-[3rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
+                    className=" duration-300 w-[8rem] h-[3rem] border hover:bg-blue-700 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
                     name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
                     onClick={handleOnClickSubmit}
                   >
@@ -69,7 +69,7 @@ function Upgrade() {
               <div className="flex ">
                 <button
                   type="button"
-                  className=" w-[8rem] h-[3rem] border hover:bg-blue-400 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
+                  className="duration-300 w-[8rem] h-[3rem] border hover:bg-blue-700 bg-blue-600 text-white cursor-pointer text-center rounded-md shadow-sm"
                   name={"price_1NNxUCDKhgMWXKYTfAqfEOlA"}
                   onClick={handleOnClickSubmit}
                 >

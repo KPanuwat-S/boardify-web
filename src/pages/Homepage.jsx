@@ -2,6 +2,7 @@
 import Section from "../components/Homepage/Section";
 import CTA from "../components/Homepage/CTA";
 import Upgrade from "../components/Homepage/Upgrade";
+import Footer from "../components/Homepage/Footer";
 
 function Homepage() {
   return (
@@ -9,6 +10,7 @@ function Homepage() {
       <CTA />
       <Section />
       <Upgrade />
+      <Footer />
     </div>
   );
 }

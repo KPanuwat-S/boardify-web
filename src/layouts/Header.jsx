@@ -19,7 +19,7 @@ function Header() {
             </Link>
             <Link to="/workspace">
               <div
-                className="flex mx-5 items-center gap-1"
+                className="flex mx-5 items-center gap-1 hover:bg-gray-100 p-2 rounded-[4px]"
                 onClick={(params) => {}}
               >
                 My Workspace
@@ -30,7 +30,10 @@ function Header() {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center w-10">
+        <div
+          className="flex items-center justify-center w-10 hover:bg-gray-100 rounded-full"
+          role="button"
+        >
           {/* <Link to="/login">
           <i class="fa-regular fa-user text-gray-800 mr-5"></i>
         </Link> */}

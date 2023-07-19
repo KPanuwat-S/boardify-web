@@ -24,7 +24,7 @@ function AddTask({ setOpenModal, cardItem, tasksOfCards, fetch, setFetch }) {
     console.log("input in submit task", input);
     dispatch(addTaskAsync(input));
     setFetch(!fetch);
-    // window.location.reload();
+    window.location.reload();
     setOpenModal();
   };
   return (
